@@ -7,7 +7,7 @@ services:
       dockerfile: Dockerfile
     container_name: maks_site_nginx
     ports:
-      - "80:80"
+      - "8080:80"
     volumes:
       # Монтируем логи nginx на хост для персистентности
       - ./logs/nginx:/var/log/nginx

@@ -2,7 +2,10 @@
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="default">
     <title>Бережливое производство - Полный курс обучения</title>
     <style>
 :root {
@@ -162,12 +165,20 @@ body {
     color: var(--color-text);
     line-height: var(--line-height-normal);
     scroll-behavior: smooth;
+    /* Оптимизация для мобильных */
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+    /* Улучшение прокрутки на мобильных */
+    -webkit-overflow-scrolling: touch;
 }
 
 .container {
     max-width: 1400px;
     margin: 0 auto;
     padding: 0 var(--space-32);
+    width: 100%;
+    box-sizing: border-box;
 }
 
 .section {
@@ -323,12 +334,27 @@ body {
     display: block;
     position: relative;
     overflow: hidden;
+    /* Улучшение для touch устройств */
+    -webkit-tap-highlight-color: transparent;
+    touch-action: manipulation;
+    /* Минимальный размер для удобного касания (44x44px) */
+    min-height: 44px;
 }
 
-.tool-card:hover {
+.tool-card:hover,
+.tool-card:active,
+.tool-card:focus {
     transform: translateY(-4px);
     box-shadow: var(--shadow-lg);
     border-color: var(--color-primary);
+    outline: none;
+}
+
+/* Для touch устройств - активное состояние без hover */
+@media (hover: none) and (pointer: coarse) {
+    .tool-card:active {
+        transform: translateY(-2px);
+    }
 }
 
 .tool-card::before {
@@ -901,6 +927,7 @@ body {
 /* Responsive */
 @media (max-width: 1024px) {
     .hero-title { font-size: 80px; }
+    .hero-icon { font-size: 80px; }
     .comparison,
     .mistake-comparison {
         grid-template-columns: 1fr;
@@ -909,16 +936,376 @@ body {
     .comparison-arrow {
         transform: rotate(90deg);
     }
+    .tools-grid {
+        grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    }
+    .info-grid {
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    }
 }
 
 @media (max-width: 768px) {
-    .hero-title { font-size: 60px; }
-    .hero-japanese { font-size: 32px; }
-    .section-title { font-size: 36px; }
-    .container { padding: 0 var(--space-16); }
-    .section { padding: 40px 0; }
-    .section.compact { padding: 30px 0; }
-    .wave-comparison { flex-direction: column; }
+    .hero-title { 
+        font-size: 48px;
+        line-height: 1.1;
+        margin-bottom: var(--space-12);
+    }
+    .hero-icon { 
+        font-size: 64px;
+        margin-bottom: var(--space-16);
+    }
+    .hero-japanese { 
+        font-size: 28px;
+        margin-bottom: var(--space-8);
+    }
+    .hero-subtitle { 
+        font-size: var(--font-size-xl);
+        margin-bottom: var(--space-8);
+    }
+    .hero-translation { 
+        font-size: var(--font-size-lg);
+        margin-bottom: var(--space-24);
+    }
+    .hero-message {
+        font-size: var(--font-size-lg);
+        padding: var(--space-20);
+        margin: var(--space-24) auto;
+    }
+    .hero-tagline {
+        font-size: var(--font-size-xl);
+        margin-top: var(--space-16);
+    }
+    .hero-quote {
+        font-size: var(--font-size-lg);
+        margin-top: var(--space-12);
+    }
+    
+    .section-title { 
+        font-size: 32px;
+        margin-bottom: var(--space-12);
+    }
+    .section-subtitle {
+        font-size: var(--font-size-lg);
+    }
+    
+    .container { 
+        padding: 0 var(--space-16); 
+    }
+    .section { 
+        padding: 40px 0; 
+    }
+    .section.compact { 
+        padding: 30px 0; 
+    }
+    
+    .wave-comparison { 
+        flex-direction: column; 
+        gap: var(--space-20);
+    }
+    .wave-box {
+        min-width: 100%;
+    }
+    
+    /* Progress Path - вертикальный на мобильных */
+    .progress-path {
+        flex-direction: column;
+        align-items: stretch;
+        gap: var(--space-12);
+    }
+    .path-arrow {
+        transform: rotate(90deg);
+        margin: var(--space-4) 0;
+        align-self: center;
+    }
+    .path-stage {
+        min-width: 100%;
+    }
+    
+    /* Stage sections */
+    .stage-section {
+        padding: var(--space-20);
+        margin-bottom: var(--space-32);
+    }
+    .stage-header {
+        margin-bottom: var(--space-24);
+        padding-bottom: var(--space-16);
+    }
+    .stage-name {
+        font-size: 28px;
+        margin: var(--space-8) 0;
+    }
+    .stage-description {
+        font-size: var(--font-size-base);
+    }
+    
+    /* Tools grid - одноколоночный на мобильных */
+    .tools-grid {
+        grid-template-columns: 1fr;
+        gap: var(--space-16);
+    }
+    .tool-card {
+        padding: var(--space-20);
+    }
+    .tool-icon {
+        font-size: 40px;
+        margin-bottom: var(--space-8);
+    }
+    .tool-name {
+        font-size: var(--font-size-lg);
+    }
+    .tool-description {
+        font-size: var(--font-size-sm);
+    }
+    
+    /* Info grid */
+    .info-grid {
+        grid-template-columns: 1fr;
+        gap: var(--space-16);
+    }
+    .info-card {
+        padding: var(--space-20);
+    }
+    
+    /* Outcomes grid */
+    .outcomes-grid {
+        grid-template-columns: 1fr;
+        gap: var(--space-16);
+    }
+    .outcome-card {
+        padding: var(--space-20);
+    }
+    .outcome-icon {
+        font-size: 40px;
+    }
+    
+    /* Metrics grid */
+    .metrics-grid {
+        grid-template-columns: 1fr;
+        gap: var(--space-16);
+    }
+    
+    /* Connection grid */
+    .connection-grid {
+        grid-template-columns: 1fr;
+        gap: var(--space-16);
+    }
+    
+    /* Definition box */
+    .definition-box {
+        padding: var(--space-20);
+    }
+    .definition-text {
+        font-size: var(--font-size-lg);
+    }
+    
+    /* Quote box */
+    .quote-box {
+        padding: var(--space-24);
+    }
+    .quote-text {
+        font-size: var(--font-size-2xl);
+    }
+    .quote-author {
+        font-size: var(--font-size-lg);
+    }
+    
+    /* Conclusion box */
+    .conclusion-box {
+        padding: var(--space-24);
+    }
+    .conclusion-text {
+        font-size: var(--font-size-xl);
+    }
+    
+    /* Mistakes grid */
+    .mistakes-grid {
+        gap: var(--space-16);
+    }
+    .mistake-comparison {
+        grid-template-columns: 1fr;
+    }
+    
+    /* Benefits container */
+    .benefits-container {
+        gap: var(--space-16);
+    }
+    .benefit-category {
+        padding: var(--space-20);
+    }
+    .benefit-category h3 {
+        font-size: var(--font-size-xl);
+    }
+    
+    /* Steps container */
+    .steps-container {
+        margin: var(--space-24) 0;
+    }
+    .step-item {
+        padding: var(--space-20);
+    }
+    .step-title {
+        font-size: var(--font-size-lg);
+    }
+    
+    /* Why sequence */
+    .why-sequence-section {
+        padding: 40px 0;
+        margin: 40px 0;
+    }
+    .why-points {
+        margin: var(--space-24) auto;
+    }
+    .why-points li {
+        padding: var(--space-12) var(--space-16);
+        font-size: var(--font-size-base);
+    }
+}
+
+/* Малые мобильные устройства (до 480px) */
+@media (max-width: 480px) {
+    .hero-title { 
+        font-size: 36px;
+    }
+    .hero-icon { 
+        font-size: 48px;
+    }
+    .hero-japanese { 
+        font-size: 24px;
+    }
+    .hero-subtitle { 
+        font-size: var(--font-size-lg);
+    }
+    .hero-translation { 
+        font-size: var(--font-size-base);
+    }
+    .hero-message {
+        font-size: var(--font-size-base);
+        padding: var(--space-16);
+    }
+    .hero-tagline {
+        font-size: var(--font-size-lg);
+    }
+    .hero-quote {
+        font-size: var(--font-size-base);
+    }
+    
+    .section-title { 
+        font-size: 28px;
+    }
+    .section-subtitle {
+        font-size: var(--font-size-base);
+    }
+    
+    .container { 
+        padding: 0 var(--space-12); 
+    }
+    .section { 
+        padding: 30px 0; 
+    }
+    .section.compact { 
+        padding: 20px 0; 
+    }
+    
+    .stage-name {
+        font-size: 24px;
+    }
+    .stage-section {
+        padding: var(--space-16);
+    }
+    
+    .tool-card {
+        padding: var(--space-16);
+    }
+    .tool-icon {
+        font-size: 36px;
+    }
+    
+    .info-card {
+        padding: var(--space-16);
+    }
+    
+    .definition-box {
+        padding: var(--space-16);
+    }
+    .definition-text {
+        font-size: var(--font-size-base);
+    }
+    
+    .quote-text {
+        font-size: var(--font-size-xl);
+    }
+    
+    .conclusion-text {
+        font-size: var(--font-size-lg);
+    }
+    
+    /* Progress path на очень маленьких экранах */
+    .path-stage {
+        padding: var(--space-8);
+    }
+    .path-arrow {
+        font-size: var(--font-size-xl);
+    }
+}
+
+/* Ландшафтная ориентация мобильных */
+@media (max-width: 768px) and (orientation: landscape) {
+    .hero-title { 
+        font-size: 42px;
+    }
+    .hero-icon { 
+        font-size: 56px;
+    }
+    .section {
+        padding: 30px 0;
+    }
+    .section.compact {
+        padding: 20px 0;
+    }
+    .hero {
+        min-height: auto;
+    }
+}
+
+/* Оптимизация для touch устройств */
+@media (hover: none) and (pointer: coarse) {
+    /* Увеличиваем размеры touch targets */
+    .tool-card,
+    .step-item,
+    .info-card {
+        min-height: 48px;
+    }
+    
+    /* Убираем hover эффекты, оставляем только active */
+    .tool-card:hover {
+        transform: none;
+        box-shadow: var(--shadow-md);
+    }
+    
+    .tool-card:active {
+        transform: scale(0.98);
+        box-shadow: var(--shadow-sm);
+    }
+}
+
+/* Улучшение читаемости на маленьких экранах */
+@media (max-width: 480px) {
+    /* Улучшаем отступы для текста */
+    .tool-description,
+    .stage-description,
+    .definition-text {
+        line-height: 1.7;
+    }
+    
+    /* Убираем лишние отступы */
+    .hero-content {
+        padding: 0;
+    }
+    
+    /* Улучшаем читаемость списков */
+    .why-points li {
+        line-height: 1.7;
+    }
 }
     </style>
 </head>
