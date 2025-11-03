@@ -1,0 +1,1785 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Цель. Целевое состояние - Бережливое производство</title>
+    <style>
+        :root {
+  --color-white: rgba(255, 255, 255, 1);
+  --color-black: rgba(0, 0, 0, 1);
+  --color-cream-50: rgba(252, 252, 249, 1);
+  --color-cream-100: rgba(255, 255, 253, 1);
+  --color-gray-200: rgba(245, 245, 245, 1);
+  --color-gray-300: rgba(167, 169, 169, 1);
+  --color-gray-400: rgba(119, 124, 124, 1);
+  --color-slate-500: rgba(98, 108, 113, 1);
+  --color-brown-600: rgba(94, 82, 64, 1);
+  --color-charcoal-700: rgba(31, 33, 33, 1);
+  --color-charcoal-800: rgba(38, 40, 40, 1);
+  --color-slate-900: rgba(19, 52, 59, 1);
+  --color-teal-300: rgba(50, 184, 198, 1);
+  --color-teal-400: rgba(45, 166, 178, 1);
+  --color-teal-500: rgba(33, 128, 141, 1);
+  --color-teal-600: rgba(29, 116, 128, 1);
+  --color-teal-700: rgba(26, 104, 115, 1);
+  --color-teal-800: rgba(41, 150, 161, 1);
+  --color-red-400: rgba(255, 84, 89, 1);
+  --color-red-500: rgba(192, 21, 47, 1);
+  --color-orange-400: rgba(230, 129, 97, 1);
+  --color-orange-500: rgba(168, 75, 47, 1);
+
+  --color-brown-600-rgb: 94, 82, 64;
+  --color-teal-500-rgb: 33, 128, 141;
+  --color-slate-900-rgb: 19, 52, 59;
+  --color-slate-500-rgb: 98, 108, 113;
+  --color-red-500-rgb: 192, 21, 47;
+  --color-red-400-rgb: 255, 84, 89;
+  --color-orange-500-rgb: 168, 75, 47;
+  --color-orange-400-rgb: 230, 129, 97;
+
+  --color-bg-1: rgba(59, 130, 246, 0.08);
+  --color-bg-2: rgba(245, 158, 11, 0.08);
+  --color-bg-3: rgba(34, 197, 94, 0.08);
+  --color-bg-4: rgba(239, 68, 68, 0.08);
+  --color-bg-5: rgba(147, 51, 234, 0.08);
+  --color-bg-6: rgba(249, 115, 22, 0.08);
+  --color-bg-7: rgba(236, 72, 153, 0.08);
+  --color-bg-8: rgba(6, 182, 212, 0.08);
+
+  --color-background: var(--color-cream-50);
+  --color-surface: var(--color-cream-100);
+  --color-text: var(--color-slate-900);
+  --color-text-secondary: var(--color-slate-500);
+  --color-primary: var(--color-teal-500);
+  --color-primary-hover: var(--color-teal-600);
+  --color-primary-active: var(--color-teal-700);
+  --color-secondary: rgba(var(--color-brown-600-rgb), 0.12);
+  --color-secondary-hover: rgba(var(--color-brown-600-rgb), 0.2);
+  --color-secondary-active: rgba(var(--color-brown-600-rgb), 0.25);
+  --color-border: rgba(var(--color-brown-600-rgb), 0.2);
+  --color-btn-primary-text: var(--color-cream-50);
+  --color-card-border: rgba(var(--color-brown-600-rgb), 0.12);
+  --color-card-border-inner: rgba(var(--color-brown-600-rgb), 0.12);
+  --color-error: var(--color-red-500);
+  --color-success: var(--color-teal-500);
+  --color-warning: var(--color-orange-500);
+  --color-info: var(--color-slate-500);
+  --color-focus-ring: rgba(var(--color-teal-500-rgb), 0.4);
+
+  --font-family-base: "FKGroteskNeue", "Geist", "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  --font-size-xs: 11px;
+  --font-size-sm: 12px;
+  --font-size-base: 14px;
+  --font-size-md: 14px;
+  --font-size-lg: 16px;
+  --font-size-xl: 18px;
+  --font-size-2xl: 20px;
+  --font-size-3xl: 24px;
+  --font-size-4xl: 30px;
+  --font-weight-normal: 400;
+  --font-weight-medium: 500;
+  --font-weight-semibold: 550;
+  --font-weight-bold: 600;
+  --line-height-tight: 1.2;
+  --line-height-normal: 1.5;
+
+  --space-4: 4px;
+  --space-8: 8px;
+  --space-12: 12px;
+  --space-16: 16px;
+  --space-20: 20px;
+  --space-24: 24px;
+  --space-32: 32px;
+
+  --radius-sm: 6px;
+  --radius-base: 8px;
+  --radius-md: 10px;
+  --radius-lg: 12px;
+  --radius-full: 9999px;
+
+  --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.04), 0 1px 2px rgba(0, 0, 0, 0.02);
+  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.04), 0 2px 4px -1px rgba(0, 0, 0, 0.02);
+  --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.04), 0 4px 6px -2px rgba(0, 0, 0, 0.02);
+
+  --duration-fast: 150ms;
+  --duration-normal: 250ms;
+  --ease-standard: cubic-bezier(0.16, 1, 0.3, 1);
+
+  --color-strategic: #2C3E50;
+  --color-operational: #3498DB;
+  --color-tactical: #27AE60;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --color-gray-400-rgb: 119, 124, 124;
+    --color-teal-300-rgb: 50, 184, 198;
+    --color-gray-300-rgb: 167, 169, 169;
+    --color-gray-200-rgb: 245, 245, 245;
+
+    --color-bg-1: rgba(29, 78, 216, 0.15);
+    --color-bg-2: rgba(180, 83, 9, 0.15);
+    --color-bg-3: rgba(21, 128, 61, 0.15);
+    --color-bg-4: rgba(185, 28, 28, 0.15);
+    --color-bg-5: rgba(107, 33, 168, 0.15);
+    --color-bg-6: rgba(194, 65, 12, 0.15);
+    --color-bg-7: rgba(190, 24, 93, 0.15);
+    --color-bg-8: rgba(8, 145, 178, 0.15);
+
+    --color-background: var(--color-charcoal-700);
+    --color-surface: var(--color-charcoal-800);
+    --color-text: var(--color-gray-200);
+    --color-text-secondary: rgba(var(--color-gray-300-rgb), 0.7);
+    --color-primary: var(--color-teal-300);
+    --color-primary-hover: var(--color-teal-400);
+    --color-primary-active: var(--color-teal-800);
+    --color-secondary: rgba(var(--color-gray-400-rgb), 0.15);
+    --color-secondary-hover: rgba(var(--color-gray-400-rgb), 0.25);
+    --color-secondary-active: rgba(var(--color-gray-400-rgb), 0.3);
+    --color-border: rgba(var(--color-gray-400-rgb), 0.3);
+    --color-error: var(--color-red-400);
+    --color-success: var(--color-teal-300);
+    --color-warning: var(--color-orange-400);
+    --color-info: var(--color-gray-300);
+    --color-focus-ring: rgba(var(--color-teal-300-rgb), 0.4);
+    --color-btn-primary-text: var(--color-slate-900);
+    --color-card-border: rgba(var(--color-gray-400-rgb), 0.2);
+    --color-card-border-inner: rgba(var(--color-gray-400-rgb), 0.15);
+  }
+}
+
+@font-face {
+  font-family: 'FKGroteskNeue';
+  src: url('https://r2cdn.perplexity.ai/fonts/FKGroteskNeue.woff2') format('woff2');
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: var(--font-family-base);
+    background-color: var(--color-background);
+    color: var(--color-text);
+    line-height: var(--line-height-normal);
+    scroll-behavior: smooth;
+}
+
+.container {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 0 var(--space-32);
+}
+
+.section {
+    padding: 80px 0;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+}
+
+.section.compact {
+    min-height: auto;
+    padding: 60px 0;
+}
+
+/* Hero Section */
+.hero {
+    text-align: center;
+    background: var(--color-bg-1);
+    position: relative;
+    overflow: hidden;
+}
+
+.hero::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(135deg, rgba(33, 128, 141, 0.1) 0%, rgba(50, 184, 198, 0.1) 100%);
+    pointer-events: none;
+}
+
+.hero-content {
+    position: relative;
+    z-index: 1;
+}
+
+.hero-title {
+    font-size: 64px;
+    font-weight: var(--font-weight-bold);
+    margin-bottom: var(--space-24);
+    letter-spacing: -0.02em;
+    color: var(--color-primary);
+}
+
+.hero-subtitle {
+    font-size: var(--font-size-3xl);
+    color: var(--color-text-secondary);
+    margin-bottom: var(--space-32);
+}
+
+.hero-message {
+    font-size: var(--font-size-xl);
+    color: var(--color-text);
+    font-weight: var(--font-weight-semibold);
+    margin-top: var(--space-32);
+    padding: var(--space-24);
+    background: var(--color-surface);
+    border-radius: var(--radius-lg);
+    border-left: 6px solid var(--color-primary);
+    max-width: 800px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.journey-visual {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--space-24);
+    margin-top: var(--space-32);
+    flex-wrap: wrap;
+}
+
+.journey-point {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--space-12);
+}
+
+.journey-icon {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 36px;
+    font-weight: var(--font-weight-bold);
+    box-shadow: var(--shadow-md);
+}
+
+.journey-icon.start {
+    background: var(--color-error);
+    color: white;
+}
+
+.journey-icon.target {
+    background: var(--color-success);
+    color: white;
+}
+
+.journey-arrow {
+    font-size: 48px;
+    color: var(--color-primary);
+}
+
+.journey-label {
+    font-size: var(--font-size-base);
+    font-weight: var(--font-weight-semibold);
+    color: var(--color-text-secondary);
+}
+
+/* Section Headers */
+.section-header {
+    text-align: center;
+    margin-bottom: var(--space-32);
+}
+
+.section-title {
+    font-size: 48px;
+    font-weight: var(--font-weight-bold);
+    margin-bottom: var(--space-16);
+}
+
+.section-subtitle {
+    font-size: var(--font-size-2xl);
+    color: var(--color-text-secondary);
+}
+
+/* Three Questions */
+.questions-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--space-24);
+    margin: var(--space-32) 0;
+}
+
+.question-card {
+    background: var(--color-surface);
+    border: 2px solid var(--color-card-border);
+    border-radius: var(--radius-lg);
+    padding: var(--space-24);
+    text-align: center;
+    transition: transform 0.3s var(--ease-standard), box-shadow 0.3s var(--ease-standard);
+}
+
+.question-card:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-lg);
+}
+
+.question-number {
+    width: 50px;
+    height: 50px;
+    background: var(--color-primary);
+    color: white;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: var(--font-size-2xl);
+    font-weight: var(--font-weight-bold);
+    margin: 0 auto var(--space-16);
+}
+
+.question-text {
+    font-size: var(--font-size-xl);
+    font-weight: var(--font-weight-semibold);
+    margin-bottom: var(--space-12);
+    color: var(--color-primary);
+}
+
+.question-answer {
+    font-size: var(--font-size-base);
+    color: var(--color-text-secondary);
+    margin-bottom: var(--space-8);
+}
+
+.question-example {
+    background: var(--color-bg-2);
+    padding: var(--space-12);
+    border-radius: var(--radius-sm);
+    font-size: var(--font-size-sm);
+    margin-top: var(--space-12);
+}
+
+/* Definition Box */
+.definition-box {
+    background-color: var(--color-surface);
+    border-left: 6px solid var(--color-primary);
+    padding: var(--space-32);
+    border-radius: var(--radius-lg);
+    margin-bottom: var(--space-32);
+    box-shadow: var(--shadow-md);
+}
+
+.definition-title {
+    font-size: var(--font-size-3xl);
+    font-weight: var(--font-weight-bold);
+    margin-bottom: var(--space-12);
+    color: var(--color-primary);
+}
+
+.definition-text {
+    font-size: var(--font-size-xl);
+    line-height: 1.6;
+}
+
+/* Three Levels */
+.levels-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--space-24);
+    margin: var(--space-32) 0;
+}
+
+.level-card {
+    background: var(--color-surface);
+    border-radius: var(--radius-lg);
+    padding: var(--space-24);
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+    transition: transform 0.3s var(--ease-standard), box-shadow 0.3s var(--ease-standard);
+}
+
+.level-card:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-lg);
+}
+
+.level-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 6px;
+}
+
+.level-card.strategic::before { background: var(--color-strategic); }
+.level-card.operational::before { background: var(--color-operational); }
+.level-card.tactical::before { background: var(--color-tactical); }
+
+.level-number {
+    font-size: 72px;
+    font-weight: var(--font-weight-bold);
+    opacity: 0.1;
+    position: absolute;
+    top: 20px;
+    right: 20px;
+}
+
+.level-name {
+    font-size: var(--font-size-2xl);
+    font-weight: var(--font-weight-bold);
+    margin-bottom: var(--space-12);
+}
+
+.level-card.strategic .level-name { color: var(--color-strategic); }
+.level-card.operational .level-name { color: var(--color-operational); }
+.level-card.tactical .level-name { color: var(--color-tactical); }
+
+.level-timeframe {
+    font-size: var(--font-size-sm);
+    color: var(--color-text-secondary);
+    margin-bottom: var(--space-8);
+}
+
+.level-scope {
+    font-size: var(--font-size-sm);
+    color: var(--color-text-secondary);
+    margin-bottom: var(--space-16);
+    font-style: italic;
+}
+
+.level-goal {
+    background: var(--color-bg-1);
+    padding: var(--space-16);
+    border-radius: var(--radius-sm);
+    font-size: var(--font-size-base);
+    margin-top: var(--space-16);
+}
+
+/* Key Elements Cards */
+.elements-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: var(--space-24);
+    margin: var(--space-32) 0;
+}
+
+.element-card {
+    background: var(--color-surface);
+    border: 2px solid var(--color-card-border);
+    border-radius: var(--radius-lg);
+    padding: var(--space-24);
+    transition: transform 0.3s var(--ease-standard), box-shadow 0.3s var(--ease-standard);
+    cursor: pointer;
+}
+
+.element-card:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-lg);
+    border-color: var(--color-primary);
+}
+
+.element-icon {
+    font-size: 48px;
+    margin-bottom: var(--space-16);
+}
+
+.element-name {
+    font-size: var(--font-size-xl);
+    font-weight: var(--font-weight-semibold);
+    margin-bottom: var(--space-8);
+}
+
+.element-subtitle {
+    font-size: var(--font-size-sm);
+    color: var(--color-text-secondary);
+    font-style: italic;
+    margin-bottom: var(--space-12);
+}
+
+.element-description {
+    font-size: var(--font-size-base);
+    color: var(--color-text-secondary);
+    margin-bottom: var(--space-16);
+}
+
+.element-list {
+    list-style: none;
+    margin-bottom: var(--space-16);
+}
+
+.element-list li {
+    padding: var(--space-8) 0;
+    padding-left: var(--space-20);
+    position: relative;
+    font-size: var(--font-size-sm);
+}
+
+.element-list li::before {
+    content: '✓';
+    position: absolute;
+    left: 0;
+    color: var(--color-success);
+    font-weight: bold;
+}
+
+.element-example {
+    background: var(--color-bg-3);
+    padding: var(--space-12);
+    border-radius: var(--radius-sm);
+    font-size: var(--font-size-sm);
+    font-weight: var(--font-weight-medium);
+}
+
+/* Comparison Dashboard */
+.dashboard {
+    background: var(--color-surface);
+    border-radius: var(--radius-lg);
+    padding: var(--space-32);
+    box-shadow: var(--shadow-md);
+    margin: var(--space-32) 0;
+}
+
+.dashboard-header {
+    text-align: center;
+    margin-bottom: var(--space-32);
+}
+
+.dashboard-title {
+    font-size: var(--font-size-3xl);
+    font-weight: var(--font-weight-bold);
+    margin-bottom: var(--space-8);
+}
+
+.comparison-grid {
+    display: grid;
+    gap: var(--space-16);
+}
+
+.metric-row {
+    background: var(--color-background);
+    border-radius: var(--radius-base);
+    padding: var(--space-20);
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr 1fr;
+    gap: var(--space-16);
+    align-items: center;
+}
+
+.metric-name {
+    font-size: var(--font-size-base);
+    font-weight: var(--font-weight-semibold);
+}
+
+.metric-current {
+    font-size: var(--font-size-base);
+    color: var(--color-error);
+    font-weight: var(--font-weight-medium);
+}
+
+.metric-target {
+    font-size: var(--font-size-base);
+    color: var(--color-success);
+    font-weight: var(--font-weight-medium);
+}
+
+.metric-improvement {
+    display: inline-block;
+    padding: var(--space-4) var(--space-12);
+    background: rgba(var(--color-teal-500-rgb), 0.15);
+    color: var(--color-success);
+    border-radius: var(--radius-full);
+    font-size: var(--font-size-sm);
+    font-weight: var(--font-weight-semibold);
+}
+
+.metric-bar {
+    height: 8px;
+    background: var(--color-secondary);
+    border-radius: var(--radius-full);
+    overflow: hidden;
+    margin-top: var(--space-8);
+    grid-column: 1 / -1;
+}
+
+.metric-progress {
+    height: 100%;
+    background: var(--color-success);
+    border-radius: var(--radius-full);
+    transition: width 1s var(--ease-standard);
+}
+
+/* Steps Process */
+.steps-container {
+    margin: var(--space-32) 0;
+}
+
+.step {
+    display: flex;
+    gap: var(--space-24);
+    margin-bottom: var(--space-32);
+    align-items: flex-start;
+}
+
+.step-number {
+    min-width: 60px;
+    height: 60px;
+    background: var(--color-primary);
+    color: white;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: var(--font-size-3xl);
+    font-weight: var(--font-weight-bold);
+    flex-shrink: 0;
+}
+
+.step-content {
+    flex: 1;
+    background: var(--color-surface);
+    padding: var(--space-24);
+    border-radius: var(--radius-lg);
+    border: 2px solid var(--color-card-border);
+}
+
+.step-title {
+    font-size: var(--font-size-2xl);
+    font-weight: var(--font-weight-semibold);
+    margin-bottom: var(--space-8);
+    color: var(--color-primary);
+}
+
+.step-subtitle {
+    font-size: var(--font-size-sm);
+    color: var(--color-text-secondary);
+    font-style: italic;
+    margin-bottom: var(--space-12);
+}
+
+.step-description {
+    font-size: var(--font-size-base);
+    color: var(--color-text-secondary);
+    margin-bottom: var(--space-16);
+}
+
+.step-actions {
+    list-style: none;
+    margin-bottom: var(--space-16);
+}
+
+.step-actions li {
+    padding: var(--space-8) 0;
+    padding-left: var(--space-20);
+    position: relative;
+    font-size: var(--font-size-sm);
+}
+
+.step-actions li::before {
+    content: '→';
+    position: absolute;
+    left: 0;
+    color: var(--color-primary);
+    font-weight: bold;
+}
+
+.step-question {
+    background: var(--color-bg-2);
+    padding: var(--space-12);
+    border-radius: var(--radius-sm);
+    font-size: var(--font-size-sm);
+    font-weight: var(--font-weight-semibold);
+    color: var(--color-warning);
+}
+
+/* Example Cards */
+.examples-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+    gap: var(--space-24);
+    margin: var(--space-32) 0;
+}
+
+.example-card {
+    background: var(--color-surface);
+    border: 2px solid var(--color-card-border);
+    border-radius: var(--radius-lg);
+    padding: var(--space-24);
+    box-shadow: var(--shadow-sm);
+}
+
+.example-company {
+    font-size: var(--font-size-3xl);
+    font-weight: var(--font-weight-bold);
+    margin-bottom: var(--space-8);
+    color: var(--color-primary);
+}
+
+.example-period {
+    font-size: var(--font-size-sm);
+    color: var(--color-text-secondary);
+    margin-bottom: var(--space-16);
+}
+
+.example-section {
+    margin-bottom: var(--space-16);
+}
+
+.example-label {
+    font-size: var(--font-size-sm);
+    font-weight: var(--font-weight-semibold);
+    color: var(--color-text-secondary);
+    margin-bottom: var(--space-4);
+}
+
+.example-value {
+    font-size: var(--font-size-base);
+    margin-bottom: var(--space-12);
+}
+
+.example-results {
+    background: var(--color-bg-3);
+    padding: var(--space-16);
+    border-radius: var(--radius-sm);
+}
+
+.example-results ul {
+    list-style: none;
+}
+
+.example-results li {
+    padding: var(--space-4) 0;
+    padding-left: var(--space-20);
+    position: relative;
+    font-size: var(--font-size-sm);
+}
+
+.example-results li::before {
+    content: '✓';
+    position: absolute;
+    left: 0;
+    color: var(--color-success);
+    font-weight: bold;
+}
+
+/* Mistakes Grid */
+.mistakes-grid {
+    display: grid;
+    gap: var(--space-24);
+    margin: var(--space-32) 0;
+}
+
+.mistake-card {
+    background: var(--color-surface);
+    border-left: 4px solid var(--color-error);
+    border-radius: var(--radius-lg);
+    padding: var(--space-24);
+    box-shadow: var(--shadow-sm);
+}
+
+.mistake-title {
+    font-size: var(--font-size-xl);
+    font-weight: var(--font-weight-semibold);
+    color: var(--color-error);
+    margin-bottom: var(--space-12);
+}
+
+.mistake-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: var(--space-16);
+    margin-top: var(--space-12);
+}
+
+.mistake-item {
+    background: var(--color-background);
+    padding: var(--space-12);
+    border-radius: var(--radius-sm);
+}
+
+.mistake-item-label {
+    font-size: var(--font-size-xs);
+    font-weight: var(--font-weight-semibold);
+    color: var(--color-text-secondary);
+    margin-bottom: var(--space-4);
+    text-transform: uppercase;
+}
+
+.mistake-item-text {
+    font-size: var(--font-size-sm);
+}
+
+/* Strategy Flow */
+.strategy-flow {
+    background: var(--color-surface);
+    border-radius: var(--radius-lg);
+    padding: var(--space-32);
+    margin: var(--space-32) 0;
+}
+
+.flow-steps {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-16);
+}
+
+.flow-step {
+    display: flex;
+    align-items: center;
+    gap: var(--space-16);
+    background: var(--color-background);
+    padding: var(--space-16);
+    border-radius: var(--radius-base);
+    border-left: 4px solid var(--color-primary);
+}
+
+.flow-step-text {
+    font-size: var(--font-size-base);
+    font-weight: var(--font-weight-medium);
+}
+
+/* Visualization Tools */
+.tools-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: var(--space-20);
+    margin: var(--space-32) 0;
+}
+
+.tool-card {
+    background: var(--color-surface);
+    border: 2px solid var(--color-card-border);
+    border-radius: var(--radius-lg);
+    padding: var(--space-20);
+    text-align: center;
+    transition: transform 0.3s var(--ease-standard);
+}
+
+.tool-card:hover {
+    transform: translateY(-4px);
+    border-color: var(--color-primary);
+}
+
+.tool-icon {
+    font-size: 36px;
+    margin-bottom: var(--space-12);
+}
+
+.tool-name {
+    font-size: var(--font-size-base);
+    font-weight: var(--font-weight-semibold);
+    margin-bottom: var(--space-8);
+}
+
+.tool-purpose {
+    font-size: var(--font-size-sm);
+    color: var(--color-text-secondary);
+}
+
+/* Action Items */
+.action-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--space-24);
+    margin: var(--space-32) 0;
+}
+
+.action-card {
+    background: var(--color-surface);
+    border: 2px solid var(--color-primary);
+    border-radius: var(--radius-lg);
+    padding: var(--space-24);
+}
+
+.action-number {
+    display: inline-block;
+    width: 36px;
+    height: 36px;
+    background: var(--color-primary);
+    color: white;
+    border-radius: 50%;
+    text-align: center;
+    line-height: 36px;
+    font-weight: var(--font-weight-bold);
+    margin-bottom: var(--space-12);
+}
+
+.action-title {
+    font-size: var(--font-size-xl);
+    font-weight: var(--font-weight-semibold);
+    margin-bottom: var(--space-12);
+}
+
+.action-description {
+    font-size: var(--font-size-base);
+    color: var(--color-text-secondary);
+}
+
+/* Conclusion */
+.conclusion-box {
+    background: var(--color-bg-1);
+    padding: var(--space-32);
+    border-radius: var(--radius-lg);
+    text-align: center;
+    margin: var(--space-32) 0;
+}
+
+.conclusion-text {
+    font-size: var(--font-size-xl);
+    line-height: 1.8;
+    margin-bottom: var(--space-16);
+}
+
+.conclusion-highlight {
+    color: var(--color-primary);
+    font-weight: var(--font-weight-semibold);
+}
+
+.next-step-box {
+    background: var(--color-surface);
+    border: 3px solid var(--color-primary);
+    border-radius: var(--radius-lg);
+    padding: var(--space-24);
+    margin-top: var(--space-24);
+}
+
+.next-step-label {
+    font-size: var(--font-size-base);
+    color: var(--color-text-secondary);
+    margin-bottom: var(--space-8);
+}
+
+.next-step-title {
+    font-size: var(--font-size-3xl);
+    font-weight: var(--font-weight-bold);
+    color: var(--color-primary);
+}
+
+/* Chart Container */
+.chart-wrapper {
+    background: var(--color-surface);
+    padding: var(--space-32);
+    border-radius: var(--radius-lg);
+    margin: var(--space-32) 0;
+    box-shadow: var(--shadow-md);
+}
+
+.chart-container {
+    position: relative;
+    height: 400px;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .hero-title { font-size: 36px; }
+    .section-title { font-size: 32px; }
+    .questions-grid { grid-template-columns: 1fr; }
+    .levels-grid { grid-template-columns: 1fr; }
+    .elements-grid { grid-template-columns: 1fr; }
+    .examples-grid { grid-template-columns: 1fr; }
+    .action-grid { grid-template-columns: 1fr; }
+    .metric-row { grid-template-columns: 1fr; }
+    .mistake-row { grid-template-columns: 1fr; }
+    .tools-grid { grid-template-columns: repeat(2, 1fr); }
+    .journey-visual { flex-direction: column; }
+}
+    </style>
+</head>
+<body>
+    <!-- Hero Section -->
+    <div class="hero section">
+        <div class="container">
+            <div class="hero-content">
+                <h1 class="hero-title">ЦЕЛЬ. ЦЕЛЕВОЕ СОСТОЯНИЕ</h1>
+                <p class="hero-subtitle">Куда мы идём и как туда попасть</p>
+                
+                <div class="journey-visual">
+                    <div class="journey-point">
+                        <div class="journey-icon start">📍</div>
+                        <div class="journey-label">Текущее состояние</div>
+                    </div>
+                    <div class="journey-arrow">→</div>
+                    <div class="journey-point">
+                        <div class="journey-icon target">🎯</div>
+                        <div class="journey-label">Целевое состояние</div>
+                    </div>
+                </div>
+                
+                <div class="hero-message">
+                    Четкое видение будущего - компас для всех улучшений
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Introduction -->
+    <div class="section compact">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Почему целевое состояние важно?</h2>
+                <p class="section-subtitle">Без карты в пустыне идёшь не туда</p>
+            </div>
+
+            <div class="definition-box">
+                <p class="definition-text">🏜️ <strong>Аналогия:</strong> Как путник в пустыне без карты идёт в неправильном направлении, так и команда без ясной цели совершает хаотичные улучшения</p>
+            </div>
+
+            <div class="questions-grid">
+                <div class="question-card">
+                    <div class="question-number">1</div>
+                    <h3 class="question-text">Где мы находимся СЕЙЧАС?</h3>
+                    <p class="question-answer">Текущее состояние (AS-IS)</p>
+                    <div class="question-example">📊 Цикл 240 часов, брак 5%, запасы 90 дней</div>
+                </div>
+                <div class="question-card">
+                    <div class="question-number">2</div>
+                    <h3 class="question-text">Куда мы хотим ПОПАСТЬ?</h3>
+                    <p class="question-answer">Целевое состояние (TARGET STATE)</p>
+                    <div class="question-example">🎯 Цикл 48 часов, брак 0.5%, запасы 10 дней</div>
+                </div>
+                <div class="question-card">
+                    <div class="question-number">3</div>
+                    <h3 class="question-text">Как туда ПОПАСТЬ?</h3>
+                    <p class="question-answer">План внедрения (IMPLEMENTATION PATH)</p>
+                    <div class="question-example">🛠️ 5S, SMED, Канбан, JIT</div>
+                </div>
+            </div>
+
+            <div class="definition-box" style="border-color: var(--color-warning);">
+                <p class="definition-text"><strong>Связь с предыдущим шагом:</strong> Понимание Муда, Мура, Мури даёт нам контекст - мы знаем, что нужно устранять. Целевое состояние даёт направление - куда мы идём.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- What is Target State -->
+    <div class="section compact" style="background: var(--color-bg-1);">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Что такое целевое состояние?</h2>
+                <p class="section-subtitle">Target State Vision</p>
+            </div>
+
+            <div class="definition-box">
+                <p class="definition-title">Определение</p>
+                <p class="definition-text">Четкое, измеримое описание желаемого будущего состояния процесса</p>
+            </div>
+
+            <div class="elements-grid" style="grid-template-columns: repeat(2, 1fr);">
+                <div class="element-card">
+                    <div class="element-icon">📈</div>
+                    <h3 class="element-name">Не просто число</h3>
+                    <p class="element-description">Целевое состояние - это комплексная картина будущего, включающая все аспекты: качество, скорость, стоимость, безопасность, культуру</p>
+                </div>
+                <div class="element-card">
+                    <div class="element-icon">✅</div>
+                    <h3 class="element-name">Достижимо, но амбициозно</h3>
+                    <p class="element-description">Должно быть реалистичным, но требующим усилий. Не фантазия, но и не заниженные ожидания</p>
+                </div>
+                <div class="element-card">
+                    <div class="element-icon">👥</div>
+                    <h3 class="element-name">Ориентировано на клиента</h3>
+                    <p class="element-description">Должно создавать ценность для клиента: быстрее, качественнее, дешевле, надежнее</p>
+                </div>
+                <div class="element-card">
+                    <div class="element-icon">🎯</div>
+                    <h3 class="element-name">Пример Toyota</h3>
+                    <p class="element-description">Видение: Нулевые дефекты, Just-in-time доставка, 100% безопасная среда. Это не просто метрики, это философия</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Three Levels -->
+    <div class="section compact">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Три уровня целевого состояния</h2>
+                <p class="section-subtitle">От стратегии до тактики</p>
+            </div>
+
+            <div class="levels-grid">
+                <div class="level-card strategic">
+                    <div class="level-number">1</div>
+                    <h3 class="level-name">СТРАТЕГИЧЕСКИЙ УРОВЕНЬ</h3>
+                    <p class="level-timeframe">⏱️ 3-5 лет</p>
+                    <p class="level-scope">Область: Вся компания</p>
+                    <div class="level-goal">
+                        <strong>Пример цели:</strong><br>
+                        Увеличить производительность в 5 раз за 3 года, стать лидером по качеству в отрасли
+                    </div>
+                </div>
+                <div class="level-card operational">
+                    <div class="level-number">2</div>
+                    <h3 class="level-name">ОПЕРАЦИОННЫЙ УРОВЕНЬ</h3>
+                    <p class="level-timeframe">⏱️ 1 год</p>
+                    <p class="level-scope">Область: Отдел, производство</p>
+                    <div class="level-goal">
+                        <strong>Пример цели:</strong><br>
+                        Сократить цикл производства с 240 часов до 48 часов. Брак 2%, запасы на 30 дней
+                    </div>
+                </div>
+                <div class="level-card tactical">
+                    <div class="level-number">3</div>
+                    <h3 class="level-name">ТАКТИЧЕСКИЙ УРОВЕНЬ</h3>
+                    <p class="level-timeframe">⏱️ 30-90 дней</p>
+                    <p class="level-scope">Область: Участок, линия, команда</p>
+                    <div class="level-goal">
+                        <strong>Пример цели:</strong><br>
+                        Внедрить 5S на участке А. Сократить время поиска инструментов на 20%
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Key Elements -->
+    <div class="section compact" style="background: var(--color-bg-2);">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Ключевые элементы целевого состояния</h2>
+                <p class="section-subtitle">Что должно быть включено</p>
+            </div>
+
+            <div class="elements-grid">
+                <div class="element-card">
+                    <div class="element-icon">📊</div>
+                    <h3 class="element-name">КОЛИЧЕСТВЕННЫЕ МЕТРИКИ</h3>
+                    <p class="element-subtitle">Measurable KPIs</p>
+                    <p class="element-description">Четкие, измеримые показатели</p>
+                    <ul class="element-list">
+                        <li>Время цикла</li>
+                        <li>Процент брака</li>
+                        <li>Уровень запасов</li>
+                        <li>Производительность</li>
+                        <li>Стоимость единицы</li>
+                    </ul>
+                    <div class="element-example">💡 Цикл: 240ч → 48ч (5x быстрее)</div>
+                </div>
+
+                <div class="element-card">
+                    <div class="element-icon">⭐</div>
+                    <h3 class="element-name">СТАНДАРТЫ КАЧЕСТВА</h3>
+                    <p class="element-subtitle">Quality Standards</p>
+                    <p class="element-description">Допустимые уровни дефектов</p>
+                    <ul class="element-list">
+                        <li>Процент брака</li>
+                        <li>First-pass yield (FPY)</li>
+                        <li>Возвраты клиентов</li>
+                        <li>Гарантийные случаи</li>
+                    </ul>
+                    <div class="element-example">💡 Брак: 5% → 0.5% (10x улучшение)</div>
+                </div>
+
+                <div class="element-card">
+                    <div class="element-icon">⏰</div>
+                    <h3 class="element-name">ВРЕМЕННЫЕ РАМКИ</h3>
+                    <p class="element-subtitle">Timeline</p>
+                    <p class="element-description">Когда достичь целевого состояния</p>
+                    <ul class="element-list">
+                        <li>Дата завершения</li>
+                        <li>Промежуточные вехи</li>
+                        <li>Контрольные точки (30, 60, 90 дней)</li>
+                        <li>Фазы реализации</li>
+                    </ul>
+                    <div class="element-example">💡 3 года, первый результат за 90 дней</div>
+                </div>
+
+                <div class="element-card">
+                    <div class="element-icon">🔧</div>
+                    <h3 class="element-name">ТРЕБУЕМЫЕ РЕСУРСЫ</h3>
+                    <p class="element-subtitle">Resource Requirements</p>
+                    <p class="element-description">Люди, оборудование, бюджет</p>
+                    <ul class="element-list">
+                        <li>Персонал</li>
+                        <li>Оборудование</li>
+                        <li>Бюджет</li>
+                        <li>Обучение</li>
+                    </ul>
+                    <div class="element-example">💡 5 человек, 100k рублей, 3 месяца обучения</div>
+                </div>
+
+                <div class="element-card">
+                    <div class="element-icon">💎</div>
+                    <h3 class="element-name">ЦЕННОСТЬ ДЛЯ КЛИЕНТА</h3>
+                    <p class="element-subtitle">Customer Value</p>
+                    <p class="element-description">Что получит клиент</p>
+                    <ul class="element-list">
+                        <li>Быстрая доставка</li>
+                        <li>Высокое качество</li>
+                        <li>Низкая цена</li>
+                        <li>Надежность</li>
+                    </ul>
+                    <div class="element-example">💡 Быстро, качественно, дешево, надежно</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Current vs Target Dashboard -->
+    <div class="section compact">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Текущее vs Целевое состояние</h2>
+                <p class="section-subtitle">Сравнительный dashboard</p>
+            </div>
+
+            <div class="dashboard">
+                <div class="dashboard-header">
+                    <h3 class="dashboard-title">До и После внедрения</h3>
+                </div>
+                
+                <div class="comparison-grid">
+                    <div class="metric-row">
+                        <div class="metric-name">Время цикла</div>
+                        <div class="metric-current">240 часов (10 дней)</div>
+                        <div class="metric-target">48 часов (2 дня)</div>
+                        <div class="metric-improvement">5x быстрее</div>
+                        <div class="metric-bar"><div class="metric-progress" style="width: 80%;"></div></div>
+                    </div>
+                    
+                    <div class="metric-row">
+                        <div class="metric-name">Процент брака</div>
+                        <div class="metric-current">5%</div>
+                        <div class="metric-target">0.5%</div>
+                        <div class="metric-improvement">10x меньше</div>
+                        <div class="metric-bar"><div class="metric-progress" style="width: 90%;"></div></div>
+                    </div>
+                    
+                    <div class="metric-row">
+                        <div class="metric-name">Уровень запасов</div>
+                        <div class="metric-current">90 дней</div>
+                        <div class="metric-target">10 дней</div>
+                        <div class="metric-improvement">9x меньше</div>
+                        <div class="metric-bar"><div class="metric-progress" style="width: 89%;"></div></div>
+                    </div>
+                    
+                    <div class="metric-row">
+                        <div class="metric-name">Производительность (шт/час)</div>
+                        <div class="metric-current">50 шт/час</div>
+                        <div class="metric-target">150 шт/час</div>
+                        <div class="metric-improvement">3x больше</div>
+                        <div class="metric-bar"><div class="metric-progress" style="width: 66%;"></div></div>
+                    </div>
+                    
+                    <div class="metric-row">
+                        <div class="metric-name">Стоимость единицы</div>
+                        <div class="metric-current">1000 рублей</div>
+                        <div class="metric-target">600 рублей</div>
+                        <div class="metric-improvement">40% дешевле</div>
+                        <div class="metric-bar"><div class="metric-progress" style="width: 40%;"></div></div>
+                    </div>
+                    
+                    <div class="metric-row">
+                        <div class="metric-name">Безопасность (травм/месяц)</div>
+                        <div class="metric-current">2 травмы</div>
+                        <div class="metric-target">0 травм</div>
+                        <div class="metric-improvement">100% безопасность</div>
+                        <div class="metric-bar"><div class="metric-progress" style="width: 100%;"></div></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- How to Define Target State -->
+    <div class="section compact" style="background: var(--color-bg-3);">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Как определить целевое состояние</h2>
+                <p class="section-subtitle">6 шагов к успеху</p>
+            </div>
+
+            <div class="steps-container">
+                <div class="step">
+                    <div class="step-number">1</div>
+                    <div class="step-content">
+                        <h3 class="step-title">Проанализировать ТЕКУЩЕЕ СОСТОЯНИЕ</h3>
+                        <p class="step-subtitle">AS-IS Analysis</p>
+                        <p class="step-description">Понять, где мы находимся сейчас</p>
+                        <ul class="step-actions">
+                            <li>Построить VSM текущего состояния</li>
+                            <li>Собрать метрики</li>
+                            <li>Выявить потери (Муда, Мура, Мури)</li>
+                            <li>Определить узкие места</li>
+                        </ul>
+                        <div class="step-question">❓ Какие потери самые большие?</div>
+                    </div>
+                </div>
+
+                <div class="step">
+                    <div class="step-number">2</div>
+                    <div class="step-content">
+                        <h3 class="step-title">Определить ПОТРЕБНОСТИ КЛИЕНТА</h3>
+                        <p class="step-subtitle">Voice of Customer</p>
+                        <p class="step-description">Что клиент действительно хочет?</p>
+                        <ul class="step-actions">
+                            <li>Выслушать клиента</li>
+                            <li>Какое качество нужно?</li>
+                            <li>Какая скорость нужна?</li>
+                            <li>Какая цена приемлема?</li>
+                        </ul>
+                        <div class="step-question">❓ Что создает ценность для клиента?</div>
+                    </div>
+                </div>
+
+                <div class="step">
+                    <div class="step-number">3</div>
+                    <div class="step-content">
+                        <h3 class="step-title">ПОСМОТРЕТЬ НА ЛУЧШИХ</h3>
+                        <p class="step-subtitle">Benchmarking</p>
+                        <p class="step-description">Какие улучшения возможны?</p>
+                        <ul class="step-actions">
+                            <li>Посмотреть конкурентов</li>
+                            <li>Посмотреть другие отрасли</li>
+                            <li>Понять, что достигли другие</li>
+                            <li>Установить амбициозные цели</li>
+                        </ul>
+                        <div class="step-question">❓ Что достигли лучшие в отрасли?</div>
+                    </div>
+                </div>
+
+                <div class="step">
+                    <div class="step-number">4</div>
+                    <div class="step-content">
+                        <h3 class="step-title">УСТАНОВИТЬ МЕТРИКИ</h3>
+                        <p class="step-subtitle">Define Metrics</p>
+                        <p class="step-description">Какие показатели измерять?</p>
+                        <ul class="step-actions">
+                            <li>Выбрать ключевые KPI</li>
+                            <li>Текущее значение</li>
+                            <li>Целевое значение</li>
+                            <li>Периодичность измерения</li>
+                        </ul>
+                        <div class="step-question">❓ Что и как часто будем измерять?</div>
+                    </div>
+                </div>
+
+                <div class="step">
+                    <div class="step-number">5</div>
+                    <div class="step-content">
+                        <h3 class="step-title">УСТАНОВИТЬ СРОКИ</h3>
+                        <p class="step-subtitle">Define Timeline</p>
+                        <p class="step-description">Когда достичь целевого состояния?</p>
+                        <ul class="step-actions">
+                            <li>Долгосрочная цель (3-5 лет)</li>
+                            <li>Промежуточные вехи</li>
+                            <li>Ежеквартальные контрольные точки</li>
+                            <li>Фазы реализации</li>
+                        </ul>
+                        <div class="step-question">❓ Какой реалистичный срок?</div>
+                    </div>
+                </div>
+
+                <div class="step">
+                    <div class="step-number">6</div>
+                    <div class="step-content">
+                        <h3 class="step-title">СООБЩИТЬ И СОГЛАСОВАТЬ</h3>
+                        <p class="step-subtitle">Communicate &amp; Align</p>
+                        <p class="step-description">Все ли понимают цель?</p>
+                        <ul class="step-actions">
+                            <li>Получить поддержку руководства</li>
+                            <li>Объяснить команде</li>
+                            <li>Ответить на вопросы</li>
+                            <li>Включить в системы измерения</li>
+                        </ul>
+                        <div class="step-question">❓ Все ли понимают и согласны?</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Real Examples -->
+    <div class="section compact">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Реальные примеры компаний</h2>
+                <p class="section-subtitle">Кто достиг целевого состояния</p>
+            </div>
+
+            <div class="examples-grid">
+                <div class="example-card">
+                    <h3 class="example-company">🚗 Toyota</h3>
+                    <p class="example-period">Последние 50 лет</p>
+                    
+                    <div class="example-section">
+                        <div class="example-label">Видение:</div>
+                        <div class="example-value">Нулевые дефекты, JIT, Уважение к людям</div>
+                    </div>
+                    
+                    <div class="example-section">
+                        <div class="example-label">Текущее состояние (начало):</div>
+                        <div class="example-value">Массовое производство, цикл недели, брак 10%</div>
+                    </div>
+                    
+                    <div class="example-section">
+                        <div class="example-label">Достигнутое целевое состояние:</div>
+                        <div class="example-value">99.9% качество, цикл часы, ноль дефектов</div>
+                    </div>
+                    
+                    <div class="example-results">
+                        <strong>Результаты:</strong>
+                        <ul>
+                            <li>Производительность 10x</li>
+                            <li>Брак 100x меньше</li>
+                            <li>Цикл 7x быстрее</li>
+                            <li>50 лет постоянного совершенствования</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="example-card">
+                    <h3 class="example-company">⚡ КЭАЗ (Россия)</h3>
+                    <p class="example-period">2020-2024 (4 года)</p>
+                    
+                    <div class="example-section">
+                        <div class="example-label">Видение:</div>
+                        <div class="example-value">Стать лидером в отрасли по производительности и качеству</div>
+                    </div>
+                    
+                    <div class="example-section">
+                        <div class="example-label">Текущее состояние (2020):</div>
+                        <div class="example-value">Цикл 240 часов, брак 5%, запасы 90 дней</div>
+                    </div>
+                    
+                    <div class="example-section">
+                        <div class="example-label">Достигнутое целевое состояние (2024):</div>
+                        <div class="example-value">Цикл 48 часов, брак 0.5%, запасы 10 дней</div>
+                    </div>
+                    
+                    <div class="example-results">
+                        <strong>Результаты:</strong>
+                        <ul>
+                            <li>Производительность 3x</li>
+                            <li>Брак 10x меньше</li>
+                            <li>Запасы 9x меньше</li>
+                            <li>Экономия 450 млн рублей</li>
+                            <li>Первый результат за 1 год</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Common Mistakes -->
+    <div class="section compact" style="background: var(--color-bg-4);">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Распространённые ошибки</h2>
+                <p class="section-subtitle">Чего НЕ делать</p>
+            </div>
+
+            <div class="mistakes-grid">
+                <div class="mistake-card">
+                    <h3 class="mistake-title">❌ Целевое состояние слишком мечтательное</h3>
+                    <div class="mistake-row">
+                        <div class="mistake-item">
+                            <div class="mistake-item-label">Пример</div>
+                            <div class="mistake-item-text">Хотим за 1 год увеличить в 20x без инвестиций</div>
+                        </div>
+                        <div class="mistake-item">
+                            <div class="mistake-item-label">Последствие</div>
+                            <div class="mistake-item-text">Команда теряет веру, проект срывается</div>
+                        </div>
+                        <div class="mistake-item">
+                            <div class="mistake-item-label">Решение</div>
+                            <div class="mistake-item-text">Установить амбициозные, но реалистичные цели (3-5x за 3 года)</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="mistake-card">
+                    <h3 class="mistake-title">❌ Целевое состояние не ясно</h3>
+                    <div class="mistake-row">
+                        <div class="mistake-item">
+                            <div class="mistake-item-label">Пример</div>
+                            <div class="mistake-item-text">Улучшить "производительность" - что это значит?</div>
+                        </div>
+                        <div class="mistake-item">
+                            <div class="mistake-item-label">Последствие</div>
+                            <div class="mistake-item-text">Нет понимания, разные люди видят "улучшение" по-разному</div>
+                        </div>
+                        <div class="mistake-item">
+                            <div class="mistake-item-label">Решение</div>
+                            <div class="mistake-item-text">Четкие метрики: 240ч → 48ч, брак 5% → 0.5%</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="mistake-card">
+                    <h3 class="mistake-title">❌ Целевое состояние не доведено до команды</h3>
+                    <div class="mistake-row">
+                        <div class="mistake-item">
+                            <div class="mistake-item-label">Пример</div>
+                            <div class="mistake-item-text">Руководство установило цели, не рассказав команде</div>
+                        </div>
+                        <div class="mistake-item">
+                            <div class="mistake-item-label">Последствие</div>
+                            <div class="mistake-item-text">Команда не понимает, не видит смысла, саботирует</div>
+                        </div>
+                        <div class="mistake-item">
+                            <div class="mistake-item-label">Решение</div>
+                            <div class="mistake-item-text">Обычная коммуникация: зачем, куда, почему, как</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="mistake-card">
+                    <h3 class="mistake-title">❌ Целевое состояние меняется каждый месяц</h3>
+                    <div class="mistake-row">
+                        <div class="mistake-item">
+                            <div class="mistake-item-label">Пример</div>
+                            <div class="mistake-item-text">В январе цель одна, в марте другая</div>
+                        </div>
+                        <div class="mistake-item">
+                            <div class="mistake-item-label">Последствие</div>
+                            <div class="mistake-item-text">Команда теряет ориентацию, вкладывает силы неправильно</div>
+                        </div>
+                        <div class="mistake-item">
+                            <div class="mistake-item-label">Решение</div>
+                            <div class="mistake-item-text">Установить долгосрочное целевое состояние, придерживаться</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="mistake-card">
+                    <h3 class="mistake-title">❌ Целевое состояние - только внутренние метрики</h3>
+                    <div class="mistake-row">
+                        <div class="mistake-item">
+                            <div class="mistake-item-label">Пример</div>
+                            <div class="mistake-item-text">Хотим увеличить КПД - но это не дает ценность клиенту</div>
+                        </div>
+                        <div class="mistake-item">
+                            <div class="mistake-item-label">Последствие</div>
+                            <div class="mistake-item-text">Команда улучшает, но клиент недоволен</div>
+                        </div>
+                        <div class="mistake-item">
+                            <div class="mistake-item-label">Решение</div>
+                            <div class="mistake-item-text">Целевое состояние должно включать клиентскую ценность</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Target State and Strategy -->
+    <div class="section compact">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Целевое состояние и стратегия</h2>
+                <p class="section-subtitle">Связь с инструментами lean</p>
+            </div>
+
+            <div class="definition-box">
+                <p class="definition-title">🌟 Целевое состояние - это Северная звезда</p>
+                <p class="definition-text">Все инструменты lean служат одной цели - достичь целевого состояния</p>
+            </div>
+
+            <div class="strategy-flow">
+                <h3 style="text-align: center; margin-bottom: var(--space-24); font-size: var(--font-size-2xl);">Путь к целевому состоянию</h3>
+                <div class="flow-steps">
+                    <div class="flow-step">
+                        <div class="flow-step-text">1. ОПРЕДЕЛИТЬ ЦЕЛЕВОЕ СОСТОЯНИЕ</div>
+                    </div>
+                    <div class="flow-step">
+                        <div class="flow-step-text">2. ПРИМЕНИТЬ ИНСТРУМЕНТЫ (5S, Канбан, JIT и т.д.) для его достижения</div>
+                    </div>
+                    <div class="flow-step">
+                        <div class="flow-step-text">3. ИЗМЕРЯТЬ ПРОГРЕСС по направлению к целевому состоянию</div>
+                    </div>
+                    <div class="flow-step">
+                        <div class="flow-step-text">4. КОРРЕКТИРОВАТЬ ТАКТИКУ, но сохранить целевое состояние</div>
+                    </div>
+                    <div class="flow-step">
+                        <div class="flow-step-text">5. ПОВТОРИТЬ ЦИКЛ PDCA</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="chart-wrapper">
+                <h3 style="text-align: center; margin-bottom: var(--space-24);">Пример: Движение к целевому состоянию</h3>
+                <div class="chart-container">
+                    <canvas id="progressChart"></canvas>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Visualization Tools -->
+    <div class="section compact" style="background: var(--color-bg-5);">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Инструменты визуализации</h2>
+                <p class="section-subtitle">Как коммуницировать целевое состояние</p>
+            </div>
+
+            <div class="tools-grid">
+                <div class="tool-card">
+                    <div class="tool-icon">📊</div>
+                    <h3 class="tool-name">Dashboard</h3>
+                    <p class="tool-purpose">Показать текущие vs целевые метрики</p>
+                </div>
+                <div class="tool-card">
+                    <div class="tool-icon">📅</div>
+                    <h3 class="tool-name">Timeline Chart</h3>
+                    <p class="tool-purpose">Показать фазы достижения целей</p>
+                </div>
+                <div class="tool-card">
+                    <div class="tool-icon">🔄</div>
+                    <h3 class="tool-name">Before/After</h3>
+                    <p class="tool-purpose">Наглядное сравнение состояний</p>
+                </div>
+                <div class="tool-card">
+                    <div class="tool-icon">🗺️</div>
+                    <h3 class="tool-name">Process Flow</h3>
+                    <p class="tool-purpose">Показать как будет организовано в целевом состоянии</p>
+                </div>
+                <div class="tool-card">
+                    <div class="tool-icon">📈</div>
+                    <h3 class="tool-name">Gantt Chart</h3>
+                    <p class="tool-purpose">План реализации с зависимостями</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Action Items -->
+    <div class="section compact">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Ваши следующие шаги</h2>
+                <p class="section-subtitle">Что делать после презентации</p>
+            </div>
+
+            <div class="action-grid">
+                <div class="action-card">
+                    <span class="action-number">1</span>
+                    <h3 class="action-title">Собрать текущие метрики (AS-IS)</h3>
+                    <p class="action-description">Понять текущее состояние: время цикла, брак, запасы, производительность, стоимость</p>
+                </div>
+                <div class="action-card">
+                    <span class="action-number">2</span>
+                    <h3 class="action-title">Определить целевые значения (TARGET STATE)</h3>
+                    <p class="action-description">Установить амбициозные, но реалистичные цели на 3-5 лет</p>
+                </div>
+                <div class="action-card">
+                    <span class="action-number">3</span>
+                    <h3 class="action-title">Создать визуализацию (dashboard)</h3>
+                    <p class="action-description">Нарисовать текущее vs целевое, чтобы всем было понятно</p>
+                </div>
+                <div class="action-card">
+                    <span class="action-number">4</span>
+                    <h3 class="action-title">Сообщить команде (презентация, обсуждение)</h3>
+                    <p class="action-description">Объяснить зачем, куда, почему. Ответить на вопросы</p>
+                </div>
+                <div class="action-card">
+                    <span class="action-number">5</span>
+                    <h3 class="action-title">Получить buy-in (согласие, поддержка)</h3>
+                    <p class="action-description">Убедиться, что все понимают и поддерживают</p>
+                </div>
+                <div class="action-card">
+                    <span class="action-number">6</span>
+                    <h3 class="action-title">Следующий инструмент: ГЕМБА (Gemba)</h3>
+                    <p class="action-description">Пойти смотреть текущее состояние на месте</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Conclusion -->
+    <div class="section" style="background: var(--color-bg-1);">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Заключение</h2>
+            </div>
+
+            <div class="conclusion-box">
+                <p class="conclusion-text">🎯 <span class="conclusion-highlight">Целевое состояние - это компас, который направляет все наши усилия</span></p>
+                <p class="conclusion-text">💡 <span class="conclusion-highlight">Без ясного видения будущего, улучшения становятся хаотичными</span></p>
+                <p class="conclusion-text">🛠️ <span class="conclusion-highlight">Каждый инструмент lean разработан, чтобы приблизить нас к целевому состоянию</span></p>
+            </div>
+
+            <div class="next-step-box">
+                <p class="next-step-label">СЛЕДУЮЩИЙ ШАГ В ВАШЕМ ПУТЕШЕСТВИИ:</p>
+                <h3 class="next-step-title">ГЕМБА - Идти и смотреть</h3>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+        // Progress Chart
+        const ctx = document.getElementById('progressChart').getContext('2d');
+        new Chart(ctx, {
+            type: 'line',
+            data: {
+                labels: ['Старт', '3 мес', '6 мес', '9 мес', '1 год', '18 мес', '2 года', '30 мес', '3 года'],
+                datasets: [{
+                    label: 'Прогресс к целевому состоянию (%)',
+                    data: [0, 10, 25, 35, 50, 65, 80, 90, 100],
+                    borderColor: '#27AE60',
+                    backgroundColor: 'rgba(39, 174, 96, 0.1)',
+                    tension: 0.4,
+                    fill: true,
+                    pointRadius: 6,
+                    pointHoverRadius: 8,
+                    pointBackgroundColor: '#27AE60'
+                }, {
+                    label: 'Целевое состояние',
+                    data: [100, 100, 100, 100, 100, 100, 100, 100, 100],
+                    borderColor: '#3498DB',
+                    backgroundColor: 'transparent',
+                    borderDash: [10, 5],
+                    tension: 0,
+                    fill: false,
+                    pointRadius: 0
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: {
+                        display: true,
+                        position: 'top',
+                        labels: {
+                            font: { size: 14, family: 'FKGroteskNeue, sans-serif' },
+                            padding: 15
+                        }
+                    },
+                    tooltip: {
+                        backgroundColor: 'rgba(0, 0, 0, 0.8)',
+                        padding: 12,
+                        titleFont: { size: 14 },
+                        bodyFont: { size: 13 }
+                    }
+                },
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        max: 110,
+                        title: {
+                            display: true,
+                            text: 'Прогресс (%)',
+                            font: { size: 14 }
+                        },
+                        ticks: {
+                            font: { size: 12 }
+                        }
+                    },
+                    x: {
+                        ticks: {
+                            font: { size: 12 }
+                        }
+                    }
+                }
+            }
+        });
+    </script>
+</body>
+</html>

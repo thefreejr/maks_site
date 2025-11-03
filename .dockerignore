@@ -1,0 +1,15 @@
+logs/
+*.md
+.git/
+.gitignore
+.vscode/
+.idea/
+*.log
+*.py
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.DS_Store
+Thumbs.db
+

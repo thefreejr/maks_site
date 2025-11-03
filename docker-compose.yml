@@ -1,0 +1,29 @@
+version: '3.8'
+
+services:
+  nginx:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: maks_site_nginx
+    ports:
+      - "80:80"
+    volumes:
+      # Монтируем логи nginx на хост для персистентности
+      - ./logs/nginx:/var/log/nginx
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "wget", "--quiet", "--tries=1", "--spider", "http://localhost/"]
+      interval: 30s
+      timeout: 3s
+      retries: 3
+      start_period: 5s
+    # Логирование в Docker
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "3"
+    # Ограничения ресурсов (только для Docker Swarm)
+    # Для обычного docker-compose используйте --memory и --cpus при запуске
+

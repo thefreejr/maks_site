@@ -1,0 +1,866 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JUST-IN-TIME - Точно Вовремя</title>
+    <style>
+:root {
+  --color-white: rgba(255, 255, 255, 1);
+  --color-black: rgba(0, 0, 0, 1);
+  --color-cream-50: rgba(252, 252, 249, 1);
+  --color-cream-100: rgba(255, 255, 253, 1);
+  --color-gray-200: rgba(245, 245, 245, 1);
+  --color-gray-300: rgba(167, 169, 169, 1);
+  --color-gray-400: rgba(119, 124, 124, 1);
+  --color-slate-500: rgba(98, 108, 113, 1);
+  --color-brown-600: rgba(94, 82, 64, 1);
+  --color-charcoal-700: rgba(31, 33, 33, 1);
+  --color-charcoal-800: rgba(38, 40, 40, 1);
+  --color-slate-900: rgba(19, 52, 59, 1);
+  --color-teal-300: rgba(50, 184, 198, 1);
+  --color-teal-400: rgba(45, 166, 178, 1);
+  --color-teal-500: rgba(33, 128, 141, 1);
+  --color-teal-600: rgba(29, 116, 128, 1);
+  --color-teal-700: rgba(26, 104, 115, 1);
+  --color-teal-800: rgba(41, 150, 161, 1);
+  --color-red-400: rgba(255, 84, 89, 1);
+  --color-red-500: rgba(192, 21, 47, 1);
+  --color-orange-400: rgba(230, 129, 97, 1);
+  --color-orange-500: rgba(168, 75, 47, 1);
+
+  --color-brown-600-rgb: 94, 82, 64;
+  --color-teal-500-rgb: 33, 128, 141;
+  --color-slate-900-rgb: 19, 52, 59;
+  --color-slate-500-rgb: 98, 108, 113;
+  --color-red-500-rgb: 192, 21, 47;
+  --color-red-400-rgb: 255, 84, 89;
+  --color-orange-500-rgb: 168, 75, 47;
+  --color-orange-400-rgb: 230, 129, 97;
+
+  --color-bg-1: rgba(59, 130, 246, 0.08);
+  --color-bg-2: rgba(245, 158, 11, 0.08);
+  --color-bg-3: rgba(34, 197, 94, 0.08);
+  --color-bg-4: rgba(239, 68, 68, 0.08);
+  --color-bg-5: rgba(147, 51, 234, 0.08);
+  --color-bg-6: rgba(249, 115, 22, 0.08);
+  --color-bg-7: rgba(236, 72, 153, 0.08);
+  --color-bg-8: rgba(6, 182, 212, 0.08);
+
+  --color-background: var(--color-cream-50);
+  --color-surface: var(--color-cream-100);
+  --color-text: var(--color-slate-900);
+  --color-text-secondary: var(--color-slate-500);
+  --color-primary: var(--color-teal-500);
+  --color-primary-hover: var(--color-teal-600);
+  --color-primary-active: var(--color-teal-700);
+  --color-secondary: rgba(var(--color-brown-600-rgb), 0.12);
+  --color-secondary-hover: rgba(var(--color-brown-600-rgb), 0.2);
+  --color-secondary-active: rgba(var(--color-brown-600-rgb), 0.25);
+  --color-border: rgba(var(--color-brown-600-rgb), 0.2);
+  --color-btn-primary-text: var(--color-cream-50);
+  --color-card-border: rgba(var(--color-brown-600-rgb), 0.12);
+  --color-card-border-inner: rgba(var(--color-brown-600-rgb), 0.12);
+  --color-error: var(--color-red-500);
+  --color-success: var(--color-teal-500);
+  --color-warning: var(--color-orange-500);
+  --color-info: var(--color-slate-500);
+  --color-focus-ring: rgba(var(--color-teal-500-rgb), 0.4);
+
+  --font-family-base: "FKGroteskNeue", "Geist", "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  --font-size-xs: 11px;
+  --font-size-sm: 12px;
+  --font-size-base: 14px;
+  --font-size-md: 14px;
+  --font-size-lg: 16px;
+  --font-size-xl: 18px;
+  --font-size-2xl: 20px;
+  --font-size-3xl: 24px;
+  --font-size-4xl: 30px;
+  --font-weight-normal: 400;
+  --font-weight-medium: 500;
+  --font-weight-semibold: 550;
+  --font-weight-bold: 600;
+  --line-height-tight: 1.2;
+  --line-height-normal: 1.5;
+
+  --space-4: 4px;
+  --space-8: 8px;
+  --space-12: 12px;
+  --space-16: 16px;
+  --space-20: 20px;
+  --space-24: 24px;
+  --space-32: 32px;
+
+  --radius-sm: 6px;
+  --radius-base: 8px;
+  --radius-md: 10px;
+  --radius-lg: 12px;
+  --radius-full: 9999px;
+
+  --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.04), 0 1px 2px rgba(0, 0, 0, 0.02);
+  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.04), 0 2px 4px -1px rgba(0, 0, 0, 0.02);
+  --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.04), 0 4px 6px -2px rgba(0, 0, 0, 0.02);
+
+  --duration-fast: 150ms;
+  --duration-normal: 250ms;
+  --ease-standard: cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --color-gray-400-rgb: 119, 124, 124;
+    --color-teal-300-rgb: 50, 184, 198;
+    --color-gray-300-rgb: 167, 169, 169;
+    --color-gray-200-rgb: 245, 245, 245;
+
+    --color-bg-1: rgba(29, 78, 216, 0.15);
+    --color-bg-2: rgba(180, 83, 9, 0.15);
+    --color-bg-3: rgba(21, 128, 61, 0.15);
+    --color-bg-4: rgba(185, 28, 28, 0.15);
+    --color-bg-5: rgba(107, 33, 168, 0.15);
+    --color-bg-6: rgba(194, 65, 12, 0.15);
+    --color-bg-7: rgba(190, 24, 93, 0.15);
+    --color-bg-8: rgba(8, 145, 178, 0.15);
+
+    --color-background: var(--color-charcoal-700);
+    --color-surface: var(--color-charcoal-800);
+    --color-text: var(--color-gray-200);
+    --color-text-secondary: rgba(var(--color-gray-300-rgb), 0.7);
+    --color-primary: var(--color-teal-300);
+    --color-primary-hover: var(--color-teal-400);
+    --color-primary-active: var(--color-teal-800);
+    --color-secondary: rgba(var(--color-gray-400-rgb), 0.15);
+    --color-secondary-hover: rgba(var(--color-gray-400-rgb), 0.25);
+    --color-secondary-active: rgba(var(--color-gray-400-rgb), 0.3);
+    --color-border: rgba(var(--color-gray-400-rgb), 0.3);
+    --color-error: var(--color-red-400);
+    --color-success: var(--color-teal-300);
+    --color-warning: var(--color-orange-400);
+    --color-info: var(--color-gray-300);
+    --color-focus-ring: rgba(var(--color-teal-300-rgb), 0.4);
+    --color-btn-primary-text: var(--color-slate-900);
+    --color-card-border: rgba(var(--color-gray-400-rgb), 0.2);
+    --color-card-border-inner: rgba(var(--color-gray-400-rgb), 0.15);
+  }
+}
+
+@font-face {
+  font-family: 'FKGroteskNeue';
+  src: url('https://r2cdn.perplexity.ai/fonts/FKGroteskNeue.woff2') format('woff2');
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: var(--font-family-base);
+    background-color: var(--color-background);
+    color: var(--color-text);
+    line-height: var(--line-height-normal);
+    scroll-behavior: smooth;
+}
+
+.container {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 0 var(--space-32);
+}
+
+.section {
+    padding: 80px 0;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+}
+
+.section.compact {
+    min-height: auto;
+    padding: 60px 0;
+}
+
+/* Hero Section */
+.hero {
+    background: var(--color-bg-8);
+    position: relative;
+    overflow: hidden;
+}
+
+.hero-content {
+    text-align: center;
+}
+
+.hero-icon {
+    font-size: 100px;
+    margin-bottom: var(--space-24);
+}
+
+.hero-title {
+    font-size: 120px;
+    font-weight: var(--font-weight-bold);
+    margin-bottom: var(--space-16);
+    letter-spacing: 0.05em;
+    color: var(--color-primary);
+}
+
+.hero-japanese {
+    font-size: 48px;
+    color: var(--color-text);
+    margin-bottom: var(--space-12);
+}
+
+.hero-subtitle {
+    font-size: var(--font-size-3xl);
+    color: var(--color-text);
+    margin-bottom: var(--space-12);
+    font-weight: var(--font-weight-semibold);
+}
+
+.hero-translation {
+    font-size: var(--font-size-xl);
+    color: var(--color-text-secondary);
+    margin-bottom: var(--space-32);
+    font-style: italic;
+}
+
+.hero-message {
+    font-size: var(--font-size-2xl);
+    color: var(--color-text);
+    font-weight: var(--font-weight-bold);
+    padding: var(--space-32);
+    background: var(--color-surface);
+    border-radius: var(--radius-lg);
+    border-left: 6px solid var(--color-success);
+    max-width: 900px;
+    margin: var(--space-32) auto;
+    box-shadow: var(--shadow-lg);
+}
+
+.hero-tagline {
+    font-size: var(--font-size-2xl);
+    color: var(--color-primary);
+    margin-top: var(--space-24);
+    font-weight: var(--font-weight-bold);
+}
+
+.hero-quote {
+    font-size: var(--font-size-xl);
+    color: var(--color-warning);
+    margin-top: var(--space-16);
+    font-style: italic;
+    font-weight: var(--font-weight-medium);
+}
+
+/* Wave Visualization */
+.wave-comparison {
+    display: flex;
+    gap: var(--space-32);
+    align-items: center;
+    margin: var(--space-32) 0;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.wave-box {
+    flex: 1;
+    min-width: 300px;
+    padding: var(--space-32);
+    background: var(--color-surface);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-md);
+}
+
+.wave-box.chaotic {
+    border-top: 6px solid var(--color-error);
+}
+
+.wave-box.smooth {
+    border-top: 6px solid var(--color-success);
+}
+
+.wave-title {
+    font-size: var(--font-size-2xl);
+    font-weight: var(--font-weight-bold);
+    margin-bottom: var(--space-16);
+    text-align: center;
+}
+
+.wave-box.chaotic .wave-title {
+    color: var(--color-error);
+}
+
+.wave-box.smooth .wave-title {
+    color: var(--color-success);
+}
+
+/* Section Headers */
+.section-header {
+    text-align: center;
+    margin-bottom: var(--space-32);
+}
+
+.section-title {
+    font-size: 48px;
+    font-weight: var(--font-weight-bold);
+    margin-bottom: var(--space-16);
+    color: var(--color-primary);
+}
+
+.section-subtitle {
+    font-size: var(--font-size-2xl);
+    color: var(--color-text-secondary);
+}
+
+/* Definition Box */
+.definition-box {
+    background-color: var(--color-surface);
+    border-left: 6px solid var(--color-primary);
+    padding: var(--space-32);
+    border-radius: var(--radius-lg);
+    margin-bottom: var(--space-32);
+    box-shadow: var(--shadow-md);
+}
+
+.definition-text {
+    font-size: var(--font-size-xl);
+    line-height: 1.6;
+    margin-bottom: var(--space-16);
+}
+
+.definition-text:last-child {
+    margin-bottom: 0;
+}
+
+/* Info Grid */
+.info-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: var(--space-20);
+    margin: var(--space-32) 0;
+}
+
+.info-card {
+    background: var(--color-surface);
+    border-radius: var(--radius-lg);
+    padding: var(--space-24);
+    box-shadow: var(--shadow-md);
+    border-top: 4px solid var(--color-primary);
+}
+
+.info-label {
+    font-size: var(--font-size-sm);
+    color: var(--color-text-secondary);
+    text-transform: uppercase;
+    font-weight: var(--font-weight-medium);
+    margin-bottom: var(--space-8);
+}
+
+.info-value {
+    font-size: var(--font-size-xl);
+    font-weight: var(--font-weight-bold);
+    color: var(--color-text);
+}
+
+/* Comparison */
+.comparison {
+    display: grid;
+    grid-template-columns: 1fr auto 1fr;
+    gap: var(--space-32);
+    align-items: center;
+    margin: var(--space-32) 0;
+}
+
+.comparison-column {
+    padding: var(--space-24);
+    border-radius: var(--radius-lg);
+    border: 3px solid;
+}
+
+.comparison-column.before {
+    border-color: var(--color-error);
+    background: var(--color-bg-4);
+}
+
+.comparison-column.after {
+    border-color: var(--color-success);
+    background: var(--color-bg-3);
+}
+
+.comparison-header {
+    font-size: var(--font-size-2xl);
+    font-weight: var(--font-weight-bold);
+    margin-bottom: var(--space-16);
+    padding-bottom: var(--space-12);
+    border-bottom: 3px solid;
+}
+
+.comparison-column.before .comparison-header {
+    color: var(--color-error);
+    border-color: var(--color-error);
+}
+
+.comparison-column.after .comparison-header {
+    color: var(--color-success);
+    border-color: var(--color-success);
+}
+
+.comparison-arrow {
+    font-size: 48px;
+    color: var(--color-primary);
+}
+
+.comparison-list {
+    list-style: none;
+}
+
+.comparison-list li {
+    padding: var(--space-12);
+    margin-bottom: var(--space-8);
+    background: var(--color-surface);
+    border-radius: var(--radius-sm);
+}
+
+/* Benefits Container */
+.benefits-container {
+    display: grid;
+    gap: var(--space-24);
+    margin: var(--space-32) 0;
+}
+
+.benefit-category {
+    background: var(--color-surface);
+    border-radius: var(--radius-lg);
+    padding: var(--space-24);
+    box-shadow: var(--shadow-md);
+    border-left: 6px solid var(--color-primary);
+}
+
+.benefit-category h3 {
+    font-size: var(--font-size-2xl);
+    font-weight: var(--font-weight-bold);
+    color: var(--color-primary);
+    margin-bottom: var(--space-16);
+}
+
+.benefit-category ul {
+    list-style: none;
+}
+
+.benefit-category li {
+    padding: var(--space-12);
+    margin-bottom: var(--space-8);
+    background: var(--color-bg-1);
+    border-radius: var(--radius-sm);
+}
+
+/* Implementation Steps */
+.steps-container {
+    margin: var(--space-32) 0;
+}
+
+.step-item {
+    background: var(--color-surface);
+    border-radius: var(--radius-lg);
+    padding: var(--space-24);
+    margin-bottom: var(--space-16);
+    box-shadow: var(--shadow-md);
+    border-left: 6px solid var(--color-primary);
+    cursor: pointer;
+    transition: all var(--duration-normal);
+}
+
+.step-item:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-lg);
+}
+
+.step-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.step-title {
+    font-size: var(--font-size-xl);
+    font-weight: var(--font-weight-bold);
+    color: var(--color-primary);
+}
+
+.step-icon {
+    font-size: var(--font-size-2xl);
+    transition: transform var(--duration-normal);
+}
+
+.step-item.expanded .step-icon {
+    transform: rotate(180deg);
+}
+
+.step-content {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height var(--duration-normal);
+}
+
+.step-item.expanded .step-content {
+    max-height: 800px;
+    margin-top: var(--space-16);
+}
+
+.step-content ul {
+    list-style: none;
+}
+
+.step-content li {
+    padding: var(--space-8);
+    margin-bottom: var(--space-4);
+    background: var(--color-bg-1);
+    border-radius: var(--radius-sm);
+}
+
+/* Metrics Grid */
+.metrics-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: var(--space-20);
+    margin: var(--space-32) 0;
+}
+
+.metric-card {
+    background: var(--color-surface);
+    border-radius: var(--radius-lg);
+    padding: var(--space-24);
+    box-shadow: var(--shadow-md);
+    text-align: center;
+}
+
+.metric-icon {
+    font-size: 36px;
+    margin-bottom: var(--space-12);
+}
+
+.metric-name {
+    font-size: var(--font-size-lg);
+    font-weight: var(--font-weight-bold);
+    color: var(--color-primary);
+    margin-bottom: var(--space-8);
+}
+
+.metric-value {
+    font-size: var(--font-size-base);
+    color: var(--color-text-secondary);
+}
+
+/* Connection Grid */
+.connection-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: var(--space-20);
+    margin: var(--space-32) 0;
+}
+
+.connection-card {
+    background: var(--color-surface);
+    padding: var(--space-20);
+    border-radius: var(--radius-base);
+    border-left: 4px solid var(--color-primary);
+    box-shadow: var(--shadow-sm);
+}
+
+.connection-tool {
+    font-size: var(--font-size-lg);
+    font-weight: var(--font-weight-bold);
+    color: var(--color-primary);
+    margin-bottom: var(--space-8);
+}
+
+/* Quote Box */
+.quote-box {
+    background: var(--color-surface);
+    border-left: 6px solid var(--color-warning);
+    border-radius: var(--radius-lg);
+    padding: var(--space-32);
+    margin: var(--space-32) 0;
+    box-shadow: var(--shadow-lg);
+    text-align: center;
+}
+
+.quote-text {
+    font-size: var(--font-size-3xl);
+    font-style: italic;
+    color: var(--color-text);
+    margin-bottom: var(--space-16);
+    line-height: 1.6;
+}
+
+.quote-author {
+    font-size: var(--font-size-xl);
+    color: var(--color-warning);
+    font-weight: var(--font-weight-bold);
+}
+
+/* Conclusion Box */
+.conclusion-box {
+    background: var(--color-bg-3);
+    padding: var(--space-32);
+    border-radius: var(--radius-lg);
+    text-align: center;
+    margin: var(--space-32) 0;
+    border: 3px solid var(--color-primary);
+}
+
+.conclusion-text {
+    font-size: var(--font-size-2xl);
+    line-height: 1.8;
+    margin-bottom: var(--space-16);
+    font-weight: var(--font-weight-medium);
+}
+
+/* Mistakes Grid */
+.mistakes-grid {
+    display: grid;
+    gap: var(--space-20);
+    margin: var(--space-32) 0;
+}
+
+.mistake-card {
+    background: var(--color-surface);
+    border-left: 4px solid var(--color-error);
+    border-radius: var(--radius-lg);
+    padding: var(--space-24);
+    box-shadow: var(--shadow-sm);
+}
+
+.mistake-title {
+    font-size: var(--font-size-xl);
+    font-weight: var(--font-weight-semibold);
+    color: var(--color-error);
+    margin-bottom: var(--space-12);
+}
+
+.mistake-comparison {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: var(--space-16);
+    margin-top: var(--space-12);
+}
+
+.mistake-wrong {
+    background: var(--color-bg-4);
+    padding: var(--space-12);
+    border-radius: var(--radius-base);
+    border-left: 3px solid var(--color-error);
+}
+
+.mistake-right {
+    background: var(--color-bg-3);
+    padding: var(--space-12);
+    border-radius: var(--radius-base);
+    border-left: 3px solid var(--color-success);
+}
+
+.mistake-result {
+    background: var(--color-bg-1);
+    padding: var(--space-12);
+    border-radius: var(--radius-base);
+    border-left: 3px solid var(--color-primary);
+    font-weight: var(--font-weight-bold);
+}
+
+/* Responsive */
+@media (max-width: 1024px) {
+    .hero-title { font-size: 80px; }
+    .comparison,
+    .mistake-comparison {
+        grid-template-columns: 1fr;
+        gap: var(--space-16);
+    }
+    .comparison-arrow {
+        transform: rotate(90deg);
+    }
+}
+
+@media (max-width: 768px) {
+    .hero-title { font-size: 60px; }
+    .hero-japanese { font-size: 32px; }
+    .section-title { font-size: 36px; }
+    .container { padding: 0 var(--space-16); }
+    .section { padding: 40px 0; }
+    .section.compact { padding: 30px 0; }
+    .wave-comparison { flex-direction: column; }
+}
+    </style>
+</head>
+<body>
+    <!-- Hero Section -->
+    <div class="hero section">
+        <div class="container">
+            <div class="hero-content">
+                <div class="hero-icon">⚡</div>
+                <h1 class="hero-title">JUST-IN-TIME</h1>
+                <div class="hero-japanese">ジャストインタイム</div>
+                <p class="hero-subtitle">Точно Вовремя - Производи только что нужно, когда это нужно</p>
+                <p class="hero-translation">Just-In-Time / Pull System</p>
+                
+                <div class="wave-comparison">
+                    <div class="wave-box chaotic">
+                        <div class="wave-title">❌ PUSH (Традиционный)</div>
+                        <div style="text-align: center; padding: var(--space-24);">
+                            <div style="font-size: 48px; margin-bottom: var(--space-12);">📦📦📦📦</div>
+                            <p style="font-weight: var(--font-weight-bold); color: var(--color-error);">Огромные склады</p>
+                        </div>
+                    </div>
+                    
+                    <div class="wave-box smooth">
+                        <div class="wave-title">✓ PULL (JIT)</div>
+                        <div style="text-align: center; padding: var(--space-24);">
+                            <div style="font-size: 48px; margin-bottom: var(--space-12);">🏭→📦→👤</div>
+                            <p style="font-weight: var(--font-weight-bold); color: var(--color-success);">Идеальный поток</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="hero-message">
+                    Ноль складов, ноль отходов, идеальный поток
+                </div>
+                <p class="hero-tagline">От push к pull - революция в производстве</p>
+                <p class="hero-quote">"Produce exactly what is needed, no more, no less" — Taiichi Ohno</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- What is JIT -->
+    <div class="section compact">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Что такое Just-In-Time?</h2>
+                <p class="section-subtitle">Определение</p>
+            </div>
+
+            <div class="definition-box">
+                <p class="definition-text"><strong>Just-In-Time (JIT) - это философия производства, при которой материалы, детали и готовая продукция поступают в нужном количестве, в нужное место, в нужное время</strong></p>
+                <p class="definition-text" style="font-size: var(--font-size-lg); color: var(--color-text-secondary); margin-top: var(--space-16);">"Just" = exactly right, "In Time" = at the right moment</p>
+            </div>
+
+            <div class="info-grid">
+                <div class="info-card">
+                    <div class="info-label">Создатель</div>
+                    <div class="info-value">Taiichi Ohno (Toyota, 1950s-1970s)</div>
+                </div>
+                <div class="info-card">
+                    <div class="info-label">Происхождение</div>
+                    <div class="info-value">Post-WWII Japan - дефицит ресурсов</div>
+                </div>
+                <div class="info-card">
+                    <div class="info-label">Философия</div>
+                    <div class="info-value" style="color: var(--color-primary);">Don't make anything until customer asks</div>
+                </div>
+                <div class="info-card">
+                    <div class="info-label">Цель</div>
+                    <div class="info-value">Zero inventory, perfect flow</div>
+                </div>
+                <div class="info-card">
+                    <div class="info-label">НЕ о</div>
+                    <div class="info-value">Скорости (может быть медленнее)</div>
+                </div>
+                <div class="info-card">
+                    <div class="info-label">О</div>
+                    <div class="info-value" style="color: var(--color-success);">Эффективности и устранении отходов</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Problem: Traditional Push -->
+    <div class="section compact" style="background: var(--color-bg-4);">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Проблема: Традиционная система "PUSH"</h2>
+                <p class="section-subtitle">Прогнозирование и перепроизводство</p>
+            </div>
+
+            <div class="definition-box" style="border-color: var(--color-error);">
+                <h3 style="font-size: var(--font-size-2xl); color: var(--color-error); margin-bottom: var(--space-16);">Традиционная система "PUSH":</h3>
+                <ul style="list-style: none; padding: 0;">
+                    <li style="padding: var(--space-8); margin-bottom: var(--space-8); background: var(--color-bg-4); border-radius: var(--radius-sm);">1. Прогнозировать будущий спрос (часто ошибочно)</li>
+                    <li style="padding: var(--space-8); margin-bottom: var(--space-8); background: var(--color-bg-4); border-radius: var(--radius-sm);">2. Производить на основе прогноза</li>
+                    <li style="padding: var(--space-8); margin-bottom: var(--space-8); background: var(--color-bg-4); border-radius: var(--radius-sm);">3. Строить большие запасы</li>
+                    <li style="padding: var(--space-8); margin-bottom: var(--space-8); background: var(--color-bg-4); border-radius: var(--radius-sm);">4. Пытаться "продать" запасы</li>
+                    <li style="padding: var(--space-12); margin-top: var(--space-16); background: var(--color-error); color: white; border-radius: var(--radius-base); font-weight: var(--font-weight-bold); text-align: center;">❌ Проблема: Прогноз часто неверен!</li>
+                </ul>
+            </div>
+
+            <div style="background: var(--color-surface); padding: var(--space-32); border-radius: var(--radius-lg); box-shadow: var(--shadow-md); margin-top: var(--space-32);">
+                <h3 style="text-align: center; font-size: var(--font-size-2xl); color: var(--color-error); margin-bottom: var(--space-24);">Результаты PUSH системы:</h3>
+                <div class="info-grid">
+                    <div class="info-card" style="background: var(--color-bg-4); border-color: var(--color-error);">
+                        <div class="info-label">Слишком много запасов</div>
+                        <div class="info-value" style="color: var(--color-error);">Когда спрос низкий</div>
+                        <div style="margin-top: var(--space-8); font-size: var(--font-size-sm);">Стоимость + отходы</div>
+                    </div>
+                    <div class="info-card" style="background: var(--color-bg-4); border-color: var(--color-error);">
+                        <div class="info-label">Недостаточно запасов</div>
+                        <div class="info-value" style="color: var(--color-error);">Когда спрос высокий</div>
+                        <div style="margin-top: var(--space-8); font-size: var(--font-size-sm);">Дефицит товара</div>
+                    </div>
+                    <div class="info-card" style="background: var(--color-bg-4); border-color: var(--color-error);">
+                        <div class="info-label">Деньги заморожены</div>
+                        <div class="info-value" style="color: var(--color-error);">В запасах</div>
+                        <div style="margin-top: var(--space-8); font-size: var(--font-size-sm);">Не доступны для инвестиций</div>
+                    </div>
+                    <div class="info-card" style="background: var(--color-bg-4); border-color: var(--color-error);">
+                        <div class="info-label">Устаревание</div>
+                        <div class="info-value" style="color: var(--color-error);">Продукты устаревают</div>
+                        <div style="margin-top: var(--space-8); font-size: var(--font-size-sm);">Мода, техника, сезонность</div>
+                    </div>
+                    <div class="info-card" style="background: var(--color-bg-4); border-color: var(--color-error);">
+                        <div class="info-label">Высокие затраты</div>
+                        <div class="info-value" style="color: var(--color-error);">На хранение</div>
+                        <div style="margin-top: var(--space-8); font-size: var(--font-size-sm);">Склады, логистика</div>
+                    </div>
+                    <div class="info-card" style="background: var(--color-bg-4); border-color: var(--color-error);">
+                        <div class="info-label">Высокие отходы</div>
+                        <div class="info-value" style="color: var(--color-error);">Истекшие/поврежденные</div>
+                        <div style="margin-top: var(--space-8); font-size: var(--font-size-sm);">Товары на свалку</div>
+                    </div>
+                </div>
+
+                <div style="margin-top: var(--space-32); padding: var(--space-24); background: var(--color-bg-2); border-radius: var(--radius-base);">
+                    <h4 style="text-align: center; font-size: var(--font-size-2xl); color: var(--color-warning); margin-bottom: var(--space-16);">👔 Реальный пример: Красные рубашки</h4>
+                    <div class="info-grid">
+                        <div class="info-card" style="background: var(--color-surface);">
+                            <div class="info-label">Прогноз</div>
+                            <div class="info-value">1000 рубашек</div>
+                        </div>
+                        <div class="info-card" style="background: var(--color-surface);">
+                            <div class="info-label">Производство</div>
+                            <div class="info-value" style="color: var(--color-error);">5000 рубашек</div>
+                        </div>
+                        <div class="info-card" style="background: var(--color-surface);">
+                            <div class="info-label">Реальный спрос</div>
+                            <div class="info-value">500 рубашек</div>
+                        </div>
+                        <div class="info-card" style="background: var(--color-surface);">
+                            <div class="info-label">Потеря</div>
+                            <div class="info-value" style="color: var(--color-error);">$90,000</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function toggleStep(stepItem) {
+            stepItem.classList.toggle('expanded');
+        }
+
+        window.addEventListener('DOMContentLoaded', function() {
+            const firstStep = document.querySelector('.step-item');
+            if (firstStep) {
+                firstStep.classList.add('expanded');
+            }
+        });
+    </script>

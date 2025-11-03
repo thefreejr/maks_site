@@ -1,0 +1,2071 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ТРМ - Всеобщий уход за оборудованием | Total Productive Maintenance</title>
+    <style>
+:root {
+  --color-white: rgba(255, 255, 255, 1);
+  --color-black: rgba(0, 0, 0, 1);
+  --color-cream-50: rgba(252, 252, 249, 1);
+  --color-cream-100: rgba(255, 255, 253, 1);
+  --color-gray-200: rgba(245, 245, 245, 1);
+  --color-gray-300: rgba(167, 169, 169, 1);
+  --color-gray-400: rgba(119, 124, 124, 1);
+  --color-slate-500: rgba(98, 108, 113, 1);
+  --color-brown-600: rgba(94, 82, 64, 1);
+  --color-charcoal-700: rgba(31, 33, 33, 1);
+  --color-charcoal-800: rgba(38, 40, 40, 1);
+  --color-slate-900: rgba(19, 52, 59, 1);
+  --color-teal-300: rgba(50, 184, 198, 1);
+  --color-teal-400: rgba(45, 166, 178, 1);
+  --color-teal-500: rgba(33, 128, 141, 1);
+  --color-teal-600: rgba(29, 116, 128, 1);
+  --color-teal-700: rgba(26, 104, 115, 1);
+  --color-teal-800: rgba(41, 150, 161, 1);
+  --color-red-400: rgba(255, 84, 89, 1);
+  --color-red-500: rgba(192, 21, 47, 1);
+  --color-orange-400: rgba(230, 129, 97, 1);
+  --color-orange-500: rgba(168, 75, 47, 1);
+
+  --color-brown-600-rgb: 94, 82, 64;
+  --color-teal-500-rgb: 33, 128, 141;
+  --color-slate-900-rgb: 19, 52, 59;
+  --color-slate-500-rgb: 98, 108, 113;
+  --color-red-500-rgb: 192, 21, 47;
+  --color-red-400-rgb: 255, 84, 89;
+  --color-orange-500-rgb: 168, 75, 47;
+  --color-orange-400-rgb: 230, 129, 97;
+
+  --color-bg-1: rgba(59, 130, 246, 0.08);
+  --color-bg-2: rgba(245, 158, 11, 0.08);
+  --color-bg-3: rgba(34, 197, 94, 0.08);
+  --color-bg-4: rgba(239, 68, 68, 0.08);
+  --color-bg-5: rgba(147, 51, 234, 0.08);
+  --color-bg-6: rgba(249, 115, 22, 0.08);
+  --color-bg-7: rgba(236, 72, 153, 0.08);
+  --color-bg-8: rgba(6, 182, 212, 0.08);
+
+  --color-background: var(--color-cream-50);
+  --color-surface: var(--color-cream-100);
+  --color-text: var(--color-slate-900);
+  --color-text-secondary: var(--color-slate-500);
+  --color-primary: var(--color-teal-500);
+  --color-primary-hover: var(--color-teal-600);
+  --color-primary-active: var(--color-teal-700);
+  --color-secondary: rgba(var(--color-brown-600-rgb), 0.12);
+  --color-secondary-hover: rgba(var(--color-brown-600-rgb), 0.2);
+  --color-secondary-active: rgba(var(--color-brown-600-rgb), 0.25);
+  --color-border: rgba(var(--color-brown-600-rgb), 0.2);
+  --color-btn-primary-text: var(--color-cream-50);
+  --color-card-border: rgba(var(--color-brown-600-rgb), 0.12);
+  --color-card-border-inner: rgba(var(--color-brown-600-rgb), 0.12);
+  --color-error: var(--color-red-500);
+  --color-success: var(--color-teal-500);
+  --color-warning: var(--color-orange-500);
+  --color-info: var(--color-slate-500);
+  --color-focus-ring: rgba(var(--color-teal-500-rgb), 0.4);
+
+  --font-family-base: "FKGroteskNeue", "Geist", "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  --font-size-xs: 11px;
+  --font-size-sm: 12px;
+  --font-size-base: 14px;
+  --font-size-md: 14px;
+  --font-size-lg: 16px;
+  --font-size-xl: 18px;
+  --font-size-2xl: 20px;
+  --font-size-3xl: 24px;
+  --font-size-4xl: 30px;
+  --font-weight-normal: 400;
+  --font-weight-medium: 500;
+  --font-weight-semibold: 550;
+  --font-weight-bold: 600;
+  --line-height-tight: 1.2;
+  --line-height-normal: 1.5;
+
+  --space-4: 4px;
+  --space-8: 8px;
+  --space-12: 12px;
+  --space-16: 16px;
+  --space-20: 20px;
+  --space-24: 24px;
+  --space-32: 32px;
+
+  --radius-sm: 6px;
+  --radius-base: 8px;
+  --radius-md: 10px;
+  --radius-lg: 12px;
+  --radius-full: 9999px;
+
+  --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.04), 0 1px 2px rgba(0, 0, 0, 0.02);
+  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.04), 0 2px 4px -1px rgba(0, 0, 0, 0.02);
+  --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.04), 0 4px 6px -2px rgba(0, 0, 0, 0.02);
+
+  --duration-fast: 150ms;
+  --duration-normal: 250ms;
+  --ease-standard: cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --color-gray-400-rgb: 119, 124, 124;
+    --color-teal-300-rgb: 50, 184, 198;
+    --color-gray-300-rgb: 167, 169, 169;
+    --color-gray-200-rgb: 245, 245, 245;
+
+    --color-bg-1: rgba(29, 78, 216, 0.15);
+    --color-bg-2: rgba(180, 83, 9, 0.15);
+    --color-bg-3: rgba(21, 128, 61, 0.15);
+    --color-bg-4: rgba(185, 28, 28, 0.15);
+    --color-bg-5: rgba(107, 33, 168, 0.15);
+    --color-bg-6: rgba(194, 65, 12, 0.15);
+    --color-bg-7: rgba(190, 24, 93, 0.15);
+    --color-bg-8: rgba(8, 145, 178, 0.15);
+
+    --color-background: var(--color-charcoal-700);
+    --color-surface: var(--color-charcoal-800);
+    --color-text: var(--color-gray-200);
+    --color-text-secondary: rgba(var(--color-gray-300-rgb), 0.7);
+    --color-primary: var(--color-teal-300);
+    --color-primary-hover: var(--color-teal-400);
+    --color-primary-active: var(--color-teal-800);
+    --color-secondary: rgba(var(--color-gray-400-rgb), 0.15);
+    --color-secondary-hover: rgba(var(--color-gray-400-rgb), 0.25);
+    --color-secondary-active: rgba(var(--color-gray-400-rgb), 0.3);
+    --color-border: rgba(var(--color-gray-400-rgb), 0.3);
+    --color-error: var(--color-red-400);
+    --color-success: var(--color-teal-300);
+    --color-warning: var(--color-orange-400);
+    --color-info: var(--color-gray-300);
+    --color-focus-ring: rgba(var(--color-teal-300-rgb), 0.4);
+    --color-btn-primary-text: var(--color-slate-900);
+    --color-card-border: rgba(var(--color-gray-400-rgb), 0.2);
+    --color-card-border-inner: rgba(var(--color-gray-400-rgb), 0.15);
+  }
+}
+
+@font-face {
+  font-family: 'FKGroteskNeue';
+  src: url('https://r2cdn.perplexity.ai/fonts/FKGroteskNeue.woff2') format('woff2');
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: var(--font-family-base);
+    background-color: var(--color-background);
+    color: var(--color-text);
+    line-height: var(--line-height-normal);
+    scroll-behavior: smooth;
+}
+
+.container {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 0 var(--space-32);
+}
+
+.section {
+    padding: 80px 0;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+}
+
+.section.compact {
+    min-height: auto;
+    padding: 60px 0;
+}
+
+/* Hero Section */
+.hero {
+    text-align: center;
+    background: var(--color-bg-1);
+    position: relative;
+    overflow: hidden;
+}
+
+.hero::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: radial-gradient(circle at 50% 50%, rgba(33, 128, 141, 0.1) 0%, transparent 70%);
+    pointer-events: none;
+}
+
+.hero-content {
+    position: relative;
+    z-index: 1;
+}
+
+.hero-icon {
+    font-size: 100px;
+    margin-bottom: var(--space-16);
+}
+
+.hero-title {
+    font-size: 90px;
+    font-weight: var(--font-weight-bold);
+    margin-bottom: var(--space-16);
+    letter-spacing: 0.05em;
+    color: var(--color-primary);
+}
+
+.hero-subtitle {
+    font-size: var(--font-size-3xl);
+    color: var(--color-text);
+    margin-bottom: var(--space-12);
+    font-weight: var(--font-weight-semibold);
+}
+
+.hero-english {
+    font-size: var(--font-size-xl);
+    color: var(--color-text-secondary);
+    margin-bottom: var(--space-16);
+    font-style: italic;
+}
+
+.hero-japanese {
+    font-size: var(--font-size-lg);
+    color: var(--color-text-secondary);
+    margin-bottom: var(--space-32);
+}
+
+.hero-message {
+    font-size: var(--font-size-2xl);
+    color: var(--color-text);
+    font-weight: var(--font-weight-semibold);
+    margin-top: var(--space-32);
+    padding: var(--space-32);
+    background: var(--color-surface);
+    border-radius: var(--radius-lg);
+    border-left: 6px solid var(--color-primary);
+    max-width: 900px;
+    margin-left: auto;
+    margin-right: auto;
+    box-shadow: var(--shadow-lg);
+}
+
+.hero-tagline {
+    font-size: var(--font-size-xl);
+    color: var(--color-primary);
+    margin-top: var(--space-24);
+    font-weight: var(--font-weight-medium);
+}
+
+/* Section Headers */
+.section-header {
+    text-align: center;
+    margin-bottom: var(--space-32);
+}
+
+.section-title {
+    font-size: 48px;
+    font-weight: var(--font-weight-bold);
+    margin-bottom: var(--space-16);
+    color: var(--color-primary);
+}
+
+.section-subtitle {
+    font-size: var(--font-size-2xl);
+    color: var(--color-text-secondary);
+}
+
+/* Definition Box */
+.definition-box {
+    background-color: var(--color-surface);
+    border-left: 6px solid var(--color-primary);
+    padding: var(--space-32);
+    border-radius: var(--radius-lg);
+    margin-bottom: var(--space-24);
+    box-shadow: var(--shadow-md);
+}
+
+.definition-text {
+    font-size: var(--font-size-xl);
+    line-height: 1.6;
+    margin-bottom: var(--space-16);
+}
+
+.definition-text:last-child {
+    margin-bottom: 0;
+}
+
+/* Cost Breakdown */
+.cost-container {
+    background: var(--color-surface);
+    border-radius: var(--radius-lg);
+    padding: var(--space-32);
+    margin: var(--space-32) 0;
+    box-shadow: var(--shadow-md);
+}
+
+.cost-comparison {
+    display: grid;
+    grid-template-columns: 1fr auto 1fr;
+    gap: var(--space-32);
+    align-items: center;
+    margin: var(--space-24) 0;
+}
+
+.cost-column {
+    padding: var(--space-24);
+    border-radius: var(--radius-lg);
+    border: 3px solid;
+}
+
+.cost-column.traditional {
+    border-color: var(--color-error);
+    background: var(--color-bg-4);
+}
+
+.cost-column.tpm {
+    border-color: var(--color-success);
+    background: var(--color-bg-3);
+}
+
+.cost-header {
+    font-size: var(--font-size-2xl);
+    font-weight: var(--font-weight-bold);
+    margin-bottom: var(--space-16);
+    padding-bottom: var(--space-12);
+    border-bottom: 3px solid;
+}
+
+.cost-column.traditional .cost-header {
+    color: var(--color-error);
+    border-color: var(--color-error);
+}
+
+.cost-column.tpm .cost-header {
+    color: var(--color-success);
+    border-color: var(--color-success);
+}
+
+.cost-arrow {
+    font-size: 48px;
+    color: var(--color-primary);
+}
+
+.cost-list {
+    list-style: none;
+}
+
+.cost-list li {
+    padding: var(--space-12);
+    margin-bottom: var(--space-8);
+    background: var(--color-surface);
+    border-radius: var(--radius-sm);
+    font-size: var(--font-size-base);
+}
+
+.cost-example {
+    background: var(--color-bg-2);
+    padding: var(--space-24);
+    border-radius: var(--radius-base);
+    margin-top: var(--space-24);
+}
+
+.cost-example h4 {
+    color: var(--color-primary);
+    margin-bottom: var(--space-12);
+    font-size: var(--font-size-xl);
+}
+
+.results-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: var(--space-16);
+    margin-top: var(--space-16);
+}
+
+.result-item {
+    background: var(--color-bg-3);
+    padding: var(--space-16);
+    border-radius: var(--radius-base);
+    text-align: center;
+    font-weight: var(--font-weight-semibold);
+    border: 2px solid var(--color-success);
+}
+
+/* OEE Calculator */
+.oee-container {
+    background: var(--color-surface);
+    border-radius: var(--radius-lg);
+    padding: var(--space-32);
+    margin: var(--space-32) 0;
+    box-shadow: var(--shadow-md);
+}
+
+.oee-formula {
+    background: var(--color-bg-1);
+    padding: var(--space-24);
+    border-radius: var(--radius-base);
+    text-align: center;
+    font-size: var(--font-size-3xl);
+    font-weight: var(--font-weight-bold);
+    color: var(--color-primary);
+    margin-bottom: var(--space-24);
+}
+
+.oee-components {
+    display: grid;
+    gap: var(--space-20);
+    margin-bottom: var(--space-24);
+}
+
+.oee-component {
+    background: var(--color-background);
+    padding: var(--space-20);
+    border-radius: var(--radius-base);
+    border-left: 4px solid var(--color-primary);
+}
+
+.oee-component h4 {
+    color: var(--color-primary);
+    margin-bottom: var(--space-8);
+    font-size: var(--font-size-lg);
+}
+
+.oee-calculator {
+    background: var(--color-bg-2);
+    padding: var(--space-24);
+    border-radius: var(--radius-base);
+    margin-bottom: var(--space-24);
+}
+
+.oee-inputs {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: var(--space-16);
+    margin-bottom: var(--space-20);
+}
+
+.oee-input-group {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-8);
+}
+
+.oee-input-group label {
+    font-weight: var(--font-weight-semibold);
+    font-size: var(--font-size-sm);
+}
+
+.oee-input-group input {
+    padding: var(--space-8) var(--space-12);
+    border: 2px solid var(--color-border);
+    border-radius: var(--radius-base);
+    font-size: var(--font-size-base);
+    background: var(--color-surface);
+    color: var(--color-text);
+}
+
+.oee-result {
+    text-align: center;
+    padding: var(--space-20);
+    background: var(--color-surface);
+    border-radius: var(--radius-base);
+    border: 3px solid var(--color-primary);
+}
+
+.oee-result-value {
+    font-size: 48px;
+    font-weight: var(--font-weight-bold);
+    color: var(--color-primary);
+}
+
+.oee-result-label {
+    font-size: var(--font-size-lg);
+    color: var(--color-text-secondary);
+    margin-top: var(--space-8);
+}
+
+.oee-targets {
+    display: grid;
+    gap: var(--space-12);
+}
+
+.oee-target {
+    padding: var(--space-12);
+    border-radius: var(--radius-sm);
+    font-size: var(--font-size-base);
+}
+
+.oee-target.poor { background: var(--color-bg-4); color: var(--color-error); }
+.oee-target.fair { background: var(--color-bg-2); color: var(--color-warning); }
+.oee-target.good { background: var(--color-bg-3); color: var(--color-success); }
+.oee-target.excellent { background: var(--color-bg-1); color: var(--color-primary); }
+
+/* 8 Pillars */
+.pillars-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: var(--space-24);
+    margin: var(--space-32) 0;
+}
+
+.pillar-card {
+    background: var(--color-surface);
+    border-radius: var(--radius-lg);
+    padding: var(--space-24);
+    box-shadow: var(--shadow-md);
+    border-top: 6px solid;
+    transition: all var(--duration-normal) var(--ease-standard);
+    cursor: pointer;
+}
+
+.pillar-card:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-lg);
+}
+
+.pillar-card.pillar-1 { border-color: #E74C3C; }
+.pillar-card.pillar-2 { border-color: #F39C12; }
+.pillar-card.pillar-3 { border-color: #27AE60; }
+.pillar-card.pillar-4 { border-color: #3498DB; }
+.pillar-card.pillar-5 { border-color: #9B59B6; }
+.pillar-card.pillar-6 { border-color: #E67E22; }
+.pillar-card.pillar-7 { border-color: #16A085; }
+.pillar-card.pillar-8 { border-color: #34495E; }
+
+.pillar-number {
+    display: inline-block;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    text-align: center;
+    line-height: 40px;
+    font-weight: var(--font-weight-bold);
+    color: white;
+    margin-bottom: var(--space-12);
+}
+
+.pillar-card.pillar-1 .pillar-number { background: #E74C3C; }
+.pillar-card.pillar-2 .pillar-number { background: #F39C12; }
+.pillar-card.pillar-3 .pillar-number { background: #27AE60; }
+.pillar-card.pillar-4 .pillar-number { background: #3498DB; }
+.pillar-card.pillar-5 .pillar-number { background: #9B59B6; }
+.pillar-card.pillar-6 .pillar-number { background: #E67E22; }
+.pillar-card.pillar-7 .pillar-number { background: #16A085; }
+.pillar-card.pillar-8 .pillar-number { background: #34495E; }
+
+.pillar-title {
+    font-size: var(--font-size-xl);
+    font-weight: var(--font-weight-bold);
+    margin-bottom: var(--space-8);
+    color: var(--color-text);
+}
+
+.pillar-english {
+    font-size: var(--font-size-sm);
+    color: var(--color-text-secondary);
+    font-style: italic;
+    margin-bottom: var(--space-16);
+}
+
+.pillar-meaning {
+    font-size: var(--font-size-base);
+    margin-bottom: var(--space-12);
+    padding: var(--space-12);
+    background: var(--color-bg-1);
+    border-radius: var(--radius-sm);
+}
+
+.pillar-details {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height var(--duration-normal) var(--ease-standard);
+}
+
+.pillar-card.expanded .pillar-details {
+    max-height: 2000px;
+}
+
+.pillar-activities {
+    list-style: none;
+    margin-top: var(--space-12);
+}
+
+.pillar-activities li {
+    padding: var(--space-8);
+    margin-bottom: var(--space-4);
+    background: var(--color-bg-2);
+    border-radius: var(--radius-sm);
+    font-size: var(--font-size-sm);
+}
+
+/* 7 Steps */
+.steps-container {
+    background: var(--color-surface);
+    border-radius: var(--radius-lg);
+    padding: var(--space-32);
+    margin: var(--space-32) 0;
+    box-shadow: var(--shadow-md);
+}
+
+.steps-timeline {
+    position: relative;
+    padding-left: 60px;
+}
+
+.steps-timeline::before {
+    content: '';
+    position: absolute;
+    left: 20px;
+    top: 0;
+    bottom: 0;
+    width: 4px;
+    background: var(--color-primary);
+}
+
+.step-item {
+    position: relative;
+    margin-bottom: var(--space-32);
+    padding: var(--space-24);
+    background: var(--color-background);
+    border-radius: var(--radius-lg);
+    border-left: 4px solid var(--color-primary);
+}
+
+.step-marker {
+    position: absolute;
+    left: -52px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 40px;
+    height: 40px;
+    background: var(--color-primary);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-weight: var(--font-weight-bold);
+    box-shadow: 0 0 0 4px var(--color-surface);
+}
+
+.step-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: var(--space-16);
+}
+
+.step-name {
+    font-size: var(--font-size-xl);
+    font-weight: var(--font-weight-bold);
+    color: var(--color-primary);
+}
+
+.step-duration {
+    font-size: var(--font-size-sm);
+    color: var(--color-text-secondary);
+    padding: var(--space-4) var(--space-12);
+    background: var(--color-bg-1);
+    border-radius: var(--radius-full);
+}
+
+.step-activities {
+    list-style: none;
+}
+
+.step-activities li {
+    padding: var(--space-12);
+    margin-bottom: var(--space-8);
+    background: var(--color-bg-2);
+    border-radius: var(--radius-sm);
+    font-size: var(--font-size-base);
+}
+
+/* Maintenance Schedule */
+.schedule-container {
+    background: var(--color-surface);
+    border-radius: var(--radius-lg);
+    padding: var(--space-32);
+    margin: var(--space-32) 0;
+    box-shadow: var(--shadow-md);
+}
+
+.schedule-tabs {
+    display: flex;
+    gap: var(--space-12);
+    margin-bottom: var(--space-24);
+    border-bottom: 2px solid var(--color-border);
+}
+
+.schedule-tab {
+    padding: var(--space-12) var(--space-24);
+    background: transparent;
+    border: none;
+    border-bottom: 3px solid transparent;
+    font-size: var(--font-size-base);
+    font-weight: var(--font-weight-semibold);
+    color: var(--color-text-secondary);
+    cursor: pointer;
+    transition: all var(--duration-fast) var(--ease-standard);
+}
+
+.schedule-tab.active {
+    color: var(--color-primary);
+    border-bottom-color: var(--color-primary);
+}
+
+.schedule-content {
+    display: none;
+}
+
+.schedule-content.active {
+    display: block;
+}
+
+.schedule-item {
+    padding: var(--space-20);
+    margin-bottom: var(--space-16);
+    background: var(--color-background);
+    border-radius: var(--radius-base);
+    border-left: 4px solid;
+}
+
+.schedule-item.daily { border-color: #E74C3C; }
+.schedule-item.weekly { border-color: #F39C12; }
+.schedule-item.monthly { border-color: #27AE60; }
+.schedule-item.quarterly { border-color: #3498DB; }
+.schedule-item.annual { border-color: #9B59B6; }
+
+.schedule-item h4 {
+    color: var(--color-primary);
+    margin-bottom: var(--space-12);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.schedule-time {
+    font-size: var(--font-size-sm);
+    color: var(--color-text-secondary);
+    font-weight: var(--font-weight-normal);
+}
+
+.schedule-activities {
+    list-style: none;
+}
+
+.schedule-activities li {
+    padding: var(--space-8);
+    margin-bottom: var(--space-4);
+    background: var(--color-bg-1);
+    border-radius: var(--radius-sm);
+    font-size: var(--font-size-sm);
+}
+
+/* Before After Example */
+.example-container {
+    background: var(--color-surface);
+    border-radius: var(--radius-lg);
+    padding: var(--space-32);
+    margin: var(--space-32) 0;
+    box-shadow: var(--shadow-md);
+}
+
+.example-grid {
+    display: grid;
+    grid-template-columns: 1fr auto 1fr;
+    gap: var(--space-24);
+    align-items: center;
+    margin-top: var(--space-24);
+}
+
+.example-state {
+    padding: var(--space-24);
+    border-radius: var(--radius-lg);
+    border: 3px solid;
+}
+
+.example-state.before {
+    border-color: var(--color-error);
+    background: var(--color-bg-4);
+}
+
+.example-state.after {
+    border-color: var(--color-success);
+    background: var(--color-bg-3);
+}
+
+.example-state h4 {
+    font-size: var(--font-size-2xl);
+    font-weight: var(--font-weight-bold);
+    margin-bottom: var(--space-16);
+    padding-bottom: var(--space-12);
+    border-bottom: 2px solid;
+}
+
+.example-state.before h4 { color: var(--color-error); border-color: var(--color-error); }
+.example-state.after h4 { color: var(--color-success); border-color: var(--color-success); }
+
+.example-arrow {
+    font-size: 48px;
+    color: var(--color-primary);
+}
+
+.example-metrics {
+    list-style: none;
+}
+
+.example-metrics li {
+    padding: var(--space-12);
+    margin-bottom: var(--space-8);
+    background: var(--color-surface);
+    border-radius: var(--radius-sm);
+    font-size: var(--font-size-base);
+}
+
+/* Implementation Roadmap */
+.roadmap-container {
+    background: var(--color-surface);
+    border-radius: var(--radius-lg);
+    padding: var(--space-32);
+    margin: var(--space-32) 0;
+    box-shadow: var(--shadow-md);
+}
+
+.roadmap-phases {
+    display: grid;
+    gap: var(--space-24);
+}
+
+.roadmap-phase {
+    padding: var(--space-24);
+    background: var(--color-background);
+    border-radius: var(--radius-lg);
+    border-left: 6px solid var(--color-primary);
+}
+
+.phase-header {
+    display: flex;
+    align-items: center;
+    gap: var(--space-16);
+    margin-bottom: var(--space-16);
+}
+
+.phase-number {
+    width: 50px;
+    height: 50px;
+    background: var(--color-primary);
+    color: white;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: var(--font-weight-bold);
+    font-size: var(--font-size-2xl);
+}
+
+.phase-title {
+    font-size: var(--font-size-2xl);
+    font-weight: var(--font-weight-bold);
+    color: var(--color-primary);
+}
+
+.phase-duration {
+    font-size: var(--font-size-base);
+    color: var(--color-text-secondary);
+}
+
+.phase-activities {
+    list-style: none;
+}
+
+.phase-activities li {
+    padding: var(--space-12);
+    margin-bottom: var(--space-8);
+    background: var(--color-bg-1);
+    border-radius: var(--radius-sm);
+    font-size: var(--font-size-base);
+}
+
+/* Common Mistakes */
+.mistakes-grid {
+    display: grid;
+    gap: var(--space-20);
+    margin: var(--space-32) 0;
+}
+
+.mistake-card {
+    background: var(--color-surface);
+    border-left: 4px solid var(--color-error);
+    border-radius: var(--radius-lg);
+    padding: var(--space-24);
+    box-shadow: var(--shadow-sm);
+}
+
+.mistake-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: var(--space-12);
+}
+
+.mistake-title {
+    font-size: var(--font-size-lg);
+    font-weight: var(--font-weight-semibold);
+    color: var(--color-error);
+}
+
+.mistake-right {
+    background: var(--color-bg-3);
+    padding: var(--space-16);
+    border-radius: var(--radius-base);
+    border-left: 3px solid var(--color-success);
+    font-weight: var(--font-weight-semibold);
+}
+
+/* Tools Grid */
+.tools-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: var(--space-20);
+    margin: var(--space-32) 0;
+}
+
+.tool-card {
+    background: var(--color-surface);
+    border: 2px solid var(--color-card-border);
+    border-radius: var(--radius-lg);
+    padding: var(--space-20);
+    text-align: center;
+}
+
+.tool-icon {
+    font-size: 48px;
+    margin-bottom: var(--space-12);
+}
+
+.tool-name {
+    font-size: var(--font-size-lg);
+    font-weight: var(--font-weight-bold);
+    color: var(--color-primary);
+}
+
+/* Metrics Grid */
+.metrics-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: var(--space-20);
+    margin: var(--space-32) 0;
+}
+
+.metric-card {
+    background: var(--color-surface);
+    border: 2px solid var(--color-primary);
+    border-radius: var(--radius-lg);
+    padding: var(--space-20);
+    text-align: center;
+}
+
+.metric-name {
+    font-size: var(--font-size-lg);
+    font-weight: var(--font-weight-bold);
+    color: var(--color-primary);
+    margin-bottom: var(--space-8);
+}
+
+.metric-target {
+    font-size: var(--font-size-base);
+    color: var(--color-text-secondary);
+}
+
+/* Lean Connection */
+.connection-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: var(--space-20);
+    margin: var(--space-32) 0;
+}
+
+.connection-card {
+    background: var(--color-surface);
+    padding: var(--space-20);
+    border-radius: var(--radius-base);
+    border-left: 4px solid var(--color-primary);
+}
+
+.connection-tool {
+    font-size: var(--font-size-lg);
+    font-weight: var(--font-weight-bold);
+    color: var(--color-primary);
+    margin-bottom: var(--space-8);
+}
+
+/* Action Plan */
+.action-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: var(--space-20);
+    margin: var(--space-32) 0;
+}
+
+.action-card {
+    background: var(--color-surface);
+    border: 2px solid var(--color-primary);
+    border-radius: var(--radius-lg);
+    padding: var(--space-20);
+    text-align: center;
+    transition: all var(--duration-normal) var(--ease-standard);
+}
+
+.action-card:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-lg);
+}
+
+.action-number {
+    display: inline-block;
+    width: 40px;
+    height: 40px;
+    background: var(--color-primary);
+    color: white;
+    border-radius: 50%;
+    text-align: center;
+    line-height: 40px;
+    font-weight: var(--font-weight-bold);
+    margin-bottom: var(--space-12);
+}
+
+/* Conclusion */
+.conclusion-box {
+    background: var(--color-bg-1);
+    padding: var(--space-32);
+    border-radius: var(--radius-lg);
+    text-align: center;
+    margin: var(--space-32) 0;
+}
+
+.conclusion-text {
+    font-size: var(--font-size-xl);
+    line-height: 1.8;
+    margin-bottom: var(--space-16);
+}
+
+/* Responsive */
+@media (max-width: 1024px) {
+    .hero-title { font-size: 60px; }
+    .cost-comparison,
+    .example-grid {
+        grid-template-columns: 1fr;
+        gap: var(--space-16);
+    }
+    .cost-arrow,
+    .example-arrow {
+        transform: rotate(90deg);
+    }
+}
+
+@media (max-width: 768px) {
+    .hero-title { font-size: 48px; }
+    .section-title { font-size: 36px; }
+    .container { padding: 0 var(--space-16); }
+    .section { padding: 40px 0; }
+    .section.compact { padding: 30px 0; }
+    .pillars-grid {
+        grid-template-columns: 1fr;
+    }
+    .steps-timeline {
+        padding-left: 40px;
+    }
+    .steps-timeline::before {
+        left: 10px;
+    }
+    .step-marker {
+        left: -32px;
+        width: 30px;
+        height: 30px;
+        font-size: var(--font-size-sm);
+    }
+}
+    </style>
+</head>
+<body>
+    <!-- Hero Section -->
+    <div class="hero section">
+        <div class="container">
+            <div class="hero-content">
+                <div class="hero-icon">⚙️✨</div>
+                <h1 class="hero-title">ТРМ</h1>
+                <p class="hero-subtitle">Всеобщий уход за оборудованием</p>
+                <p class="hero-english">Total Productive Maintenance (TPM)</p>
+                <p class="hero-japanese">全員参加の保全 (Zen-in Sanka no Hozen)</p>
+                <div class="hero-message">
+                    От поломок к профилактике. От простоев к надежности
+                </div>
+                <p class="hero-tagline">Оборудование, которое никогда не ломается</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- What is TPM -->
+    <div class="section compact">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Что такое ТРМ?</h2>
+                <p class="section-subtitle">Система всеобщего обслуживания оборудования</p>
+            </div>
+
+            <div class="definition-box">
+                <p class="definition-text"><strong>ТРМ (Total Productive Maintenance) - это система обслуживания оборудования, направленная на постоянное поддержание его работоспособного состояния</strong></p>
+                <p class="definition-text">🏭 <strong>Происхождение:</strong> Япония, 1950-е годы, Nippondenso (группа Toyota), развитие концепции профилактического обслуживания из США</p>
+                <p class="definition-text">🌍 <strong>Участие всех:</strong> Операторы, команда обслуживания, менеджмент - все отвечают за оборудование</p>
+            </div>
+
+            <div class="definition-box" style="border-color: var(--color-success);">
+                <h3 style="color: var(--color-success); font-size: var(--font-size-2xl); margin-bottom: var(--space-16);">💡 Основная философия:</h3>
+                <p class="definition-text" style="font-size: var(--font-size-2xl); font-weight: var(--font-weight-bold);">"Не ремонтировать, а ПРЕДОТВРАЩАТЬ поломки"</p>
+                <p class="definition-text">Это не только работа сервис-отдела - ЭТО РАБОТА ВСЕХ</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Why TPM Matters -->
+    <div class="section compact" style="background: var(--color-bg-2);">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Почему ТРМ важна?</h2>
+                <p class="section-subtitle">Цена поломок vs профилактика</p>
+            </div>
+
+            <div class="cost-container">
+                <h3 style="text-align: center; font-size: var(--font-size-3xl); margin-bottom: var(--space-24);">Традиционный подход vs ТРМ подход</h3>
+                <div class="cost-comparison">
+                    <div class="cost-column traditional">
+                        <div class="cost-header">❌ Традиционный подход</div>
+                        <p style="font-size: var(--font-size-lg); margin-bottom: var(--space-16); font-weight: var(--font-weight-semibold);">Оборудование ломается → Срочный ремонт → Производство стоит → Теряем деньги</p>
+                        <ul class="cost-list">
+                            <li>💰 Остановка производства (потеря выручки)</li>
+                            <li>🚨 Срочный ремонт (дорого)</li>
+                            <li>⏰ Переработки для ремонтной команды</li>
+                            <li>📦 Срочные заказы запчастей (дороже обычных)</li>
+                            <li>⚠️ Проблемы с качеством при спешном перезапуске</li>
+                            <li>😰 Стресс для команды</li>
+                        </ul>
+                    </div>
+                    <div class="cost-arrow">→</div>
+                    <div class="cost-column tpm">
+                        <div class="cost-header">✓ ТРМ подход</div>
+                        <p style="font-size: var(--font-size-lg); margin-bottom: var(--space-16); font-weight: var(--font-weight-semibold);">Предотвращаем поломки → Производство идет → Зарабатываем деньги</p>
+                        <ul class="cost-list">
+                            <li>✅ Производство работает стабильно</li>
+                            <li>💵 Плановое обслуживание (недорого)</li>
+                            <li>📈 Максимальное время работы</li>
+                            <li>🎯 Высокое качество продукции</li>
+                            <li>😊 Спокойная, предсказуемая работа</li>
+                            <li>💪 Команда уверена в оборудовании</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="cost-example">
+                    <h4>📊 Реальный пример:</h4>
+                    <p style="font-size: var(--font-size-lg); margin-bottom: var(--space-12);"><strong>Одна машина сломана на 1 час</strong> = <span style="color: var(--color-error); font-weight: var(--font-weight-bold);">$50,000 потерь</span></p>
+                    <p style="font-size: var(--font-size-lg); margin-bottom: var(--space-12);"><strong>Одна поломка в неделю</strong> = <span style="color: var(--color-error); font-weight: var(--font-weight-bold);">$2,600,000 потери в год</span></p>
+                    <p style="font-size: var(--font-size-lg); margin-bottom: var(--space-12);"><strong>Профилактическое обслуживание</strong> = <span style="color: var(--color-success); font-weight: var(--font-weight-bold);">$500</span></p>
+                    <p style="font-size: var(--font-size-2xl); font-weight: var(--font-weight-bold); color: var(--color-primary); text-align: center; margin-top: var(--space-16);">$500 профилактика &lt;&lt; $50,000 поломка</p>
+                </div>
+
+                <div style="margin-top: var(--space-32);">
+                    <h4 style="text-align: center; font-size: var(--font-size-2xl); margin-bottom: var(--space-16); color: var(--color-primary);">📈 Типичные результаты ТРМ (первый год):</h4>
+                    <div class="results-grid">
+                        <div class="result-item">Простои ↓ 50-80%</div>
+                        <div class="result-item">Затраты на обслуживание ↓ 20-30%</div>
+                        <div class="result-item">Качество продукции ↑</div>
+                        <div class="result-item">Срок службы оборудования ↑ 30-50%</div>
+                        <div class="result-item">Инциденты безопасности ↓ 60%+</div>
+                        <div class="result-item">OEE ↑ значительно</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- OEE Metric -->
+    <div class="section compact">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">OEE - Ключевая метрика</h2>
+                <p class="section-subtitle">Overall Equipment Effectiveness - Полная эффективность оборудования</p>
+            </div>
+
+            <div class="oee-container">
+                <div class="oee-formula">
+                    OEE = Доступность × Производительность × Качество
+                </div>
+
+                <div class="oee-components">
+                    <div class="oee-component">
+                        <h4>📊 Доступность (Availability)</h4>
+                        <p>Сколько времени оборудование фактически работает (не сломано)?</p>
+                        <p style="margin-top: var(--space-8); font-style: italic; color: var(--color-text-secondary);">Расчет: Рабочее время / Запланированное время</p>
+                    </div>
+                    <div class="oee-component">
+                        <h4>⚡ Производительность (Performance)</h4>
+                        <p>Насколько быстро работает оборудование (vs проектная скорость)?</p>
+                        <p style="margin-top: var(--space-8); font-style: italic; color: var(--color-text-secondary);">Расчет: Действительная скорость / Проектная скорость</p>
+                    </div>
+                    <div class="oee-component">
+                        <h4>✨ Качество (Quality)</h4>
+                        <p>Какой % выхода хороший (не дефектный)?</p>
+                        <p style="margin-top: var(--space-8); font-style: italic; color: var(--color-text-secondary);">Расчет: Хороших изделий / Всего изделий</p>
+                    </div>
+                </div>
+
+                <div class="oee-calculator">
+                    <h3 style="text-align: center; margin-bottom: var(--space-20); color: var(--color-primary);">🧮 Калькулятор OEE</h3>
+                    <div class="oee-inputs">
+                        <div class="oee-input-group">
+                            <label>Доступность (%)</label>
+                            <input type="number" id="availability" value="80" min="0" max="100">
+                        </div>
+                        <div class="oee-input-group">
+                            <label>Производительность (%)</label>
+                            <input type="number" id="performance" value="85" min="0" max="100">
+                        </div>
+                        <div class="oee-input-group">
+                            <label>Качество (%)</label>
+                            <input type="number" id="quality" value="95" min="0" max="100">
+                        </div>
+                    </div>
+                    <div class="oee-result">
+                        <div class="oee-result-value" id="oeeValue">64.7%</div>
+                        <div class="oee-result-label">Общая эффективность оборудования (OEE)</div>
+                        <div style="margin-top: var(--space-16); font-size: var(--font-size-lg); color: var(--color-error);" id="wastage">35.3% времени - потери!</div>
+                    </div>
+                </div>
+
+                <div style="margin-top: var(--space-24);">
+                    <h4 style="text-align: center; font-size: var(--font-size-xl); margin-bottom: var(--space-16); color: var(--color-primary);">🎯 Целевые показатели OEE:</h4>
+                    <div class="oee-targets">
+                        <div class="oee-target poor"><strong>&lt; 60%:</strong> Плохо (слишком много потерь)</div>
+                        <div class="oee-target fair"><strong>60-75%:</strong> Удовлетворительно (есть куда расти)</div>
+                        <div class="oee-target good"><strong>75-85%:</strong> Хорошо (приемлемо)</div>
+                        <div class="oee-target excellent"><strong>85-95%:</strong> Отлично (мировой класс)</div>
+                        <div class="oee-target excellent"><strong>&gt; 95%:</strong> Выдающееся (редко, но достижимо)</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 8 Pillars of TPM -->
+    <div class="section compact" style="background: var(--color-bg-3);">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">8 столпов ТРМ</h2>
+                <p class="section-subtitle">Основные компоненты системы (нажмите на карточку для деталей)</p>
+            </div>
+
+            <div class="pillars-grid">
+                <div class="pillar-card pillar-1" onclick="togglePillar(this)">
+                    <span class="pillar-number">1</span>
+                    <h3 class="pillar-title">АВТОНОМНОЕ ОБСЛУЖИВАНИЕ</h3>
+                    <p class="pillar-english">Autonomous Maintenance</p>
+                    <p class="pillar-meaning">💬 Операторы обслуживают свое оборудование</p>
+                    <div class="pillar-details">
+                        <p style="margin: var(--space-12) 0;"><strong>Аналогия:</strong> Как ухаживать за своей машиной - проверяешь масло, давление в шинах, топливо</p>
+                        <h4 style="margin-top: var(--space-16); margin-bottom: var(--space-8); color: var(--color-primary);">Действия:</h4>
+                        <ul class="pillar-activities">
+                            <li>Ежедневный визуальный осмотр</li>
+                            <li>Чистка и смазка</li>
+                            <li>Мелкие ремонты и регулировки</li>
+                            <li>Запись проблем</li>
+                        </ul>
+                        <p style="margin-top: var(--space-16); font-weight: var(--font-weight-semibold); color: var(--color-success);">✓ Результат: Операторы первыми замечают проблемы, раннее обнаружение</p>
+                    </div>
+                </div>
+
+                <div class="pillar-card pillar-2" onclick="togglePillar(this)">
+                    <span class="pillar-number">2</span>
+                    <h3 class="pillar-title">ПЛАНОВОЕ ОБСЛУЖИВАНИЕ</h3>
+                    <p class="pillar-english">Planned Maintenance</p>
+                    <p class="pillar-meaning">💬 Систематическое профилактическое и предиктивное обслуживание</p>
+                    <div class="pillar-details">
+                        <h4 style="margin-top: var(--space-16); margin-bottom: var(--space-8); color: var(--color-primary);">Два типа:</h4>
+                        <ul class="pillar-activities">
+                            <li><strong>Профилактическое:</strong> Делать по расписанию (замена масла каждые 100 часов)</li>
+                            <li><strong>Предиктивное:</strong> Делать когда видим износ (измеряем вибрацию, температуру)</li>
+                        </ul>
+                        <h4 style="margin-top: var(--space-16); margin-bottom: var(--space-8); color: var(--color-primary);">Расписание:</h4>
+                        <ul class="pillar-activities">
+                            <li>Ежедневно: операторы делают автономные проверки</li>
+                            <li>Еженедельно: подробный осмотр оператором</li>
+                            <li>Ежемесячно: команда обслуживания тщательный осмотр</li>
+                            <li>Квартально/Ежегодно: глубокое обслуживание</li>
+                        </ul>
+                        <p style="margin-top: var(--space-16); font-weight: var(--font-weight-semibold); color: var(--color-error);">⚠️ НИКОГДА не делай срочный ремонт, всегда используй расписание</p>
+                    </div>
+                </div>
+
+                <div class="pillar-card pillar-3" onclick="togglePillar(this)">
+                    <span class="pillar-number">3</span>
+                    <h3 class="pillar-title">УЛУЧШЕНИЕ НАДЕЖНОСТИ</h3>
+                    <p class="pillar-english">Improving Equipment Reliability</p>
+                    <p class="pillar-meaning">💬 Найти и устранить проблемы в корне, не симптомы</p>
+                    <div class="pillar-details">
+                        <h4 style="margin-top: var(--space-16); margin-bottom: var(--space-8); color: var(--color-primary);">Методы:</h4>
+                        <ul class="pillar-activities">
+                            <li>Анализ истории отказов (что ломается чаще всего?)</li>
+                            <li>Использовать Пять Почему для поиска первопричины</li>
+                            <li>Переделать оборудование или процесс для предотвращения отказа</li>
+                            <li>Улучшить оригинальный дизайн</li>
+                        </ul>
+                        <h4 style="margin-top: var(--space-16); margin-bottom: var(--space-8); color: var(--color-primary);">Пример:</h4>
+                        <p style="padding: var(--space-12); background: var(--color-bg-4); border-radius: var(--radius-sm); color: var(--color-error);">❌ Неправильно: Клапан протекает? Менять прокладки</p>
+                        <p style="padding: var(--space-12); background: var(--color-bg-3); border-radius: var(--radius-sm); color: var(--color-success); margin-top: var(--space-8);">✓ Правильно: Заменить весь клапан на лучший дизайн</p>
+                    </div>
+                </div>
+
+                <div class="pillar-card pillar-4" onclick="togglePillar(this)">
+                    <span class="pillar-number">4</span>
+                    <h3 class="pillar-title">КОНТРОЛЬ КАЧЕСТВА</h3>
+                    <p class="pillar-english">Quality Assurance</p>
+                    <p class="pillar-meaning">💬 Интегрировать качество в обслуживание</p>
+                    <div class="pillar-details">
+                        <ul class="pillar-activities">
+                            <li>Мониторить: дефекты, постоянство, точность</li>
+                            <li>Если качество падает: проверить оборудование первым</li>
+                            <li>Обслуживание должно обеспечивать качество продукции</li>
+                            <li>Использовать Poka-yoke для предотвращения дефектов</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="pillar-card pillar-5" onclick="togglePillar(this)">
+                    <span class="pillar-number">5</span>
+                    <h3 class="pillar-title">БЕЗОПАСНОСТЬ И ОКРУЖАЮЩАЯ СРЕДА</h3>
+                    <p class="pillar-english">Safety, Health &amp; Environment</p>
+                    <p class="pillar-meaning">💬 Безопасное оборудование предотвращает аварии</p>
+                    <div class="pillar-details">
+                        <h4 style="margin-top: var(--space-16); margin-bottom: var(--space-8); color: var(--color-primary);">Регулярное обслуживание предотвращает:</h4>
+                        <ul class="pillar-activities">
+                            <li>Утечки (опасность для безопасности/окружающей среды)</li>
+                            <li>Электрические проблемы (опасность для безопасности)</li>
+                            <li>Уровень шума (здоровье работников)</li>
+                        </ul>
+                        <p style="margin-top: var(--space-16);">Команда обслуживания отвечает за: ограждения, аварийные остановки, вентиляцию</p>
+                    </div>
+                </div>
+
+                <div class="pillar-card pillar-6" onclick="togglePillar(this)">
+                    <span class="pillar-number">6</span>
+                    <h3 class="pillar-title">РАННИЙ МЕНЕДЖМЕНТ</h3>
+                    <p class="pillar-english">Early Equipment Management</p>
+                    <p class="pillar-meaning">💬 При покупке/дизайне нового оборудования: учесть обслуживание</p>
+                    <div class="pillar-details">
+                        <ul class="pillar-activities">
+                            <li>При покупке НОВОГО оборудования: протестировать тщательно</li>
+                            <li>При разработке НОВОГО оборудования: проектировать с учетом обслуживания</li>
+                            <li>Включить соображения обслуживания в фазу проектирования</li>
+                            <li>Предотвращает проблемы до их начала</li>
+                            <li>Легче исправить проблему дизайна сейчас, чем позже</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="pillar-card pillar-7" onclick="togglePillar(this)">
+                    <span class="pillar-number">7</span>
+                    <h3 class="pillar-title">ОБУЧЕНИЕ И КВАЛИФИКАЦИЯ</h3>
+                    <p class="pillar-english">Skills &amp; Education</p>
+                    <p class="pillar-meaning">💬 Непрерывное обучение операторов и механиков</p>
+                    <div class="pillar-details">
+                        <h4 style="margin-top: var(--space-16); margin-bottom: var(--space-8); color: var(--color-primary);">Операторам нужно обучение:</h4>
+                        <ul class="pillar-activities">
+                            <li>Как работает оборудование</li>
+                            <li>Что проверять ежедневно</li>
+                            <li>Как выявлять проблемы</li>
+                            <li>О чем докладывать</li>
+                        </ul>
+                        <h4 style="margin-top: var(--space-16); margin-bottom: var(--space-8); color: var(--color-primary);">Персоналу обслуживания нужно:</h4>
+                        <ul class="pillar-activities">
+                            <li>Продвинутая диагностика</li>
+                            <li>Анализ первопричин</li>
+                            <li>Профилактические стратегии</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="pillar-card pillar-8" onclick="togglePillar(this)">
+                    <span class="pillar-number">8</span>
+                    <h3 class="pillar-title">ВСПОМОГАТЕЛЬНЫЕ ФУНКЦИИ</h3>
+                    <p class="pillar-english">Support Functions</p>
+                    <p class="pillar-meaning">💬 Администрация должна поддерживать ТРМ</p>
+                    <div class="pillar-details">
+                        <h4 style="margin-top: var(--space-16); margin-bottom: var(--space-8); color: var(--color-primary);">Администрация должна:</h4>
+                        <ul class="pillar-activities">
+                            <li>Отслеживать записи обслуживания</li>
+                            <li>Предоставлять инструменты и запчасти</li>
+                            <li>Коммуницировать расписания</li>
+                            <li>Мониторить KPI</li>
+                        </ul>
+                        <h4 style="margin-top: var(--space-16); margin-bottom: var(--space-8); color: var(--color-primary);">HR должен:</h4>
+                        <ul class="pillar-activities">
+                            <li>Программы обучения</li>
+                            <li>Развитие персонала</li>
+                        </ul>
+                        <h4 style="margin-top: var(--space-16); margin-bottom: var(--space-8); color: var(--color-primary);">Финансы должны:</h4>
+                        <ul class="pillar-activities">
+                            <li>Бюджет профилактического обслуживания</li>
+                            <li>Видеть это как инвестицию, а не затраты</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 7-Step Autonomous Maintenance -->
+    <div class="section compact">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">7 шагов автономного обслуживания</h2>
+                <p class="section-subtitle">Детальная реализация</p>
+            </div>
+
+            <div class="steps-container">
+                <div class="steps-timeline">
+                    <div class="step-item">
+                        <div class="step-marker">1</div>
+                        <div class="step-header">
+                            <h3 class="step-name">Первоначальная чистка и осмотр</h3>
+                            <span class="step-duration">1-2 недели</span>
+                        </div>
+                        <ul class="step-activities">
+                            <li>Глубокая чистка оборудования от грязи/загрязнений</li>
+                            <li>Выявление скрытых проблем (утечки, трещины, ослабленные части)</li>
+                            <li>Замена жидкостей, фильтров, изношенных деталей</li>
+                            <li>Оператор тщательно изучает оборудование</li>
+                        </ul>
+                    </div>
+
+                    <div class="step-item">
+                        <div class="step-marker">2</div>
+                        <div class="step-header">
+                            <h3 class="step-name">Устранение источников загрязнения</h3>
+                            <span class="step-duration">1-2 недели</span>
+                        </div>
+                        <ul class="step-activities">
+                            <li>Найти ОТКУДА идет грязь</li>
+                            <li>Герметизировать щели, крышки, отверстия</li>
+                            <li>Улучшить дизайн для предотвращения загрязнения</li>
+                            <li>Результат: меньше уборки в будущем</li>
+                        </ul>
+                    </div>
+
+                    <div class="step-item">
+                        <div class="step-marker">3</div>
+                        <div class="step-header">
+                            <h3 class="step-name">Установка стандартов</h3>
+                            <span class="step-duration">1-2 недели</span>
+                        </div>
+                        <ul class="step-activities">
+                            <li>Определить: что должно быть чистым?</li>
+                            <li>Как часто убираем?</li>
+                            <li>Кто ответственен?</li>
+                            <li>Документировать с фото и чек-листами</li>
+                        </ul>
+                    </div>
+
+                    <div class="step-item">
+                        <div class="step-marker">4</div>
+                        <div class="step-header">
+                            <h3 class="step-name">Обучение общему осмотру</h3>
+                            <span class="step-duration">2-3 недели</span>
+                        </div>
+                        <ul class="step-activities">
+                            <li>Тренировка операторов на: как правильно инспектировать</li>
+                            <li>Что искать (звуки, утечки, вибрация, температура)</li>
+                            <li>Как измерять (манометры, инструменты)</li>
+                            <li>Когда докладывать</li>
+                        </ul>
+                    </div>
+
+                    <div class="step-item">
+                        <div class="step-marker">5</div>
+                        <div class="step-header">
+                            <h3 class="step-name">Автономный осмотр</h3>
+                            <span class="step-duration">2-3 недели</span>
+                        </div>
+                        <ul class="step-activities">
+                            <li>Оператор делает ежедневный/еженедельный независимый осмотр</li>
+                            <li>Использует чек-листы</li>
+                            <li>Записывает находки</li>
+                            <li>Докладывает проблемы</li>
+                            <li>Берет ответственность за здоровье оборудования</li>
+                        </ul>
+                    </div>
+
+                    <div class="step-item">
+                        <div class="step-marker">6</div>
+                        <div class="step-header">
+                            <h3 class="step-name">Организация и стандартизация</h3>
+                            <span class="step-duration">1-2 недели</span>
+                        </div>
+                        <ul class="step-activities">
+                            <li>Все процедуры документированы</li>
+                            <li>Визуальные стандарты (фото, метки)</li>
+                            <li>Инструменты организованы для легкого доступа</li>
+                            <li>Всё подписано четко</li>
+                        </ul>
+                    </div>
+
+                    <div class="step-item">
+                        <div class="step-marker">7</div>
+                        <div class="step-header">
+                            <h3 class="step-name">Полное автономное обслуживание</h3>
+                            <span class="step-duration">Постоянно</span>
+                        </div>
+                        <ul class="step-activities">
+                            <li>Система работает автоматически</li>
+                            <li>Операторы рутинно обслуживают оборудование</li>
+                            <li>Команда обслуживания только для сложных проблем</li>
+                            <li>Менталитет постоянного улучшения</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Planned Maintenance Schedule -->
+    <div class="section compact" style="background: var(--color-bg-4);">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">График планового обслуживания</h2>
+                <p class="section-subtitle">Пример для производственного оборудования</p>
+            </div>
+
+            <div class="schedule-container">
+                <div class="schedule-tabs">
+                    <button class="schedule-tab active" onclick="showSchedule('daily')">Ежедневно</button>
+                    <button class="schedule-tab" onclick="showSchedule('weekly')">Еженедельно</button>
+                    <button class="schedule-tab" onclick="showSchedule('monthly')">Ежемесячно</button>
+                    <button class="schedule-tab" onclick="showSchedule('quarterly')">Ежеквартально</button>
+                    <button class="schedule-tab" onclick="showSchedule('annual')">Ежегодно</button>
+                </div>
+
+                <div id="daily" class="schedule-content active">
+                    <div class="schedule-item daily">
+                        <h4>Ежедневное обслуживание <span class="schedule-time">(Оператор - 15 минут)</span></h4>
+                        <ul class="schedule-activities">
+                            <li>Визуальный осмотр на утечки, повреждения</li>
+                            <li>Проверить необычные звуки, вибрацию</li>
+                            <li>Убедиться все индикаторы работают</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div id="weekly" class="schedule-content">
+                    <div class="schedule-item weekly">
+                        <h4>Еженедельное обслуживание <span class="schedule-time">(Оператор - 30 минут)</span></h4>
+                        <ul class="schedule-activities">
+                            <li>Чистка оборудования</li>
+                            <li>Проверить уровень масла, долить если надо</li>
+                            <li>Осмотр ремней и шлангов</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div id="monthly" class="schedule-content">
+                    <div class="schedule-item monthly">
+                        <h4>Ежемесячное обслуживание <span class="schedule-time">(Команда обслуживания - 2-3 часа)</span></h4>
+                        <ul class="schedule-activities">
+                            <li>Детальный осмотр</li>
+                            <li>Замена фильтров если надо</li>
+                            <li>Проверка калибровки</li>
+                            <li>Смазка по мере необходимости</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div id="quarterly" class="schedule-content">
+                    <div class="schedule-item quarterly">
+                        <h4>Ежеквартальное обслуживание <span class="schedule-time">(Команда обслуживания - 4-8 часов)</span></h4>
+                        <ul class="schedule-activities">
+                            <li>Замена расходных частей</li>
+                            <li>Глубокое обслуживание</li>
+                            <li>Проверка деталей на износ</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div id="annual" class="schedule-content">
+                    <div class="schedule-item annual">
+                        <h4>Ежегодное обслуживание <span class="schedule-time">(Команда обслуживания - 1-2 дня)</span></h4>
+                        <ul class="schedule-activities">
+                            <li>Полный ремонт</li>
+                            <li>Замена крупных изнашивающихся деталей</li>
+                            <li>Переналадка прецизионного оборудования</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Real Example: Before & After -->
+    <div class="section compact">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Реальный пример: Производственный станок</h2>
+                <p class="section-subtitle">До и после внедрения ТРМ</p>
+            </div>
+
+            <div class="example-container">
+                <div class="example-grid">
+                    <div class="example-state before">
+                        <h4>❌ До ТРМ</h4>
+                        <ul class="example-metrics">
+                            <li><strong>Поломки в месяц:</strong> 3-4</li>
+                            <li><strong>Простой за поломку:</strong> 4 часа</li>
+                            <li><strong>Потерянные часы в месяц:</strong> 12-16</li>
+                            <li><strong>Месячные потери:</strong> $200,000</li>
+                            <li><strong>Затраты на обслуживание:</strong> $50,000/мес</li>
+                            <li><strong>OEE:</strong> 65%</li>
+                            <li><strong>Брак:</strong> 3%</li>
+                            <li><strong>Инциденты безопасности:</strong> 4/год</li>
+                        </ul>
+                    </div>
+                    <div class="example-arrow">→</div>
+                    <div class="example-state after">
+                        <h4>✓ После ТРМ (1 год)</h4>
+                        <ul class="example-metrics">
+                            <li><strong>Поломки в месяц:</strong> 0-1 (80% сокращение!)</li>
+                            <li><strong>Простой за поломку:</strong> 1 час</li>
+                            <li><strong>Потерянные часы в месяц:</strong> 0-1</li>
+                            <li><strong>Месячные потери:</strong> $20,000</li>
+                            <li><strong>Затраты на обслуживание:</strong> $30,000/мес (20% ниже!)</li>
+                            <li><strong>OEE:</strong> 82% (17% улучшение)</li>
+                            <li><strong>Брак:</strong> 0.8% (73% сокращение!)</li>
+                            <li><strong>Инциденты безопасности:</strong> 0 (100% безопаснее)</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div style="margin-top: var(--space-32); padding: var(--space-24); background: var(--color-bg-3); border-radius: var(--radius-lg); border-left: 6px solid var(--color-success);">
+                    <h3 style="color: var(--color-success); font-size: var(--font-size-2xl); margin-bottom: var(--space-16); text-align: center;">💰 Годовая экономия: $2,400,000+</h3>
+                    <p style="text-align: center; font-size: var(--font-size-lg);">Внедрение ТРМ заняло 6 месяцев: Автономное обслуживание, плановый график, обучение персонала</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Implementation Roadmap -->
+    <div class="section compact" style="background: var(--color-bg-5);">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">План внедрения</h2>
+                <p class="section-subtitle">Поэтапный подход</p>
+            </div>
+
+            <div class="roadmap-container">
+                <div class="roadmap-phases">
+                    <div class="roadmap-phase">
+                        <div class="phase-header">
+                            <div class="phase-number">1</div>
+                            <div>
+                                <h3 class="phase-title">Подготовка</h3>
+                                <p class="phase-duration">Недели 1-2</p>
+                            </div>
+                        </div>
+                        <ul class="phase-activities">
+                            <li>Обязательство руководства и объявление</li>
+                            <li>Выбрать пилотное оборудование (критичное, проблемное)</li>
+                            <li>Собрать ТРМ команду</li>
+                            <li>Создать план коммуникации</li>
+                            <li>Установить базовые метрики (текущие простои, затраты, OEE)</li>
+                        </ul>
+                    </div>
+
+                    <div class="roadmap-phase">
+                        <div class="phase-header">
+                            <div class="phase-number">2</div>
+                            <div>
+                                <h3 class="phase-title">Запуск</h3>
+                                <p class="phase-duration">Недели 3-4</p>
+                            </div>
+                        </div>
+                        <ul class="phase-activities">
+                            <li>Начальное обучение всех сотрудников</li>
+                            <li>Начать автономное обслуживание шаг 1 (глубокая чистка)</li>
+                            <li>Начать сбор данных</li>
+                            <li>Ежедневные планерки для обсуждения прогресса</li>
+                        </ul>
+                    </div>
+
+                    <div class="roadmap-phase">
+                        <div class="phase-header">
+                            <div class="phase-number">3</div>
+                            <div>
+                                <h3 class="phase-title">Внедрение</h3>
+                                <p class="phase-duration">Недели 5-12</p>
+                            </div>
+                        </div>
+                        <ul class="phase-activities">
+                            <li>Выполнить все 7 шагов автономного обслуживания</li>
+                            <li>Создать плановый график обслуживания</li>
+                            <li>Настроить систему отслеживания обслуживания</li>
+                            <li>Еженедельные обзоры и корректировки</li>
+                        </ul>
+                    </div>
+
+                    <div class="roadmap-phase">
+                        <div class="phase-header">
+                            <div class="phase-number">4</div>
+                            <div>
+                                <h3 class="phase-title">Расширение</h3>
+                                <p class="phase-duration">Месяцы 4-6</p>
+                            </div>
+                        </div>
+                        <ul class="phase-activities">
+                            <li>Расширить на другое критичное оборудование</li>
+                            <li>Стандартизировать процедуры по машинам</li>
+                            <li>Продвинутое обучение для специалистов</li>
+                            <li>Анализ ранних результатов</li>
+                        </ul>
+                    </div>
+
+                    <div class="roadmap-phase">
+                        <div class="phase-header">
+                            <div class="phase-number">5</div>
+                            <div>
+                                <h3 class="phase-title">Полная культура ТРМ</h3>
+                                <p class="phase-duration">Месяцы 6+</p>
+                            </div>
+                        </div>
+                        <ul class="phase-activities">
+                            <li>Всё оборудование под ТРМ</li>
+                            <li>Проекты постоянного улучшения</li>
+                            <li>Интеграция с другими lean инструментами</li>
+                            <li>Сделать это частью повседневных операций</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Common Mistakes -->
+    <div class="section compact">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Распространенные ошибки</h2>
+                <p class="section-subtitle">Чего НЕ делать</p>
+            </div>
+
+            <div class="mistakes-grid">
+                <div class="mistake-card">
+                    <div class="mistake-header">
+                        <span class="mistake-title">❌ "Только сервис-отдел делает ТРМ"</span>
+                    </div>
+                    <div class="mistake-right">✓ Все участвуют - от генерального директора до оператора</div>
+                </div>
+
+                <div class="mistake-card">
+                    <div class="mistake-header">
+                        <span class="mistake-title">❌ "ТРМ когда что-то ломается"</span>
+                    </div>
+                    <div class="mistake-right">✓ Профилактическое, не реактивное - предотвращаем, а не реагируем</div>
+                </div>
+
+                <div class="mistake-card">
+                    <div class="mistake-header">
+                        <span class="mistake-title">❌ "Одна чистка = ТРМ"</span>
+                    </div>
+                    <div class="mistake-right">✓ Это постоянная система - 8 столпов, 7 шагов, непрерывный процесс</div>
+                </div>
+
+                <div class="mistake-card">
+                    <div class="mistake-header">
+                        <span class="mistake-title">❌ "Слишком дорого обслуживать регулярно"</span>
+                    </div>
+                    <div class="mistake-right">✓ Профилактика дешевле ремонта - $500 обслуживание vs $50,000 поломка</div>
+                </div>
+
+                <div class="mistake-card">
+                    <div class="mistake-header">
+                        <span class="mistake-title">❌ "Операторы не могут обслуживать"</span>
+                    </div>
+                    <div class="mistake-right">✓ Могут, с обучением - автономное обслуживание работает</div>
+                </div>
+
+                <div class="mistake-card">
+                    <div class="mistake-header">
+                        <span class="mistake-title">❌ "Нет времени"</span>
+                    </div>
+                    <div class="mistake-right">✓ Нет времени НЕ делать это - простои дороже обслуживания</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Tools & Systems -->
+    <div class="section compact" style="background: var(--color-bg-6);">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Инструменты и системы</h2>
+                <p class="section-subtitle">Что нужно для ТРМ</p>
+            </div>
+
+            <div class="tools-grid">
+                <div class="tool-card">
+                    <div class="tool-icon">📅</div>
+                    <div class="tool-name">Календарь обслуживания</div>
+                </div>
+                <div class="tool-card">
+                    <div class="tool-icon">📖</div>
+                    <div class="tool-name">Руководства оборудования</div>
+                </div>
+                <div class="tool-card">
+                    <div class="tool-icon">🧹</div>
+                    <div class="tool-name">Чистящие средства</div>
+                </div>
+                <div class="tool-card">
+                    <div class="tool-icon">🔧</div>
+                    <div class="tool-name">Инструменты</div>
+                </div>
+                <div class="tool-card">
+                    <div class="tool-icon">📦</div>
+                    <div class="tool-name">Инвентарь запчастей</div>
+                </div>
+                <div class="tool-card">
+                    <div class="tool-icon">✅</div>
+                    <div class="tool-name">Чек-листы обслуживания</div>
+                </div>
+                <div class="tool-card">
+                    <div class="tool-icon">📝</div>
+                    <div class="tool-name">Система записей</div>
+                </div>
+                <div class="tool-card">
+                    <div class="tool-icon">📊</div>
+                    <div class="tool-name">Панели производительности</div>
+                </div>
+                <div class="tool-card">
+                    <div class="tool-icon">📢</div>
+                    <div class="tool-name">Доска коммуникации</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Key Metrics -->
+    <div class="section compact">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Ключевые метрики</h2>
+                <p class="section-subtitle">Что измерять</p>
+            </div>
+
+            <div class="metrics-grid">
+                <div class="metric-card">
+                    <div class="metric-name">OEE</div>
+                    <div class="metric-target">Цель: &gt; 85%</div>
+                </div>
+                <div class="metric-card">
+                    <div class="metric-name">Uptime</div>
+                    <div class="metric-target">% времени работы</div>
+                </div>
+                <div class="metric-card">
+                    <div class="metric-name">MTBF</div>
+                    <div class="metric-target">Должен расти ↑</div>
+                </div>
+                <div class="metric-card">
+                    <div class="metric-name">MTTR</div>
+                    <div class="metric-target">Должен снижаться ↓</div>
+                </div>
+                <div class="metric-card">
+                    <div class="metric-name">Затраты на обслуживание</div>
+                    <div class="metric-target">На единицу продукции</div>
+                </div>
+                <div class="metric-card">
+                    <div class="metric-name">Брак</div>
+                    <div class="metric-target">Снизить ↓</div>
+                </div>
+                <div class="metric-card">
+                    <div class="metric-name">Инциденты безопасности</div>
+                    <div class="metric-target">К нулю</div>
+                </div>
+                <div class="metric-card">
+                    <div class="metric-name">Удовлетворенность персонала</div>
+                    <div class="metric-target">С оборудованием</div>
+                </div>
+            </div>
+
+            <div style="margin-top: var(--space-32); padding: var(--space-24); background: var(--color-surface); border-radius: var(--radius-lg); box-shadow: var(--shadow-md);">
+                <h3 style="color: var(--color-primary); margin-bottom: var(--space-16); text-align: center;">📈 Расшифровка метрик:</h3>
+                <div style="display: grid; gap: var(--space-12);">
+                    <p><strong>MTBF (Mean Time Between Failures):</strong> Среднее время между отказами - должен расти</p>
+                    <p><strong>MTTR (Mean Time To Repair):</strong> Среднее время на ремонт - должно уменьшаться</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Connection to Other Lean Tools -->
+    <div class="section compact" style="background: var(--color-bg-7);">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Связь с другими Lean инструментами</h2>
+                <p class="section-subtitle">Как ТРМ создает основу</p>
+            </div>
+
+            <div class="definition-box" style="border-color: var(--color-primary);">
+                <p class="definition-text" style="font-size: var(--font-size-2xl); font-weight: var(--font-weight-bold); color: var(--color-primary);">⚠️ ТРМ идет после 5С в lean пути</p>
+                <p class="definition-text">5С создает организованную среду, ТРМ обеспечивает надежное оборудование</p>
+            </div>
+
+            <div class="connection-grid">
+                <div class="connection-card">
+                    <div class="connection-tool">📦 5С</div>
+                    <p>Основа - чистое, организованное оборудование готово к обслуживанию</p>
+                </div>
+                <div class="connection-card">
+                    <div class="connection-tool">📊 Канбан</div>
+                    <p>Может работать правильно только с надежным оборудованием</p>
+                </div>
+                <div class="connection-card">
+                    <div class="connection-tool">⏱️ JIT</div>
+                    <p>Можно делать JIT только если оборудование надежное (без задержек)</p>
+                </div>
+                <div class="connection-card">
+                    <div class="connection-tool">🛡️ Poka-yoke</div>
+                    <p>Работает лучше с хорошо обслуживаемым оборудованием</p>
+                </div>
+                <div class="connection-card">
+                    <div class="connection-tool">🌱 Kaizen</div>
+                    <p>Постоянное улучшение самого обслуживания</p>
+                </div>
+                <div class="connection-card">
+                    <div class="connection-tool">🗺️ VSM</div>
+                    <p>Можно достичь целевого состояния только с надежным оборудованием</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Action Plan -->
+    <div class="section compact">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">План действий</h2>
+                <p class="section-subtitle">Что делать дальше</p>
+            </div>
+
+            <div class="action-grid">
+                <div class="action-card">
+                    <span class="action-number">1</span>
+                    <p>Оценить текущее состояние (простои, затраты, OEE)</p>
+                </div>
+                <div class="action-card">
+                    <span class="action-number">2</span>
+                    <p>Выбрать пилотное оборудование (критичное или проблемное)</p>
+                </div>
+                <div class="action-card">
+                    <span class="action-number">3</span>
+                    <p>Сформировать ТРМ команду (операторы, обслуживание, менеджмент)</p>
+                </div>
+                <div class="action-card">
+                    <span class="action-number">4</span>
+                    <p>Разработать шаги автономного обслуживания</p>
+                </div>
+                <div class="action-card">
+                    <span class="action-number">5</span>
+                    <p>Создать график обслуживания</p>
+                </div>
+                <div class="action-card">
+                    <span class="action-number">6</span>
+                    <p>Обучить весь персонал</p>
+                </div>
+                <div class="action-card">
+                    <span class="action-number">7</span>
+                    <p>Запустить пилотную программу</p>
+                </div>
+                <div class="action-card">
+                    <span class="action-number">8</span>
+                    <p>Измерять результаты ежемесячно</p>
+                </div>
+                <div class="action-card">
+                    <span class="action-number">9</span>
+                    <p>Расширить на другое оборудование</p>
+                </div>
+                <div class="action-card">
+                    <span class="action-number">10</span>
+                    <p>Сделать это культурой</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Conclusion -->
+    <div class="section" style="background: var(--color-bg-1);">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Заключение</h2>
+            </div>
+
+            <div class="conclusion-box">
+                <p class="conclusion-text">💰 <strong>ТРМ - это не расходы, это инвестиция</strong></p>
+                <p class="conclusion-text">🛡️ <strong>Профилактика дешевле лечения</strong></p>
+                <p class="conclusion-text">⚙️ <strong>Оборудование, которое никогда не ломается, зарабатывает деньги</strong></p>
+                <p class="conclusion-text">🙏 <strong>ТРМ - это культура уважения к оборудованию</strong></p>
+                <p class="conclusion-text" style="margin-top: var(--space-32); font-size: var(--font-size-3xl); color: var(--color-primary);">➡️ <strong>Следующий шаг: Канбан - система вытягивания, которая полагается на ТРМ</strong></p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // OEE Calculator
+        function calculateOEE() {
+            const availability = parseFloat(document.getElementById('availability').value) || 0;
+            const performance = parseFloat(document.getElementById('performance').value) || 0;
+            const quality = parseFloat(document.getElementById('quality').value) || 0;
+            
+            const oee = (availability * performance * quality) / 10000;
+            const wastage = 100 - oee;
+            
+            document.getElementById('oeeValue').textContent = oee.toFixed(1) + '%';
+            document.getElementById('wastage').textContent = wastage.toFixed(1) + '% времени - потери!';
+        }
+
+        document.getElementById('availability').addEventListener('input', calculateOEE);
+        document.getElementById('performance').addEventListener('input', calculateOEE);
+        document.getElementById('quality').addEventListener('input', calculateOEE);
+
+        // Toggle pillar details
+        function togglePillar(element) {
+            element.classList.toggle('expanded');
+        }
+
+        // Schedule tabs
+        function showSchedule(schedule) {
+            // Hide all schedule contents
+            const contents = document.querySelectorAll('.schedule-content');
+            contents.forEach(content => content.classList.remove('active'));
+            
+            // Remove active class from all tabs
+            const tabs = document.querySelectorAll('.schedule-tab');
+            tabs.forEach(tab => tab.classList.remove('active'));
+            
+            // Show selected schedule
+            document.getElementById(schedule).classList.add('active');
+            
+            // Add active class to clicked tab
+            event.target.classList.add('active');
+        }
+    </script>
+</body>
+</html>

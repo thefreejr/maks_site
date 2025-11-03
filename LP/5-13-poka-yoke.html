@@ -1,0 +1,1980 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>POKA-YOKE - Ошибкоустойчивость</title>
+    <style>
+:root {
+  --color-white: rgba(255, 255, 255, 1);
+  --color-black: rgba(0, 0, 0, 1);
+  --color-cream-50: rgba(252, 252, 249, 1);
+  --color-cream-100: rgba(255, 255, 253, 1);
+  --color-gray-200: rgba(245, 245, 245, 1);
+  --color-gray-300: rgba(167, 169, 169, 1);
+  --color-gray-400: rgba(119, 124, 124, 1);
+  --color-slate-500: rgba(98, 108, 113, 1);
+  --color-brown-600: rgba(94, 82, 64, 1);
+  --color-charcoal-700: rgba(31, 33, 33, 1);
+  --color-charcoal-800: rgba(38, 40, 40, 1);
+  --color-slate-900: rgba(19, 52, 59, 1);
+  --color-teal-300: rgba(50, 184, 198, 1);
+  --color-teal-400: rgba(45, 166, 178, 1);
+  --color-teal-500: rgba(33, 128, 141, 1);
+  --color-teal-600: rgba(29, 116, 128, 1);
+  --color-teal-700: rgba(26, 104, 115, 1);
+  --color-teal-800: rgba(41, 150, 161, 1);
+  --color-red-400: rgba(255, 84, 89, 1);
+  --color-red-500: rgba(192, 21, 47, 1);
+  --color-orange-400: rgba(230, 129, 97, 1);
+  --color-orange-500: rgba(168, 75, 47, 1);
+
+  --color-brown-600-rgb: 94, 82, 64;
+  --color-teal-500-rgb: 33, 128, 141;
+  --color-slate-900-rgb: 19, 52, 59;
+  --color-slate-500-rgb: 98, 108, 113;
+  --color-red-500-rgb: 192, 21, 47;
+  --color-red-400-rgb: 255, 84, 89;
+  --color-orange-500-rgb: 168, 75, 47;
+  --color-orange-400-rgb: 230, 129, 97;
+
+  --color-bg-1: rgba(59, 130, 246, 0.08);
+  --color-bg-2: rgba(245, 158, 11, 0.08);
+  --color-bg-3: rgba(34, 197, 94, 0.08);
+  --color-bg-4: rgba(239, 68, 68, 0.08);
+  --color-bg-5: rgba(147, 51, 234, 0.08);
+  --color-bg-6: rgba(249, 115, 22, 0.08);
+  --color-bg-7: rgba(236, 72, 153, 0.08);
+  --color-bg-8: rgba(6, 182, 212, 0.08);
+
+  --color-background: var(--color-cream-50);
+  --color-surface: var(--color-cream-100);
+  --color-text: var(--color-slate-900);
+  --color-text-secondary: var(--color-slate-500);
+  --color-primary: var(--color-teal-500);
+  --color-primary-hover: var(--color-teal-600);
+  --color-primary-active: var(--color-teal-700);
+  --color-secondary: rgba(var(--color-brown-600-rgb), 0.12);
+  --color-secondary-hover: rgba(var(--color-brown-600-rgb), 0.2);
+  --color-secondary-active: rgba(var(--color-brown-600-rgb), 0.25);
+  --color-border: rgba(var(--color-brown-600-rgb), 0.2);
+  --color-btn-primary-text: var(--color-cream-50);
+  --color-card-border: rgba(var(--color-brown-600-rgb), 0.12);
+  --color-card-border-inner: rgba(var(--color-brown-600-rgb), 0.12);
+  --color-error: var(--color-red-500);
+  --color-success: var(--color-teal-500);
+  --color-warning: var(--color-orange-500);
+  --color-info: var(--color-slate-500);
+  --color-focus-ring: rgba(var(--color-teal-500-rgb), 0.4);
+
+  --font-family-base: "FKGroteskNeue", "Geist", "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  --font-size-xs: 11px;
+  --font-size-sm: 12px;
+  --font-size-base: 14px;
+  --font-size-md: 14px;
+  --font-size-lg: 16px;
+  --font-size-xl: 18px;
+  --font-size-2xl: 20px;
+  --font-size-3xl: 24px;
+  --font-size-4xl: 30px;
+  --font-weight-normal: 400;
+  --font-weight-medium: 500;
+  --font-weight-semibold: 550;
+  --font-weight-bold: 600;
+  --line-height-tight: 1.2;
+  --line-height-normal: 1.5;
+
+  --space-4: 4px;
+  --space-8: 8px;
+  --space-12: 12px;
+  --space-16: 16px;
+  --space-20: 20px;
+  --space-24: 24px;
+  --space-32: 32px;
+
+  --radius-sm: 6px;
+  --radius-base: 8px;
+  --radius-md: 10px;
+  --radius-lg: 12px;
+  --radius-full: 9999px;
+
+  --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.04), 0 1px 2px rgba(0, 0, 0, 0.02);
+  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.04), 0 2px 4px -1px rgba(0, 0, 0, 0.02);
+  --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.04), 0 4px 6px -2px rgba(0, 0, 0, 0.02);
+
+  --duration-fast: 150ms;
+  --duration-normal: 250ms;
+  --ease-standard: cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --color-gray-400-rgb: 119, 124, 124;
+    --color-teal-300-rgb: 50, 184, 198;
+    --color-gray-300-rgb: 167, 169, 169;
+    --color-gray-200-rgb: 245, 245, 245;
+
+    --color-bg-1: rgba(29, 78, 216, 0.15);
+    --color-bg-2: rgba(180, 83, 9, 0.15);
+    --color-bg-3: rgba(21, 128, 61, 0.15);
+    --color-bg-4: rgba(185, 28, 28, 0.15);
+    --color-bg-5: rgba(107, 33, 168, 0.15);
+    --color-bg-6: rgba(194, 65, 12, 0.15);
+    --color-bg-7: rgba(190, 24, 93, 0.15);
+    --color-bg-8: rgba(8, 145, 178, 0.15);
+
+    --color-background: var(--color-charcoal-700);
+    --color-surface: var(--color-charcoal-800);
+    --color-text: var(--color-gray-200);
+    --color-text-secondary: rgba(var(--color-gray-300-rgb), 0.7);
+    --color-primary: var(--color-teal-300);
+    --color-primary-hover: var(--color-teal-400);
+    --color-primary-active: var(--color-teal-800);
+    --color-secondary: rgba(var(--color-gray-400-rgb), 0.15);
+    --color-secondary-hover: rgba(var(--color-gray-400-rgb), 0.25);
+    --color-secondary-active: rgba(var(--color-gray-400-rgb), 0.3);
+    --color-border: rgba(var(--color-gray-400-rgb), 0.3);
+    --color-error: var(--color-red-400);
+    --color-success: var(--color-teal-300);
+    --color-warning: var(--color-orange-400);
+    --color-info: var(--color-gray-300);
+    --color-focus-ring: rgba(var(--color-teal-300-rgb), 0.4);
+    --color-btn-primary-text: var(--color-slate-900);
+    --color-card-border: rgba(var(--color-gray-400-rgb), 0.2);
+    --color-card-border-inner: rgba(var(--color-gray-400-rgb), 0.15);
+  }
+}
+
+@font-face {
+  font-family: 'FKGroteskNeue';
+  src: url('https://r2cdn.perplexity.ai/fonts/FKGroteskNeue.woff2') format('woff2');
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: var(--font-family-base);
+    background-color: var(--color-background);
+    color: var(--color-text);
+    line-height: var(--line-height-normal);
+    scroll-behavior: smooth;
+}
+
+.container {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 0 var(--space-32);
+}
+
+.section {
+    padding: 80px 0;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+}
+
+.section.compact {
+    min-height: auto;
+    padding: 60px 0;
+}
+
+/* Hero Section */
+.hero {
+    background: var(--color-bg-8);
+    position: relative;
+    overflow: hidden;
+}
+
+.hero-content {
+    text-align: center;
+}
+
+.hero-icon {
+    font-size: 100px;
+    margin-bottom: var(--space-24);
+}
+
+.hero-title {
+    font-size: 120px;
+    font-weight: var(--font-weight-bold);
+    margin-bottom: var(--space-16);
+    letter-spacing: 0.05em;
+    color: var(--color-primary);
+}
+
+.hero-japanese {
+    font-size: 48px;
+    color: var(--color-text);
+    margin-bottom: var(--space-12);
+}
+
+.hero-subtitle {
+    font-size: var(--font-size-3xl);
+    color: var(--color-text);
+    margin-bottom: var(--space-12);
+    font-weight: var(--font-weight-semibold);
+}
+
+.hero-translation {
+    font-size: var(--font-size-xl);
+    color: var(--color-text-secondary);
+    margin-bottom: var(--space-32);
+    font-style: italic;
+}
+
+.hero-message {
+    font-size: var(--font-size-2xl);
+    color: var(--color-text);
+    font-weight: var(--font-weight-bold);
+    padding: var(--space-32);
+    background: var(--color-surface);
+    border-radius: var(--radius-lg);
+    border-left: 6px solid var(--color-success);
+    max-width: 900px;
+    margin: var(--space-32) auto;
+    box-shadow: var(--shadow-lg);
+}
+
+.hero-tagline {
+    font-size: var(--font-size-2xl);
+    color: var(--color-primary);
+    margin-top: var(--space-24);
+    font-weight: var(--font-weight-bold);
+}
+
+.hero-quote {
+    font-size: var(--font-size-xl);
+    color: var(--color-warning);
+    margin-top: var(--space-16);
+    font-style: italic;
+    font-weight: var(--font-weight-medium);
+}
+
+/* Wave Visualization */
+.wave-comparison {
+    display: flex;
+    gap: var(--space-32);
+    align-items: center;
+    margin: var(--space-32) 0;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.wave-box {
+    flex: 1;
+    min-width: 300px;
+    padding: var(--space-32);
+    background: var(--color-surface);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-md);
+}
+
+.wave-box.chaotic {
+    border-top: 6px solid var(--color-error);
+}
+
+.wave-box.smooth {
+    border-top: 6px solid var(--color-success);
+}
+
+.wave-title {
+    font-size: var(--font-size-2xl);
+    font-weight: var(--font-weight-bold);
+    margin-bottom: var(--space-16);
+    text-align: center;
+}
+
+.wave-box.chaotic .wave-title {
+    color: var(--color-error);
+}
+
+.wave-box.smooth .wave-title {
+    color: var(--color-success);
+}
+
+/* Section Headers */
+.section-header {
+    text-align: center;
+    margin-bottom: var(--space-32);
+}
+
+.section-title {
+    font-size: 48px;
+    font-weight: var(--font-weight-bold);
+    margin-bottom: var(--space-16);
+    color: var(--color-primary);
+}
+
+.section-subtitle {
+    font-size: var(--font-size-2xl);
+    color: var(--color-text-secondary);
+}
+
+/* Definition Box */
+.definition-box {
+    background-color: var(--color-surface);
+    border-left: 6px solid var(--color-primary);
+    padding: var(--space-32);
+    border-radius: var(--radius-lg);
+    margin-bottom: var(--space-32);
+    box-shadow: var(--shadow-md);
+}
+
+.definition-text {
+    font-size: var(--font-size-xl);
+    line-height: 1.6;
+    margin-bottom: var(--space-16);
+}
+
+.definition-text:last-child {
+    margin-bottom: 0;
+}
+
+/* Info Grid */
+.info-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: var(--space-20);
+    margin: var(--space-32) 0;
+}
+
+.info-card {
+    background: var(--color-surface);
+    border-radius: var(--radius-lg);
+    padding: var(--space-24);
+    box-shadow: var(--shadow-md);
+    border-top: 4px solid var(--color-primary);
+}
+
+.info-label {
+    font-size: var(--font-size-sm);
+    color: var(--color-text-secondary);
+    text-transform: uppercase;
+    font-weight: var(--font-weight-medium);
+    margin-bottom: var(--space-8);
+}
+
+.info-value {
+    font-size: var(--font-size-xl);
+    font-weight: var(--font-weight-bold);
+    color: var(--color-text);
+}
+
+/* Comparison */
+.comparison {
+    display: grid;
+    grid-template-columns: 1fr auto 1fr;
+    gap: var(--space-32);
+    align-items: center;
+    margin: var(--space-32) 0;
+}
+
+.comparison-column {
+    padding: var(--space-24);
+    border-radius: var(--radius-lg);
+    border: 3px solid;
+}
+
+.comparison-column.before {
+    border-color: var(--color-error);
+    background: var(--color-bg-4);
+}
+
+.comparison-column.after {
+    border-color: var(--color-success);
+    background: var(--color-bg-3);
+}
+
+.comparison-header {
+    font-size: var(--font-size-2xl);
+    font-weight: var(--font-weight-bold);
+    margin-bottom: var(--space-16);
+    padding-bottom: var(--space-12);
+    border-bottom: 3px solid;
+}
+
+.comparison-column.before .comparison-header {
+    color: var(--color-error);
+    border-color: var(--color-error);
+}
+
+.comparison-column.after .comparison-header {
+    color: var(--color-success);
+    border-color: var(--color-success);
+}
+
+.comparison-arrow {
+    font-size: 48px;
+    color: var(--color-primary);
+}
+
+.comparison-list {
+    list-style: none;
+}
+
+.comparison-list li {
+    padding: var(--space-12);
+    margin-bottom: var(--space-8);
+    background: var(--color-surface);
+    border-radius: var(--radius-sm);
+}
+
+/* Weekly Schedule */
+.weekly-schedule {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: var(--space-12);
+    margin: var(--space-32) 0;
+}
+
+.day-card {
+    background: var(--color-surface);
+    border-radius: var(--radius-lg);
+    padding: var(--space-20);
+    box-shadow: var(--shadow-md);
+    text-align: center;
+}
+
+.day-card.overload {
+    background: var(--color-bg-4);
+    border: 3px solid var(--color-error);
+}
+
+.day-card.underload {
+    background: var(--color-bg-2);
+    border: 3px solid var(--color-warning);
+}
+
+.day-card.normal {
+    background: var(--color-bg-3);
+    border: 3px solid var(--color-success);
+}
+
+.day-name {
+    font-size: var(--font-size-lg);
+    font-weight: var(--font-weight-bold);
+    margin-bottom: var(--space-8);
+    color: var(--color-text);
+}
+
+.day-orders {
+    font-size: 36px;
+    font-weight: var(--font-weight-bold);
+    margin-bottom: var(--space-8);
+}
+
+.day-card.overload .day-orders {
+    color: var(--color-error);
+}
+
+.day-card.underload .day-orders {
+    color: var(--color-warning);
+}
+
+.day-card.normal .day-orders {
+    color: var(--color-success);
+}
+
+.day-status {
+    font-size: var(--font-size-sm);
+    font-weight: var(--font-weight-bold);
+    margin-bottom: var(--space-8);
+    text-transform: uppercase;
+}
+
+.day-result {
+    font-size: var(--font-size-sm);
+    color: var(--color-text-secondary);
+}
+
+/* Heijunka Box */
+.heijunka-box {
+    background: var(--color-surface);
+    border-radius: var(--radius-lg);
+    padding: var(--space-32);
+    box-shadow: var(--shadow-md);
+    margin: var(--space-32) 0;
+}
+
+.box-grid {
+    display: grid;
+    grid-template-columns: 150px repeat(4, 1fr);
+    gap: var(--space-8);
+    margin-top: var(--space-16);
+}
+
+.box-header {
+    background: var(--color-primary);
+    color: var(--color-btn-primary-text);
+    padding: var(--space-12);
+    text-align: center;
+    font-weight: var(--font-weight-bold);
+    border-radius: var(--radius-sm);
+}
+
+.box-product {
+    background: var(--color-bg-1);
+    padding: var(--space-12);
+    font-weight: var(--font-weight-bold);
+    border-radius: var(--radius-sm);
+}
+
+.box-slot {
+    background: var(--color-bg-2);
+    padding: var(--space-12);
+    text-align: center;
+    border: 2px dashed var(--color-border);
+    border-radius: var(--radius-sm);
+    min-height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: var(--font-size-sm);
+}
+
+/* T-shirt Example */
+.tshirt-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--space-32);
+    margin: var(--space-32) 0;
+}
+
+.tshirt-approach {
+    background: var(--color-surface);
+    border-radius: var(--radius-lg);
+    padding: var(--space-32);
+    box-shadow: var(--shadow-md);
+}
+
+.tshirt-approach.traditional {
+    border-top: 6px solid var(--color-error);
+}
+
+.tshirt-approach.heijunka {
+    border-top: 6px solid var(--color-success);
+}
+
+.approach-title {
+    font-size: var(--font-size-2xl);
+    font-weight: var(--font-weight-bold);
+    margin-bottom: var(--space-16);
+    text-align: center;
+}
+
+.tshirt-approach.traditional .approach-title {
+    color: var(--color-error);
+}
+
+.tshirt-approach.heijunka .approach-title {
+    color: var(--color-success);
+}
+
+.color-blocks {
+    display: flex;
+    gap: var(--space-12);
+    margin: var(--space-16) 0;
+    flex-wrap: wrap;
+}
+
+.color-block {
+    padding: var(--space-16);
+    border-radius: var(--radius-base);
+    font-weight: var(--font-weight-bold);
+    text-align: center;
+    color: white;
+    flex: 1;
+    min-width: 60px;
+}
+
+.color-block.red { background: #EF4444; }
+.color-block.blue { background: #3B82F6; }
+.color-block.green { background: #10B981; }
+.color-block.yellow { background: #F59E0B; color: var(--color-text); }
+
+/* Toggle Switch */
+.toggle-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: var(--space-16);
+    margin: var(--space-32) 0;
+    padding: var(--space-24);
+    background: var(--color-surface);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-md);
+}
+
+.toggle-label {
+    font-size: var(--font-size-xl);
+    font-weight: var(--font-weight-bold);
+}
+
+.toggle-switch {
+    position: relative;
+    width: 80px;
+    height: 40px;
+    background: var(--color-secondary);
+    border-radius: var(--radius-full);
+    cursor: pointer;
+    transition: background var(--duration-normal);
+}
+
+.toggle-switch.active {
+    background: var(--color-primary);
+}
+
+.toggle-slider {
+    position: absolute;
+    top: 4px;
+    left: 4px;
+    width: 32px;
+    height: 32px;
+    background: white;
+    border-radius: 50%;
+    transition: transform var(--duration-normal);
+    box-shadow: var(--shadow-md);
+}
+
+.toggle-switch.active .toggle-slider {
+    transform: translateX(40px);
+}
+
+/* Implementation Steps */
+.steps-container {
+    margin: var(--space-32) 0;
+}
+
+.step-item {
+    background: var(--color-surface);
+    border-radius: var(--radius-lg);
+    padding: var(--space-24);
+    margin-bottom: var(--space-16);
+    box-shadow: var(--shadow-md);
+    border-left: 6px solid var(--color-primary);
+    cursor: pointer;
+    transition: all var(--duration-normal);
+}
+
+.step-item:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-lg);
+}
+
+.step-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.step-title {
+    font-size: var(--font-size-xl);
+    font-weight: var(--font-weight-bold);
+    color: var(--color-primary);
+}
+
+.step-icon {
+    font-size: var(--font-size-2xl);
+    transition: transform var(--duration-normal);
+}
+
+.step-item.expanded .step-icon {
+    transform: rotate(180deg);
+}
+
+.step-content {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height var(--duration-normal);
+}
+
+.step-item.expanded .step-content {
+    max-height: 500px;
+    margin-top: var(--space-16);
+}
+
+.step-content ul {
+    list-style: none;
+}
+
+.step-content li {
+    padding: var(--space-8);
+    margin-bottom: var(--space-4);
+    background: var(--color-bg-1);
+    border-radius: var(--radius-sm);
+}
+
+/* Type Cards */
+.type-cards {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--space-32);
+    margin: var(--space-32) 0;
+}
+
+.type-card {
+    background: var(--color-surface);
+    border-radius: var(--radius-lg);
+    padding: var(--space-32);
+    box-shadow: var(--shadow-md);
+    border-top: 6px solid var(--color-primary);
+}
+
+.type-number {
+    font-size: 48px;
+    font-weight: var(--font-weight-bold);
+    color: var(--color-primary);
+    margin-bottom: var(--space-12);
+}
+
+.type-name {
+    font-size: var(--font-size-2xl);
+    font-weight: var(--font-weight-bold);
+    margin-bottom: var(--space-8);
+    color: var(--color-text);
+}
+
+.type-russian {
+    font-size: var(--font-size-lg);
+    color: var(--color-text-secondary);
+    margin-bottom: var(--space-16);
+    font-style: italic;
+}
+
+/* Metrics Grid */
+.metrics-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: var(--space-20);
+    margin: var(--space-32) 0;
+}
+
+.metric-card {
+    background: var(--color-surface);
+    border-radius: var(--radius-lg);
+    padding: var(--space-24);
+    box-shadow: var(--shadow-md);
+    text-align: center;
+}
+
+.metric-icon {
+    font-size: 36px;
+    margin-bottom: var(--space-12);
+}
+
+.metric-name {
+    font-size: var(--font-size-lg);
+    font-weight: var(--font-weight-bold);
+    color: var(--color-primary);
+    margin-bottom: var(--space-8);
+}
+
+.metric-value {
+    font-size: var(--font-size-base);
+    color: var(--color-text-secondary);
+}
+
+/* Connection Grid */
+.connection-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: var(--space-20);
+    margin: var(--space-32) 0;
+}
+
+.connection-card {
+    background: var(--color-surface);
+    padding: var(--space-20);
+    border-radius: var(--radius-base);
+    border-left: 4px solid var(--color-primary);
+    box-shadow: var(--shadow-sm);
+}
+
+.connection-tool {
+    font-size: var(--font-size-lg);
+    font-weight: var(--font-weight-bold);
+    color: var(--color-primary);
+    margin-bottom: var(--space-8);
+}
+
+/* Quote Box */
+.quote-box {
+    background: var(--color-surface);
+    border-left: 6px solid var(--color-warning);
+    border-radius: var(--radius-lg);
+    padding: var(--space-32);
+    margin: var(--space-32) 0;
+    box-shadow: var(--shadow-lg);
+    text-align: center;
+}
+
+.quote-text {
+    font-size: var(--font-size-3xl);
+    font-style: italic;
+    color: var(--color-text);
+    margin-bottom: var(--space-16);
+    line-height: 1.6;
+}
+
+.quote-author {
+    font-size: var(--font-size-xl);
+    color: var(--color-warning);
+    font-weight: var(--font-weight-bold);
+}
+
+/* Conclusion Box */
+.conclusion-box {
+    background: var(--color-bg-3);
+    padding: var(--space-32);
+    border-radius: var(--radius-lg);
+    text-align: center;
+    margin: var(--space-32) 0;
+    border: 3px solid var(--color-primary);
+}
+
+.conclusion-text {
+    font-size: var(--font-size-2xl);
+    line-height: 1.8;
+    margin-bottom: var(--space-16);
+    font-weight: var(--font-weight-medium);
+}
+
+/* Mistakes Grid */
+.mistakes-grid {
+    display: grid;
+    gap: var(--space-20);
+    margin: var(--space-32) 0;
+}
+
+.mistake-card {
+    background: var(--color-surface);
+    border-left: 4px solid var(--color-error);
+    border-radius: var(--radius-lg);
+    padding: var(--space-24);
+    box-shadow: var(--shadow-sm);
+}
+
+.mistake-title {
+    font-size: var(--font-size-xl);
+    font-weight: var(--font-weight-semibold);
+    color: var(--color-error);
+    margin-bottom: var(--space-12);
+}
+
+.mistake-comparison {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: var(--space-16);
+    margin-top: var(--space-12);
+}
+
+.mistake-wrong {
+    background: var(--color-bg-4);
+    padding: var(--space-12);
+    border-radius: var(--radius-base);
+    border-left: 3px solid var(--color-error);
+}
+
+.mistake-right {
+    background: var(--color-bg-3);
+    padding: var(--space-12);
+    border-radius: var(--radius-base);
+    border-left: 3px solid var(--color-success);
+}
+
+.mistake-result {
+    background: var(--color-bg-1);
+    padding: var(--space-12);
+    border-radius: var(--radius-base);
+    border-left: 3px solid var(--color-primary);
+    font-weight: var(--font-weight-bold);
+}
+
+/* Benefits Section */
+.benefits-container {
+    display: grid;
+    gap: var(--space-24);
+    margin: var(--space-32) 0;
+}
+
+.benefit-category {
+    background: var(--color-surface);
+    border-radius: var(--radius-lg);
+    padding: var(--space-24);
+    box-shadow: var(--shadow-md);
+    border-left: 6px solid var(--color-primary);
+}
+
+.benefit-category h3 {
+    font-size: var(--font-size-2xl);
+    font-weight: var(--font-weight-bold);
+    color: var(--color-primary);
+    margin-bottom: var(--space-16);
+}
+
+.benefit-category ul {
+    list-style: none;
+}
+
+.benefit-category li {
+    padding: var(--space-12);
+    margin-bottom: var(--space-8);
+    background: var(--color-bg-1);
+    border-radius: var(--radius-sm);
+}
+
+/* Responsive */
+@media (max-width: 1024px) {
+    .hero-title { font-size: 80px; }
+    .comparison,
+    .mistake-comparison,
+    .tshirt-grid,
+    .type-cards {
+        grid-template-columns: 1fr;
+        gap: var(--space-16);
+    }
+    .comparison-arrow {
+        transform: rotate(90deg);
+    }
+    .weekly-schedule {
+        grid-template-columns: 1fr;
+    }
+    .box-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 768px) {
+    .hero-title { font-size: 60px; }
+    .hero-japanese { font-size: 32px; }
+    .section-title { font-size: 36px; }
+    .container { padding: 0 var(--space-16); }
+    .section { padding: 40px 0; }
+    .section.compact { padding: 30px 0; }
+    .wave-comparison { flex-direction: column; }
+}
+    </style>
+</head>
+<body>
+    <!-- Hero Section -->
+    <div class="hero section">
+        <div class="container">
+            <div class="hero-content">
+                <div class="hero-icon">🛑</div>
+                <h1 class="hero-title">POKA-YOKE</h1>
+                <div class="hero-japanese">ポカヨケ</div>
+                <p class="hero-subtitle">Ошибкоустойчивость - Сделаем ошибки невозможными</p>
+                <p class="hero-translation">Mistake-Proofing / Error-Proofing / Fool-proof</p>
+                
+                <div class="wave-comparison">
+                    <div class="wave-box chaotic">
+                        <div class="wave-title">❌ Без Poka-Yoke</div>
+                        <div style="text-align: center; padding: var(--space-24);">
+                            <div style="font-size: 48px; margin-bottom: var(--space-12);">🔧❌🔨</div>
+                            <p style="font-weight: var(--font-weight-bold); color: var(--color-error);">Ошибки возможны</p>
+                        </div>
+                    </div>
+                    
+                    <div class="wave-box smooth">
+                        <div class="wave-title">✓ С Poka-Yoke</div>
+                        <div style="text-align: center; padding: var(--space-24);">
+                            <div style="font-size: 48px; margin-bottom: var(--space-12);">🔧✅🔨</div>
+                            <p style="font-weight: var(--font-weight-bold); color: var(--color-success);">Ошибки невозможны</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="hero-message">
+                    Нельзя установить неправильно, только правильно
+                </div>
+                <p class="hero-tagline">Ошибка ДО начала, не ПОСЛЕ завершения</p>
+                <p class="hero-quote">"Make it impossible to make a mistake" — Shigeo Shingo</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- What is Poka-Yoke -->
+    <div class="section compact">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Что такое Poka-Yoke?</h2>
+                <p class="section-subtitle">Определение</p>
+            </div>
+
+            <div class="definition-box">
+                <p class="definition-text"><strong>Poka-Yoke - это техника или метод, направленный на предотвращение ошибок или немедленное их выявление при возникновении</strong></p>
+                <p class="definition-text" style="font-size: var(--font-size-lg); color: var(--color-text-secondary); margin-top: var(--space-16);">"Poka" = error, "Yoke" = prevention (fool-proof)</p>
+            </div>
+
+            <div class="info-grid">
+                <div class="info-card">
+                    <div class="info-label">Также называется</div>
+                    <div class="info-value">Mistake-proofing, Error-proofing, Fool-proofing</div>
+                </div>
+                <div class="info-card">
+                    <div class="info-label">Создатель</div>
+                    <div class="info-value">Shigeo Shingo (Toyota, 1960-е)</div>
+                </div>
+                <div class="info-card">
+                    <div class="info-label">Философия</div>
+                    <div class="info-value" style="color: var(--color-primary);">Better to prevent error than fix after</div>
+                </div>
+                <div class="info-card">
+                    <div class="info-label">Цель</div>
+                    <div class="info-value">Make error impossible through design</div>
+                </div>
+                <div class="info-card">
+                    <div class="info-label">Если не удается</div>
+                    <div class="info-value">Make it impossible not to notice</div>
+                </div>
+                <div class="info-card">
+                    <div class="info-label">Реальность</div>
+                    <div class="info-value" style="color: var(--color-success);">Cost preventing &lt;&lt; Cost fixing</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Cost Imperative -->
+    <div class="section compact" style="background: var(--color-bg-4);">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Почему предотвращение важно</h2>
+                <p class="section-subtitle">Стоимость ошибок</p>
+            </div>
+
+            <div class="info-grid">
+                <div class="info-card" style="background: var(--color-bg-4); border-color: var(--color-error);">
+                    <div class="info-label">NASA пример</div>
+                    <div class="info-value" style="color: var(--color-error);">Mars Climate Orbiter: $165.6M потеря</div>
+                    <div style="margin-top: var(--space-8); font-size: var(--font-size-sm); color: var(--color-text-secondary);">Ошибка конверсии единиц измерения</div>
+                </div>
+                <div class="info-card" style="background: var(--color-bg-4); border-color: var(--color-error);">
+                    <div class="info-label">Автомобильный отзыв</div>
+                    <div class="info-value" style="color: var(--color-error);">Миллиарды долларов</div>
+                    <div style="margin-top: var(--space-8); font-size: var(--font-size-sm); color: var(--color-text-secondary);">Одна дефектная деталь × миллионы машин</div>
+                </div>
+                <div class="info-card" style="background: var(--color-bg-4); border-color: var(--color-error);">
+                    <div class="info-label">Баг в ПО</div>
+                    <div class="info-value" style="color: var(--color-error);">Миллионы на поддержку</div>
+                    <div style="margin-top: var(--space-8); font-size: var(--font-size-sm); color: var(--color-text-secondary);">Релиз с ошибкой + ущерб репутации</div>
+                </div>
+            </div>
+
+            <div style="background: var(--color-surface); padding: var(--space-32); border-radius: var(--radius-lg); box-shadow: var(--shadow-md); margin-top: var(--space-32);">
+                <h3 style="text-align: center; font-size: var(--font-size-3xl); color: var(--color-primary); margin-bottom: var(--space-24);">Математика стоимости ошибок:</h3>
+                <div class="weekly-schedule" style="grid-template-columns: repeat(4, 1fr);">
+                    <div class="day-card normal">
+                        <div class="day-name">Предотвратить при дизайне</div>
+                        <div class="day-orders">$100</div>
+                        <div class="day-status">ЛУЧШЕЕ</div>
+                    </div>
+                    <div class="day-card" style="background: var(--color-bg-2); border-color: var(--color-warning);">
+                        <div class="day-name">Предотвратить при настройке</div>
+                        <div class="day-orders" style="color: var(--color-warning);">$1,000</div>
+                        <div class="day-status">ХОРОШО</div>
+                    </div>
+                    <div class="day-card overload">
+                        <div class="day-name">Обнаружить при производстве</div>
+                        <div class="day-orders">$10,000</div>
+                        <div class="day-status">ПЛОХО</div>
+                    </div>
+                    <div class="day-card" style="background: rgba(192, 21, 47, 0.2); border-color: var(--color-error);">
+                        <div class="day-name">Исправить у клиента</div>
+                        <div class="day-orders" style="color: var(--color-error); font-size: 32px;">$1,000,000</div>
+                        <div class="day-status">КАТАСТРОФА</div>
+                    </div>
+                </div>
+                <p style="text-align: center; margin-top: var(--space-24); font-size: var(--font-size-2xl); font-weight: var(--font-weight-bold); color: var(--color-success);">Принцип: Чем раньше предотвратить = экспоненциально дешевле</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Two Strategies -->
+    <div class="section compact" style="background: var(--color-bg-3);">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Две стратегии Poka-Yoke</h2>
+                <p class="section-subtitle">Предотвращение vs Обнаружение</p>
+            </div>
+
+            <div class="type-cards">
+                <div class="type-card" style="border-color: var(--color-success); background: var(--color-bg-3);">
+                    <div class="type-number" style="color: var(--color-success);">1</div>
+                    <div class="type-name" style="color: var(--color-success);">PREVENTION (ПРЕДОТВРАЩЕНИЕ)</div>
+                    <div class="type-russian" style="font-size: var(--font-size-xl); color: var(--color-success); font-weight: var(--font-weight-bold);">BEST ⭐</div>
+                    <p style="margin-bottom: var(--space-12); font-weight: var(--font-weight-bold);"><strong>Подход:</strong> Сделать ошибку физически невозможной</p>
+                    <div style="background: var(--color-surface); padding: var(--space-16); border-radius: var(--radius-base); margin: var(--space-12) 0;">
+                        <p style="font-weight: var(--font-weight-bold); margin-bottom: var(--space-8);">Примеры:</p>
+                        <ul style="list-style: none; padding: 0;">
+                            <li style="padding: var(--space-4); margin-bottom: var(--space-4);">SIM-карта: Обрезанный угол</li>
+                            <li style="padding: var(--space-4); margin-bottom: var(--space-4);">USB: Только одна сторона</li>
+                            <li style="padding: var(--space-4); margin-bottom: var(--space-4);">Кабели: Разные формы</li>
+                            <li style="padding: var(--space-4); margin-bottom: var(--space-4);">Автодверь: Не закроется с препятствием</li>
+                        </ul>
+                    </div>
+                    <p style="color: var(--color-success); font-weight: var(--font-weight-bold); margin-top: var(--space-12);"><strong>Цель:</strong> 100% предотвращение ошибок</p>
+                    <p style="margin-top: var(--space-8);"><strong>Стоимость:</strong> Выше на старте, экономия миллионов потом</p>
+                </div>
+
+                <div class="type-card" style="border-color: var(--color-warning); background: var(--color-bg-2);">
+                    <div class="type-number" style="color: var(--color-warning);">2</div>
+                    <div class="type-name" style="color: var(--color-warning);">DETECTION (ОБНАРУЖЕНИЕ)</div>
+                    <div class="type-russian" style="font-size: var(--font-size-xl); color: var(--color-warning); font-weight: var(--font-weight-bold);">GOOD ✓</div>
+                    <p style="margin-bottom: var(--space-12); font-weight: var(--font-weight-bold);"><strong>Подход:</strong> Немедленно обнаружить ошибку</p>
+                    <div style="background: var(--color-surface); padding: var(--space-16); border-radius: var(--radius-base); margin: var(--space-12) 0;">
+                        <p style="font-weight: var(--font-weight-bold); margin-bottom: var(--space-8);">Примеры:</p>
+                        <ul style="list-style: none; padding: 0;">
+                            <li style="padding: var(--space-4); margin-bottom: var(--space-4);">Весовые весы: Сигнал + СТОП</li>
+                            <li style="padding: var(--space-4); margin-bottom: var(--space-4);">Автоотключение: Перегрев</li>
+                            <li style="padding: var(--space-4); margin-bottom: var(--space-4);">Email: "Забыли вложение"</li>
+                            <li style="padding: var(--space-4); margin-bottom: var(--space-4);">Проверка орфографии</li>
+                        </ul>
+                    </div>
+                    <p style="color: var(--color-warning); font-weight: var(--font-weight-bold); margin-top: var(--space-12);"><strong>Цель:</strong> 100% обнаружение ошибок</p>
+                    <p style="margin-top: var(--space-8);"><strong>Стоимость:</strong> Ниже на старте, но реактивно</p>
+                </div>
+            </div>
+
+            <div style="background: var(--color-surface); padding: var(--space-32); border-radius: var(--radius-lg); box-shadow: var(--shadow-md); margin-top: var(--space-32); text-align: center;">
+                <h3 style="font-size: var(--font-size-3xl); color: var(--color-primary); margin-bottom: var(--space-16);">Ключевое правило</h3>
+                <p style="font-size: var(--font-size-2xl); font-weight: var(--font-weight-bold); color: var(--color-success); padding: var(--space-24); background: var(--color-bg-3); border-radius: var(--radius-base);">Предотвращение всегда лучше обнаружения<br>Обнаружение всегда лучше исправления</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Manufacturing Examples -->
+    <div class="section compact">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Реальные производственные примеры</h2>
+                <p class="section-subtitle">Предотвращение и обнаружение в действии</p>
+            </div>
+
+            <div class="definition-box">
+                <p class="definition-text"><strong>Пример 1: Автомобильная сборка - Установка деталей</strong></p>
+                <p class="definition-text" style="margin-top: var(--space-16);">Проблема: Рабочие устанавливают неправильные детали (похожие, но разные)</p>
+            </div>
+
+            <div class="comparison">
+                <div class="comparison-column before">
+                    <div class="comparison-header">❌ Традиционный подход</div>
+                    <ul class="comparison-list">
+                        <li>Проверка после сборки (реактивно)</li>
+                        <li>~95% обнаружено, 5% к клиенту</li>
+                        <li>Дорогостоящие отзывы</li>
+                    </ul>
+                </div>
+                <div class="comparison-arrow">→</div>
+                <div class="comparison-column after">
+                    <div class="comparison-header">✓ Poka-Yoke (Предотвращение)</div>
+                    <ul class="comparison-list">
+                        <li>Деталь A: Квадратный разъем</li>
+                        <li>Деталь B: Круглый разъем</li>
+                        <li>Физически невозможно установить неправильно</li>
+                        <li style="color: var(--color-success); font-weight: var(--font-weight-bold);">100% точность, ноль ошибок</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="definition-box" style="margin-top: var(--space-32); border-color: var(--color-warning);">
+                <p class="definition-text"><strong>Пример 2: Фармацевтическая упаковка</strong></p>
+                <p class="definition-text" style="margin-top: var(--space-16);">Проблема: Неправильные лекарства в неправильных коробках (ОПАСНО!)</p>
+            </div>
+
+            <div class="comparison">
+                <div class="comparison-column before">
+                    <div class="comparison-header">❌ Традиционный подход</div>
+                    <ul class="comparison-list">
+                        <li>Визуальная проверка (люди ошибаются)</li>
+                        <li>99% точность в лучшем случае</li>
+                        <li>Риск опасных ошибок</li>
+                    </ul>
+                </div>
+                <div class="comparison-arrow">→</div>
+                <div class="comparison-column after">
+                    <div class="comparison-header">✓ Poka-Yoke (Обнаружение)</div>
+                    <ul class="comparison-list">
+                        <li>Весовые весы на упаковке</li>
+                        <li>Неправильный вес → СТОП + АЛАРМ</li>
+                        <li>Оператор сразу исправляет</li>
+                        <li style="color: var(--color-success); font-weight: var(--font-weight-bold);">100% обнаружение, безопасность гарантирована</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Types of Tools -->
+    <div class="section compact" style="background: var(--color-bg-5);">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Типы Poka-Yoke инструментов</h2>
+                <p class="section-subtitle">Методы реализации</p>
+            </div>
+
+            <div class="benefits-container">
+                <div class="benefit-category">
+                    <h3>🛡️ 1. Физические преграды</h3>
+                    <p style="margin-bottom: var(--space-12); font-weight: var(--font-weight-bold); color: var(--color-primary);"><strong>Как работает:</strong> Изменения размера/формы предотвращают неправильное действие</p>
+                    <ul>
+                        <li>Пример: Разные разъемы для разных кабелей</li>
+                        <li>Нельзя вставить неправильную деталь</li>
+                        <li style="color: var(--color-success); font-weight: var(--font-weight-bold);">Самый эффективный тип</li>
+                    </ul>
+                </div>
+
+                <div class="benefit-category">
+                    <h3>📶 2. Датчики обнаружения</h3>
+                    <p style="margin-bottom: var(--space-12); font-weight: var(--font-weight-bold); color: var(--color-primary);"><strong>Как работает:</strong> Датчики обнаруживают ошибки</p>
+                    <ul>
+                        <li>Вес, цвет, RFID, штрихкод, камеры</li>
+                        <li>Пример: Весы обнаруживают недостающий вес</li>
+                        <li>Триггер: Аларм или стоп-сигнал</li>
+                    </ul>
+                </div>
+
+                <div class="benefit-category">
+                    <h3>⏸️ 3. Концевые выключатели</h3>
+                    <p style="margin-bottom: var(--space-12); font-weight: var(--font-weight-bold); color: var(--color-primary);"><strong>Как работает:</strong> Останавливают при достижении лимита</p>
+                    <ul>
+                        <li>Пример: Ограничитель глубины сверления</li>
+                        <li>Предотвращает переработку</li>
+                        <li>Просто, но эффективно</li>
+                    </ul>
+                </div>
+
+                <div class="benefit-category">
+                    <h3>🔢 4. Счетчики</h3>
+                    <p style="margin-bottom: var(--space-12); font-weight: var(--font-weight-bold); color: var(--color-primary);"><strong>Как работает:</strong> Подсчитывают действия/элементы</p>
+                    <ul>
+                        <li>Пример: "Обнаружено 9 из 10 винтов" = СТОП</li>
+                        <li>Предотвращает пропуск шагов</li>
+                        <li>Гарантирует полную сборку</li>
+                    </ul>
+                </div>
+
+                <div class="benefit-category">
+                    <h3>⚠️ 5. Системы предупреждения</h3>
+                    <p style="margin-bottom: var(--space-12); font-weight: var(--font-weight-bold); color: var(--color-primary);"><strong>Как работает:</strong> Предупреждают оператора о возможной ошибке</p>
+                    <ul>
+                        <li>Пример: Напоминание о вложении в email</li>
+                        <li>"Вы упомянули 'attachment', но забыли прикрепить"</li>
+                        <li>Быстрое исправление до отправки</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Office Examples + Production Line + Implementation + Comparison + All Remaining Sections -->
+    <div class="section compact">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Примеры из офиса и ПО</h2>
+                <p class="section-subtitle">Poka-Yoke за пределами производства</p>
+            </div>
+
+            <div class="mistakes-grid">
+                <div class="mistake-card">
+                    <div class="mistake-title">📧 Gmail: Напоминание о вложении</div>
+                    <p style="margin-bottom: var(--space-12);"><strong>Проблема:</strong> Пользователи забывают прикреплять файлы</p>
+                    <div class="mistake-comparison" style="grid-template-columns: 1fr 1fr;">
+                        <div class="mistake-wrong"><strong>Традиционно:</strong><br>Клиент жалуется</div>
+                        <div class="mistake-right"><strong>Poka-Yoke:</strong><br>Gmail обнаруживает ключевые слова и напоминает</div>
+                    </div>
+                </div>
+
+                <div class="mistake-card">
+                    <div class="mistake-title">🔑 Поля пароля</div>
+                    <p style="margin-bottom: var(--space-12);"><strong>Проблема:</strong> Опечатки при вводе пароля</p>
+                    <div class="mistake-comparison" style="grid-template-columns: 1fr 1fr;">
+                        <div class="mistake-wrong"><strong>Традиционно:</strong><br>Путаница при входе</div>
+                        <div class="mistake-right"><strong>Poka-Yoke:</strong><br>Два поля должны совпадать</div>
+                    </div>
+                </div>
+
+                <div class="mistake-card">
+                    <div class="mistake-title">🔍 Google проверка орфографии</div>
+                    <p style="margin-bottom: var(--space-12);"><strong>Проблема:</strong> Опечатки в запросах</p>
+                    <div class="mistake-comparison" style="grid-template-columns: 1fr 1fr;">
+                        <div class="mistake-wrong"><strong>Традиционно:</strong><br>Плохие результаты</div>
+                        <div class="mistake-right"><strong>Poka-Yoke:</strong><br>"Возможно, вы искали: python"</div>
+                    </div>
+                </div>
+
+                <div class="mistake-card">
+                    <div class="mistake-title">🏦 Банковская безопасность</div>
+                    <p style="margin-bottom: var(--space-12);"><strong>Проблема:</strong> Неправильный номер счета</p>
+                    <div class="mistake-comparison" style="grid-template-columns: 1fr 1fr;">
+                        <div class="mistake-wrong"><strong>Традиционно:</strong><br>Деньги не туда</div>
+                        <div class="mistake-right"><strong>Poka-Yoke:</strong><br>"Подтвердите перевод на [Имя]"</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Production Line Poka-Yoke -->
+    <div class="section compact" style="background: var(--color-bg-5);">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Производственная линия с Poka-Yoke</h2>
+                <p class="section-subtitle">Многоуровневая защита</p>
+            </div>
+
+            <div class="comparison">
+                <div class="comparison-column before">
+                    <div class="comparison-header">❌ Традиционный QC</div>
+                    <ul class="comparison-list">
+                        <li>Собрать продукт</li>
+                        <li>Отправить на проверку</li>
+                        <li>Если дефект: Переделать</li>
+                        <li style="color: var(--color-error); font-weight: var(--font-weight-bold);">Реактивно, дорого</li>
+                    </ul>
+                </div>
+                <div class="comparison-arrow">→</div>
+                <div class="comparison-column after">
+                    <div class="comparison-header">✓ Poka-Yoke подход</div>
+                    <ul class="comparison-list">
+                        <li>Станция 1: Проверка компонентов</li>
+                        <li>Станция 2: Сборка с лимитами</li>
+                        <li>Станция 3: Финальная проверка</li>
+                        <li style="color: var(--color-success); font-weight: var(--font-weight-bold);">Предотвращение, не обнаружение</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div style="background: var(--color-surface); padding: var(--space-32); border-radius: var(--radius-lg); box-shadow: var(--shadow-md); margin-top: var(--space-32);">
+                <h3 style="text-align: center; font-size: var(--font-size-2xl); color: var(--color-primary); margin-bottom: var(--space-24);">Детально по станциям:</h3>
+                
+                <div class="benefit-category" style="margin-bottom: var(--space-20);">
+                    <h3>📶 Станция 1: Проверка компонентов</h3>
+                    <ul>
+                        <li>Сканер штрихкода считывает компонент</li>
+                        <li>Весовой датчик проверяет правильность</li>
+                        <li>Неправильно: Лоток блокируется, красный свет, аларм</li>
+                        <li>Оператор сразу исправляет</li>
+                    </ul>
+                </div>
+
+                <div class="benefit-category" style="margin-bottom: var(--space-20);">
+                    <h3>🔩 Станция 2: Сборка с лимитами</h3>
+                    <ul>
+                        <li>Ограничитель крутящего момента на винте</li>
+                        <li>Затягивает только до правильного момента</li>
+                        <li>Невозможно перетянуть (сорвется)</li>
+                        <li>Невозможно недотянуть (ослабнет)</li>
+                        <li style="color: var(--color-success); font-weight: var(--font-weight-bold);">Идеально каждый раз</li>
+                    </ul>
+                </div>
+
+                <div class="benefit-category">
+                    <h3>📷 Станция 3: Финальная проверка</h3>
+                    <ul>
+                        <li>Система техзрения проверяет размещение</li>
+                        <li>Сравнивает с CAD-чертежом</li>
+                        <li>Любое отклонение обнаруживается мгновенно</li>
+                        <li>Зеленый свет (OK) или красный (СТОП)</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div style="margin-top: var(--space-32); padding: var(--space-24); background: var(--color-bg-3); border-radius: var(--radius-lg); text-align: center;">
+                <h3 style="font-size: var(--font-size-3xl); color: var(--color-success); margin-bottom: var(--space-16);">Результаты:</h3>
+                <div class="info-grid">
+                    <div class="info-card" style="background: var(--color-bg-3); border-color: var(--color-success);">
+                        <div class="info-value" style="color: var(--color-success);">Дефекты предотвращены</div>
+                    </div>
+                    <div class="info-card" style="background: var(--color-bg-3); border-color: var(--color-success);">
+                        <div class="info-value" style="color: var(--color-success);">Или обнаружены мгновенно</div>
+                    </div>
+                    <div class="info-card" style="background: var(--color-bg-3); border-color: var(--color-success);">
+                        <div class="info-value" style="color: var(--color-success);">100% качество клиенту</div>
+                    </div>
+                    <div class="info-card" style="background: var(--color-bg-3); border-color: var(--color-success);">
+                        <div class="info-value" style="color: var(--color-success);">Ноль отзывов</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Poka-Yoke vs Inspection -->
+    <div class="section compact">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Poka-Yoke vs Традиционная проверка</h2>
+                <p class="section-subtitle">Ключевое отличие</p>
+            </div>
+
+            <div class="type-cards">
+                <div class="type-card" style="border-color: var(--color-error); background: var(--color-bg-4);">
+                    <div class="type-number" style="color: var(--color-error);">❌</div>
+                    <div class="type-name" style="color: var(--color-error);">ТРАДИЦИОННАЯ ПРОВЕРКА</div>
+                    <div class="type-russian">Обнаружение после факта</div>
+                    <p style="margin-bottom: var(--space-12);"><strong>Подход:</strong> Сделать → Проверить → Исправить</p>
+                    <ul style="list-style: none; padding: 0; margin: var(--space-12) 0;">
+                        <li style="padding: var(--space-8); margin-bottom: var(--space-4); background: var(--color-surface); border-radius: var(--radius-sm);">Проблема: Дефект уже создан</li>
+                        <li style="padding: var(--space-8); margin-bottom: var(--space-4); background: var(--color-surface); border-radius: var(--radius-sm);">Стоимость: Высокая переделка</li>
+                        <li style="padding: var(--space-8); margin-bottom: var(--space-4); background: var(--color-surface); border-radius: var(--radius-sm);">Эффективность: ~98-99%</li>
+                        <li style="padding: var(--space-8); margin-bottom: var(--space-4); background: var(--color-surface); border-radius: var(--radius-sm);">Проверяющие пропускают</li>
+                    </ul>
+                </div>
+
+                <div class="type-card" style="border-color: var(--color-success); background: var(--color-bg-3);">
+                    <div class="type-number" style="color: var(--color-success);">✓</div>
+                    <div class="type-name" style="color: var(--color-success);">POKA-YOKE (ПРЕДОТВРАЩЕНИЕ)</div>
+                    <div class="type-russian">Сделать дефект невозможным</div>
+                    <p style="margin-bottom: var(--space-12);"><strong>Подход:</strong> Дизайн не может создать дефект</p>
+                    <ul style="list-style: none; padding: 0; margin: var(--space-12) 0;">
+                        <li style="padding: var(--space-8); margin-bottom: var(--space-4); background: var(--color-surface); border-radius: var(--radius-sm);">Проблема: Никогда не создается</li>
+                        <li style="padding: var(--space-8); margin-bottom: var(--space-4); background: var(--color-surface); border-radius: var(--radius-sm);">Стоимость: Низкая (предотвращен)</li>
+                        <li style="padding: var(--space-8); margin-bottom: var(--space-4); background: var(--color-surface); border-radius: var(--radius-sm);">Эффективность: 100%</li>
+                        <li style="padding: var(--space-8); margin-bottom: var(--space-4); background: var(--color-surface); border-radius: var(--radius-sm);">Физически невозможно</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div style="margin-top: var(--space-32); padding: var(--space-24); background: var(--color-surface); border-radius: var(--radius-lg); box-shadow: var(--shadow-md);">
+                <h3 style="text-align: center; font-size: var(--font-size-2xl); color: var(--color-primary); margin-bottom: var(--space-16);">Poka-Yoke (Обнаружение):</h3>
+                <ul style="list-style: none;">
+                    <li style="padding: var(--space-12); margin-bottom: var(--space-8); background: var(--color-bg-2); border-radius: var(--radius-sm);">Дефект создан, но обнаружен мгновенно</li>
+                    <li style="padding: var(--space-12); margin-bottom: var(--space-8); background: var(--color-bg-2); border-radius: var(--radius-sm);">Оператор останавливается и исправляет сразу</li>
+                    <li style="padding: var(--space-12); margin-bottom: var(--space-8); background: var(--color-bg-2); border-radius: var(--radius-sm);">Проблема: Обнаружена до распространения</li>
+                    <li style="padding: var(--space-12); margin-bottom: var(--space-8); background: var(--color-bg-2); border-radius: var(--radius-sm);">Стоимость: Средняя (обнаружено рано)</li>
+                    <li style="padding: var(--space-12); margin-bottom: var(--space-8); background: var(--color-bg-2); border-radius: var(--radius-sm);">Эффективность: 99.9%</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <!-- Implementation Steps -->
+    <div class="section compact" style="background: var(--color-bg-6);">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Как внедрить Poka-Yoke</h2>
+                <p class="section-subtitle">Пошаговый процесс</p>
+            </div>
+
+            <div class="steps-container">
+                <div class="step-item" onclick="toggleStep(this)">
+                    <div class="step-header">
+                        <div class="step-title">Шаг 1: Определить точки ошибок</div>
+                        <div class="step-icon">▼</div>
+                    </div>
+                    <div class="step-content">
+                        <ul>
+                            <li>Что может пойти не так?</li>
+                            <li>Какие типичные ошибки?</li>
+                            <li>Спросите 5 Почему до корневой причины</li>
+                            <li>Приоритет по риску (безопасность первое)</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="step-item" onclick="toggleStep(this)">
+                    <div class="step-header">
+                        <div class="step-title">Шаг 2: Анализ корневых причин</div>
+                        <div class="step-icon">▼</div>
+                    </div>
+                    <div class="step-content">
+                        <ul>
+                            <li>Почему происходит ошибка?</li>
+                            <li>Человеческие факторы (рассеянность, усталость)?</li>
+                            <li>Факторы дизайна (неясно, сбивает с толку)?</li>
+                            <li>Факторы окружения (плохое освещение)?</li>
+                            <li>Исправить корневую причину, а не симптом</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="step-item" onclick="toggleStep(this)">
+                    <div class="step-header">
+                        <div class="step-title">Шаг 3: Разработать предотвращение или обнаружение</div>
+                        <div class="step-icon">▼</div>
+                    </div>
+                    <div class="step-content">
+                        <ul>
+                            <li>Можем ли мы предотвратить? (предпочтительно)</li>
+                            <li>Если нет, можем ли обнаружить мгновенно?</li>
+                            <li>Выбрать самое простое, надежное решение</li>
+                            <li>Тщательно протестировать решение</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="step-item" onclick="toggleStep(this)">
+                    <div class="step-header">
+                        <div class="step-title">Шаг 4: Внедрить решение</div>
+                        <div class="step-icon">▼</div>
+                    </div>
+                    <div class="step-content">
+                        <ul>
+                            <li>Установить физическое устройство или систему</li>
+                            <li>Обучить операторов</li>
+                            <li>Проверить, что это работает</li>
+                            <li>Задокументировать Poka-Yoke</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="step-item" onclick="toggleStep(this)">
+                    <div class="step-header">
+                        <div class="step-title">Шаг 5: Мониторинг и улучшение</div>
+                        <div class="step-icon">▼</div>
+                    </div>
+                    <div class="step-content">
+                        <ul>
+                            <li>Отслеживать: устранены ли ошибки</li>
+                            <li>Собирать отзывы от операторов</li>
+                            <li>Искать побочные эффекты</li>
+                            <li>Непрерывное улучшение</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Common Mistakes and Shigeo Shingo -->
+    <div class="section compact" style="background: var(--color-bg-1);">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Распространенные ошибки</h2>
+                <p class="section-subtitle">Что НЕ делать</p>
+            </div>
+
+            <div class="mistakes-grid">
+                <div class="mistake-card">
+                    <div class="mistake-title">❌ Слишком сложно</div>
+                    <div class="mistake-comparison">
+                        <div class="mistake-wrong"><strong>Неправильно:</strong><br>Переусложненное решение</div>
+                        <div class="mistake-right"><strong>Правильно:</strong><br>Простейшее работающее</div>
+                        <div class="mistake-result"><strong>Причина:</strong><br>Сложное ломается</div>
+                    </div>
+                </div>
+
+                <div class="mistake-card">
+                    <div class="mistake-title">❌ Игнорировать операторов</div>
+                    <div class="mistake-comparison">
+                        <div class="mistake-wrong"><strong>Неправильно:</strong><br>Дизайн без их мнения</div>
+                        <div class="mistake-right"><strong>Правильно:</strong><br>Вовлекайте операторов</div>
+                        <div class="mistake-result"><strong>Причина:</strong><br>Они знают проблемы</div>
+                    </div>
+                </div>
+
+                <div class="mistake-card">
+                    <div class="mistake-title">❌ Поставил и забыл</div>
+                    <div class="mistake-comparison">
+                        <div class="mistake-wrong"><strong>Неправильно:</strong><br>Никогда не проверять</div>
+                        <div class="mistake-right"><strong>Правильно:</strong><br>Регулярный мониторинг</div>
+                        <div class="mistake-result"><strong>Причина:</strong><br>Poka-Yoke требует обслуживания</div>
+                    </div>
+                </div>
+
+                <div class="mistake-card">
+                    <div class="mistake-title">❌ Не там, где надо</div>
+                    <div class="mistake-comparison">
+                        <div class="mistake-wrong"><strong>Неправильно:</strong><br>На низкорисковых</div>
+                        <div class="mistake-right"><strong>Правильно:</strong><br>На высокорисковых</div>
+                        <div class="mistake-result"><strong>Причина:</strong><br>Приоритет ROI</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="quote-box" style="margin-top: var(--space-32);">
+                <h3 style="font-size: var(--font-size-3xl); color: var(--color-primary); margin-bottom: var(--space-24);">Shigeo Shingo: Гений Poka-Yoke</h3>
+                <div style="text-align: left; margin-bottom: var(--space-24);">
+                    <p style="font-size: var(--font-size-xl); margin-bottom: var(--space-12);"><strong>Прозрение:</strong> Проверка НАХОДИТ дефекты, но НЕ ПРЕДОТВРАЩАЕТ</p>
+                    <p style="font-size: var(--font-size-xl); margin-bottom: var(--space-12);"><strong>Реализация:</strong> Надо сделать дефект невозможным</p>
+                    <p style="font-size: var(--font-size-xl); margin-bottom: var(--space-12);"><strong>Изобретение:</strong> Poka-Yoke (Toyota, 1960-е)</p>
+                    <p style="font-size: var(--font-size-xl); margin-bottom: var(--space-12);"><strong>Революция:</strong> Качество из реактивного в проактивное</p>
+                </div>
+                <p class="quote-text" style="font-size: var(--font-size-3xl);">"Лучший контроль качества - сделать ошибку невозможной"</p>
+                <p class="quote-author">— Shigeo Shingo</p>
+                <p style="text-align: center; margin-top: var(--space-24); font-size: var(--font-size-xl); font-weight: var(--font-weight-bold); color: var(--color-primary);">Наследие: Промышленный стандарт по всему миру</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Benefits -->
+    <div class="section compact">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Выгоды Heijunka</h2>
+                <p class="section-subtitle">Почему это важно</p>
+            </div>
+
+            <div class="benefits-container">
+                <div class="benefit-category">
+                    <h3>🏭 Для производства:</h3>
+                    <ul>
+                        <li>Постоянная нагрузка (без выгорания)</li>
+                        <li>Оборудование используется равномерно (не ломается)</li>
+                        <li>Легче выявлять проблемы (стабильная базовая линия)</li>
+                        <li>Упрощенное планирование</li>
+                        <li>Лучшее качество (стабильный темп)</li>
+                    </ul>
+                </div>
+
+                <div class="benefit-category">
+                    <h3>📦 Для запасов:</h3>
+                    <ul>
+                        <li>Ниже незавершенное производство (WIP)</li>
+                        <li>Меньше хранения готовой продукции</li>
+                        <li>Быстрее оборачиваемость</li>
+                        <li>Ниже затраты на хранение</li>
+                    </ul>
+                </div>
+
+                <div class="benefit-category">
+                    <h3>👥 Для сотрудников:</h3>
+                    <ul>
+                        <li>Предсказуемая работа (меньше стресса)</li>
+                        <li>Стабильный темп (без спешки)</li>
+                        <li>Время на улучшения (не тушение пожаров)</li>
+                        <li>Выше моральный дух</li>
+                        <li>Лучше безопасность (не торопятся)</li>
+                    </ul>
+                </div>
+
+                <div class="benefit-category">
+                    <h3>🚚 Для поставщиков:</h3>
+                    <ul>
+                        <li>Предсказуемый спрос</li>
+                        <li>Стабильные заказы (не пир/голод)</li>
+                        <li>Лучшее планирование</li>
+                        <li>Более счастливые отношения</li>
+                    </ul>
+                </div>
+
+                <div class="benefit-category">
+                    <h3>🎯 Для клиентов:</h3>
+                    <ul>
+                        <li>Постоянное качество</li>
+                        <li>Надежная доставка</li>
+                        <li>Нет задержек из-за хаоса</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Lumpy Demand Challenge -->
+    <div class="section compact" style="background: var(--color-bg-7);">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Вызов: Неравномерный спрос</h2>
+                <p class="section-subtitle">Реальные ситуации</p>
+            </div>
+
+            <div style="background: var(--color-surface); padding: var(--space-32); border-radius: var(--radius-lg); box-shadow: var(--shadow-md); margin-bottom: var(--space-32);">
+                <h3 style="text-align: center; font-size: var(--font-size-2xl); color: var(--color-error); margin-bottom: var(--space-16);">❌ Сценарий: Клиент не может выровнять заказы</h3>
+                <p style="text-align: center; font-size: var(--font-size-xl); padding: var(--space-16); background: var(--color-bg-4); border-radius: var(--radius-base);">Клиент: "Мне нужно 500 во вторник, 0 в среду, 100 в четверг"</p>
+            </div>
+
+            <div style="background: var(--color-surface); padding: var(--space-32); border-radius: var(--radius-lg); box-shadow: var(--shadow-md);">
+                <h3 style="text-align: center; font-size: var(--font-size-2xl); color: var(--color-success); margin-bottom: var(--space-24);">✓ Решение: Использовать буфер готовой продукции</h3>
+                
+                <div class="info-grid">
+                    <div class="info-card">
+                        <div class="info-label">Стратегия</div>
+                        <div class="info-value">Производить 200/день (выровненно)</div>
+                    </div>
+                    <div class="info-card">
+                        <div class="info-label">День 1</div>
+                        <div class="info-value">Сделать 200 (хранить 200)</div>
+                    </div>
+                    <div class="info-card">
+                        <div class="info-label">День 2</div>
+                        <div class="info-value">Сделать 200, отгрузить 500 из запасов</div>
+                    </div>
+                    <div class="info-card">
+                        <div class="info-label">День 3</div>
+                        <div class="info-value">Сделать 200, использовать для заказа четверга</div>
+                    </div>
+                </div>
+                
+                <p style="text-align: center; font-size: var(--font-size-xl); margin-top: var(--space-24); padding: var(--space-16); background: var(--color-bg-3); border-radius: var(--radius-base); font-weight: var(--font-weight-bold); color: var(--color-success);">Результат: Поставщик может работать выровненно несмотря на неравномерные заказы</p>
+                
+                <p style="text-align: center; font-size: var(--font-size-lg); margin-top: var(--space-16); color: var(--color-text-secondary);">Это называется "Level Selling" (平準販売 / выравнивание спроса на границе с клиентом)</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Automotive Example -->
+    <div class="section compact">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Реальный пример: Автомобильная сборка</h2>
+                <p class="section-subtitle">Производство автомобилей</p>
+            </div>
+
+            <div class="tshirt-grid">
+                <div class="tshirt-approach traditional">
+                    <div class="approach-title">❌ Традиционный подход</div>
+                    <ul style="list-style: none;">
+                        <li style="padding: var(--space-12); margin-bottom: var(--space-8); background: var(--color-bg-4); border-radius: var(--radius-sm);"><strong>Понедельник:</strong> Собрать 500 седанов</li>
+                        <li style="padding: var(--space-12); margin-bottom: var(--space-8); background: var(--color-bg-4); border-radius: var(--radius-sm);"><strong>Вторник:</strong> Собрать 300 SUV</li>
+                        <li style="padding: var(--space-12); margin-bottom: var(--space-8); background: var(--color-bg-4); border-radius: var(--radius-sm);"><strong>Среда:</strong> Собрать 200 грузовиков</li>
+                    </ul>
+                    <h4 style="color: var(--color-error); margin-top: var(--space-16); margin-bottom: var(--space-12);">Проблемы:</h4>
+                    <ul style="list-style: none;">
+                        <li style="padding: var(--space-8); margin-bottom: var(--space-4); background: var(--color-bg-4); border-radius: var(--radius-sm);">❌ Понедельник перегружен</li>
+                        <li style="padding: var(--space-8); margin-bottom: var(--space-4); background: var(--color-bg-4); border-radius: var(--radius-sm);">❌ Среда недогружена</li>
+                        <li style="padding: var(--space-8); margin-bottom: var(--space-4); background: var(--color-bg-4); border-radius: var(--radius-sm);">❌ Огромные переналадки во вторник/среду</li>
+                    </ul>
+                </div>
+
+                <div class="tshirt-approach heijunka">
+                    <div class="approach-title">✓ Heijunka подход</div>
+                    <ul style="list-style: none;">
+                        <li style="padding: var(--space-12); margin-bottom: var(--space-8); background: var(--color-bg-3); border-radius: var(--radius-sm);"><strong>Каждый час:</strong> Собрать 5 седанов, 3 SUV, 2 грузовика</li>
+                        <li style="padding: var(--space-12); margin-bottom: var(--space-8); background: var(--color-bg-3); border-radius: var(--radius-sm); font-family: monospace;"><strong>Последовательность:</strong> S-S-V-T-S-S-V-T...</li>
+                    </ul>
+                    <h4 style="color: var(--color-success); margin-top: var(--space-16); margin-bottom: var(--space-12);">Выгоды:</h4>
+                    <ul style="list-style: none;">
+                        <li style="padding: var(--space-8); margin-bottom: var(--space-4); background: var(--color-bg-3); border-radius: var(--radius-sm);">✓ Одинаковая работа каждый час</li>
+                        <li style="padding: var(--space-8); margin-bottom: var(--space-4); background: var(--color-bg-3); border-radius: var(--radius-sm);">✓ Малые частые переналадки</li>
+                        <li style="padding: var(--space-8); margin-bottom: var(--space-4); background: var(--color-bg-3); border-radius: var(--radius-sm);">✓ Конвейер работает стабильно</li>
+                        <li style="padding: var(--space-8); margin-bottom: var(--space-4); background: var(--color-bg-3); border-radius: var(--radius-sm);">✓ Постоянное качество</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Common Mistakes -->
+    <div class="section compact" style="background: var(--color-bg-4);">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Распространенные ошибки Heijunka</h2>
+                <p class="section-subtitle">Что НЕ делать</p>
+            </div>
+
+            <div class="mistakes-grid">
+                <div class="mistake-card">
+                    <div class="mistake-title">❌ Игнорировать неравномерный спрос</div>
+                    <div class="mistake-comparison">
+                        <div class="mistake-wrong"><strong>Неправильно:</strong><br>Насильно выравнивать когда клиент не может</div>
+                        <div class="mistake-right"><strong>Правильно:</strong><br>Использовать буферный запас</div>
+                        <div class="mistake-result"><strong>Результат:</strong><br>Гибкость</div>
+                    </div>
+                </div>
+
+                <div class="mistake-card">
+                    <div class="mistake-title">❌ Слишком жесткое расписание</div>
+                    <div class="mistake-comparison">
+                        <div class="mistake-wrong"><strong>Неправильно:</strong><br>Никогда не менять последовательность</div>
+                        <div class="mistake-right"><strong>Правильно:</strong><br>Обновлять когда микс меняется</div>
+                        <div class="mistake-result"><strong>Результат:</strong><br>Адаптивность</div>
+                    </div>
+                </div>
+
+                <div class="mistake-card">
+                    <div class="mistake-title">❌ Heijunka без Kanban</div>
+                    <div class="mistake-comparison">
+                        <div class="mistake-wrong"><strong>Неправильно:</strong><br>Просто планировать без pull</div>
+                        <div class="mistake-right"><strong>Правильно:</strong><br>Использовать коробку для pull, не push</div>
+                        <div class="mistake-result"><strong>Результат:</strong><br>Настоящий Lean</div>
+                    </div>
+                </div>
+
+                <div class="mistake-card">
+                    <div class="mistake-title">❌ Неправильный размер буфера</div>
+                    <div class="mistake-comparison">
+                        <div class="mistake-wrong"><strong>Неправильно:</strong><br>Нет буфера (не переживет колебания)</div>
+                        <div class="mistake-right"><strong>Правильно:</strong><br>Малый стратегический буфер (1-2 дня)</div>
+                        <div class="mistake-result"><strong>Результат:</strong><br>Стабильность</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- MURA Waste -->
+    <div class="section compact" style="background: var(--color-bg-5);">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">MURA - Неравномерность</h2>
+                <p class="section-subtitle">Потери, которые устраняет Heijunka</p>
+            </div>
+
+            <div style="background: var(--color-surface); padding: var(--space-32); border-radius: var(--radius-lg); box-shadow: var(--shadow-md);">
+                <div style="text-align: center; margin-bottom: var(--space-32);">
+                    <div style="font-size: 72px; margin-bottom: var(--space-16);">斑</div>
+                    <h3 style="font-size: var(--font-size-3xl); color: var(--color-primary); margin-bottom: var(--space-8);">MURA (斑)</h3>
+                    <p style="font-size: var(--font-size-xl);">Unevenness / Variability / Неравномерность</p>
+                </div>
+
+                <div class="info-grid">
+                    <div class="info-card">
+                        <div class="info-label">Классификация</div>
+                        <div class="info-value">Одна из 3М (Muda/Muri/Mura)</div>
+                    </div>
+                    <div class="info-card">
+                        <div class="info-label">Причины</div>
+                        <div class="info-value">Вызывает Muri (перегрузку) в некоторые дни</div>
+                    </div>
+                    <div class="info-card">
+                        <div class="info-label">Антидот</div>
+                        <div class="info-value" style="color: var(--color-success);">Heijunka</div>
+                    </div>
+                </div>
+
+                <div style="margin-top: var(--space-32); padding: var(--space-24); background: var(--color-bg-3); border-radius: var(--radius-base); text-align: center;">
+                    <p style="font-size: var(--font-size-2xl); font-weight: var(--font-weight-bold); color: var(--color-success);">Устраняя Mura → Естественно устраняете Muri</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Success Metrics -->
+    <div class="section compact">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Измерение успеха Heijunka</h2>
+                <p class="section-subtitle">Метрики</p>
+            </div>
+
+            <div class="metrics-grid">
+                <div class="metric-card">
+                    <div class="metric-icon">🎯</div>
+                    <div class="metric-name">Plan achievement</div>
+                    <div class="metric-value">% дней на или близко к цели</div>
+                </div>
+                <div class="metric-card">
+                    <div class="metric-icon">🔄</div>
+                    <div class="metric-name">Mix variation</div>
+                    <div class="metric-value">Насколько факт соответствует плановой пропорции</div>
+                </div>
+                <div class="metric-card">
+                    <div class="metric-icon">📦</div>
+                    <div class="metric-name">WIP reduction</div>
+                    <div class="metric-value">Снижение запасов</div>
+                </div>
+                <div class="metric-card">
+                    <div class="metric-icon">⏱️</div>
+                    <div class="metric-name">Lead time</div>
+                    <div class="metric-value">Сокращение времени производственного цикла</div>
+                </div>
+                <div class="metric-card">
+                    <div class="metric-icon">✓</div>
+                    <div class="metric-name">Quality</div>
+                    <div class="metric-value">Меньше дефектов (от стабильного темпа)</div>
+                </div>
+                <div class="metric-card">
+                    <div class="metric-icon">🛡️</div>
+                    <div class="metric-name">Safety</div>
+                    <div class="metric-value">Меньше происшествий (не торопятся)</div>
+                </div>
+                <div class="metric-card">
+                    <div class="metric-icon">😊</div>
+                    <div class="metric-name">Morale</div>
+                    <div class="metric-value">Выше удовлетворенность команды</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Connection to Other Tools -->
+    <div class="section compact" style="background: var(--color-bg-1);">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Связь с другими Lean инструментами</h2>
+                <p class="section-subtitle">Как Heijunka способствует другим инструментам</p>
+            </div>
+
+            <div class="connection-grid">
+                <div class="connection-card">
+                    <div class="connection-tool">📦 Kanban</div>
+                    <p>Работает с выровненными коробками</p>
+                </div>
+                <div class="connection-card">
+                    <div class="connection-tool">🔄 PDCA</div>
+                    <p>Можно тестировать улучшения на стабильной базовой линии</p>
+                </div>
+                <div class="connection-card">
+                    <div class="connection-tool">⚙️ TPM</div>
+                    <p>Легче предсказать потребности в обслуживании</p>
+                </div>
+                <div class="connection-card">
+                    <div class="connection-tool">🧹 5S</div>
+                    <p>Проще когда нет хаоса</p>
+                </div>
+                <div class="connection-card">
+                    <div class="connection-tool">⏱️ Takt Time</div>
+                    <p>Становится реально достижимым ритмом</p>
+                </div>
+                <div class="connection-card">
+                    <div class="connection-tool">🎯 JIT</div>
+                    <p>Возможен только с выровненным производством</p>
+                </div>
+                <div class="connection-card">
+                    <div class="connection-tool">🚨 Jidoka</div>
+                    <p>Можно фокусироваться на качестве в стабильном состоянии</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Conclusion -->
+    <div class="section" style="background: var(--color-bg-8);">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Заключение</h2>
+                <p class="section-subtitle">Финальное сообщение</p>
+            </div>
+
+            <div class="conclusion-box">
+                <p class="conclusion-text">🐢 <strong>"Heijunka - это не о скорости"</strong></p>
+                <p class="conclusion-text">📊 <strong>"Heijunka - это о постоянстве"</strong></p>
+                <p class="conclusion-text">✓ <strong>"Выровненное побеждает быстро-хаотичное"</strong></p>
+                <p class="conclusion-text">🐰 <strong>"Черепаха побеждает зайца (в бизнесе)"</strong></p>
+                <p class="conclusion-text">🔄 <strong>"Малые частые изменения лучше больших потрясений"</strong></p>
+                <p class="conclusion-text" style="font-size: var(--font-size-3xl); color: var(--color-success); margin-top: var(--space-24);">🏆 <strong>"Предсказуемое производство делает возможным улучшение"</strong></p>
+            </div>
+
+            <div class="quote-box" style="margin-top: var(--space-32);">
+                <p class="quote-text">"Spread the work evenly"</p>
+                <p class="quote-author">— Taiichi Ohno</p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Toggle between traditional and heijunka approach
+        function toggleApproach(toggle) {
+            toggle.classList.toggle('active');
+            const traditional = document.getElementById('traditional-approach');
+            const heijunka = document.getElementById('heijunka-approach');
+            
+            if (toggle.classList.contains('active')) {
+                traditional.style.display = 'none';
+                heijunka.style.display = 'block';
+            } else {
+                traditional.style.display = 'block';
+                heijunka.style.display = 'none';
+            }
+        }
+
+        // Toggle implementation steps
+        function toggleStep(stepItem) {
+            stepItem.classList.toggle('expanded');
+        }
+
+        // Auto-expand first step on load
+        window.addEventListener('DOMContentLoaded', function() {
+            const firstStep = document.querySelector('.step-item');
+            if (firstStep) {
+                firstStep.classList.add('expanded');
+            }
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,2197 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>КПСЦ - Карта потока создания ценности | Value Stream Mapping</title>
+    <style>
+:root {
+  --color-white: rgba(255, 255, 255, 1);
+  --color-black: rgba(0, 0, 0, 1);
+  --color-cream-50: rgba(252, 252, 249, 1);
+  --color-cream-100: rgba(255, 255, 253, 1);
+  --color-gray-200: rgba(245, 245, 245, 1);
+  --color-gray-300: rgba(167, 169, 169, 1);
+  --color-gray-400: rgba(119, 124, 124, 1);
+  --color-slate-500: rgba(98, 108, 113, 1);
+  --color-brown-600: rgba(94, 82, 64, 1);
+  --color-charcoal-700: rgba(31, 33, 33, 1);
+  --color-charcoal-800: rgba(38, 40, 40, 1);
+  --color-slate-900: rgba(19, 52, 59, 1);
+  --color-teal-300: rgba(50, 184, 198, 1);
+  --color-teal-400: rgba(45, 166, 178, 1);
+  --color-teal-500: rgba(33, 128, 141, 1);
+  --color-teal-600: rgba(29, 116, 128, 1);
+  --color-teal-700: rgba(26, 104, 115, 1);
+  --color-teal-800: rgba(41, 150, 161, 1);
+  --color-red-400: rgba(255, 84, 89, 1);
+  --color-red-500: rgba(192, 21, 47, 1);
+  --color-orange-400: rgba(230, 129, 97, 1);
+  --color-orange-500: rgba(168, 75, 47, 1);
+
+  --color-brown-600-rgb: 94, 82, 64;
+  --color-teal-500-rgb: 33, 128, 141;
+  --color-slate-900-rgb: 19, 52, 59;
+  --color-slate-500-rgb: 98, 108, 113;
+  --color-red-500-rgb: 192, 21, 47;
+  --color-red-400-rgb: 255, 84, 89;
+  --color-orange-500-rgb: 168, 75, 47;
+  --color-orange-400-rgb: 230, 129, 97;
+
+  --color-bg-1: rgba(59, 130, 246, 0.08);
+  --color-bg-2: rgba(245, 158, 11, 0.08);
+  --color-bg-3: rgba(34, 197, 94, 0.08);
+  --color-bg-4: rgba(239, 68, 68, 0.08);
+  --color-bg-5: rgba(147, 51, 234, 0.08);
+  --color-bg-6: rgba(249, 115, 22, 0.08);
+  --color-bg-7: rgba(236, 72, 153, 0.08);
+  --color-bg-8: rgba(6, 182, 212, 0.08);
+
+  --color-background: var(--color-cream-50);
+  --color-surface: var(--color-cream-100);
+  --color-text: var(--color-slate-900);
+  --color-text-secondary: var(--color-slate-500);
+  --color-primary: var(--color-teal-500);
+  --color-primary-hover: var(--color-teal-600);
+  --color-primary-active: var(--color-teal-700);
+  --color-secondary: rgba(var(--color-brown-600-rgb), 0.12);
+  --color-secondary-hover: rgba(var(--color-brown-600-rgb), 0.2);
+  --color-secondary-active: rgba(var(--color-brown-600-rgb), 0.25);
+  --color-border: rgba(var(--color-brown-600-rgb), 0.2);
+  --color-btn-primary-text: var(--color-cream-50);
+  --color-card-border: rgba(var(--color-brown-600-rgb), 0.12);
+  --color-card-border-inner: rgba(var(--color-brown-600-rgb), 0.12);
+  --color-error: var(--color-red-500);
+  --color-success: var(--color-teal-500);
+  --color-warning: var(--color-orange-500);
+  --color-info: var(--color-slate-500);
+  --color-focus-ring: rgba(var(--color-teal-500-rgb), 0.4);
+
+  --font-family-base: "FKGroteskNeue", "Geist", "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  --font-size-xs: 11px;
+  --font-size-sm: 12px;
+  --font-size-base: 14px;
+  --font-size-md: 14px;
+  --font-size-lg: 16px;
+  --font-size-xl: 18px;
+  --font-size-2xl: 20px;
+  --font-size-3xl: 24px;
+  --font-size-4xl: 30px;
+  --font-weight-normal: 400;
+  --font-weight-medium: 500;
+  --font-weight-semibold: 550;
+  --font-weight-bold: 600;
+  --line-height-tight: 1.2;
+  --line-height-normal: 1.5;
+
+  --space-4: 4px;
+  --space-8: 8px;
+  --space-12: 12px;
+  --space-16: 16px;
+  --space-20: 20px;
+  --space-24: 24px;
+  --space-32: 32px;
+
+  --radius-sm: 6px;
+  --radius-base: 8px;
+  --radius-md: 10px;
+  --radius-lg: 12px;
+  --radius-full: 9999px;
+
+  --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.04), 0 1px 2px rgba(0, 0, 0, 0.02);
+  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.04), 0 2px 4px -1px rgba(0, 0, 0, 0.02);
+  --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.04), 0 4px 6px -2px rgba(0, 0, 0, 0.02);
+
+  --duration-fast: 150ms;
+  --duration-normal: 250ms;
+  --ease-standard: cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --color-gray-400-rgb: 119, 124, 124;
+    --color-teal-300-rgb: 50, 184, 198;
+    --color-gray-300-rgb: 167, 169, 169;
+    --color-gray-200-rgb: 245, 245, 245;
+
+    --color-bg-1: rgba(29, 78, 216, 0.15);
+    --color-bg-2: rgba(180, 83, 9, 0.15);
+    --color-bg-3: rgba(21, 128, 61, 0.15);
+    --color-bg-4: rgba(185, 28, 28, 0.15);
+    --color-bg-5: rgba(107, 33, 168, 0.15);
+    --color-bg-6: rgba(194, 65, 12, 0.15);
+    --color-bg-7: rgba(190, 24, 93, 0.15);
+    --color-bg-8: rgba(8, 145, 178, 0.15);
+
+    --color-background: var(--color-charcoal-700);
+    --color-surface: var(--color-charcoal-800);
+    --color-text: var(--color-gray-200);
+    --color-text-secondary: rgba(var(--color-gray-300-rgb), 0.7);
+    --color-primary: var(--color-teal-300);
+    --color-primary-hover: var(--color-teal-400);
+    --color-primary-active: var(--color-teal-800);
+    --color-secondary: rgba(var(--color-gray-400-rgb), 0.15);
+    --color-secondary-hover: rgba(var(--color-gray-400-rgb), 0.25);
+    --color-secondary-active: rgba(var(--color-gray-400-rgb), 0.3);
+    --color-border: rgba(var(--color-gray-400-rgb), 0.3);
+    --color-error: var(--color-red-400);
+    --color-success: var(--color-teal-300);
+    --color-warning: var(--color-orange-400);
+    --color-info: var(--color-gray-300);
+    --color-focus-ring: rgba(var(--color-teal-300-rgb), 0.4);
+    --color-btn-primary-text: var(--color-slate-900);
+    --color-card-border: rgba(var(--color-gray-400-rgb), 0.2);
+    --color-card-border-inner: rgba(var(--color-gray-400-rgb), 0.15);
+  }
+}
+
+@font-face {
+  font-family: 'FKGroteskNeue';
+  src: url('https://r2cdn.perplexity.ai/fonts/FKGroteskNeue.woff2') format('woff2');
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: var(--font-family-base);
+    background-color: var(--color-background);
+    color: var(--color-text);
+    line-height: var(--line-height-normal);
+    scroll-behavior: smooth;
+}
+
+.container {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 0 var(--space-32);
+}
+
+.section {
+    padding: 80px 0;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+}
+
+.section.compact {
+    min-height: auto;
+    padding: 60px 0;
+}
+
+/* Hero Section */
+.hero {
+    text-align: center;
+    background: linear-gradient(135deg, var(--color-bg-1), var(--color-bg-3));
+    position: relative;
+    overflow: hidden;
+}
+
+.hero::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: radial-gradient(circle at 50% 50%, rgba(33, 128, 141, 0.1) 0%, transparent 70%);
+    pointer-events: none;
+}
+
+.hero-content {
+    position: relative;
+    z-index: 1;
+}
+
+.japanese-char {
+    font-size: 100px;
+    font-weight: var(--font-weight-bold);
+    color: var(--color-primary);
+    opacity: 0.15;
+    margin-bottom: var(--space-16);
+    letter-spacing: 10px;
+}
+
+.hero-title {
+    font-size: 80px;
+    font-weight: var(--font-weight-bold);
+    margin-bottom: var(--space-16);
+    letter-spacing: -0.02em;
+    color: var(--color-primary);
+}
+
+.hero-subtitle {
+    font-size: var(--font-size-3xl);
+    color: var(--color-text);
+    margin-bottom: var(--space-16);
+    font-weight: var(--font-weight-semibold);
+}
+
+.hero-english {
+    font-size: var(--font-size-xl);
+    color: var(--color-text-secondary);
+    margin-bottom: var(--space-32);
+    font-style: italic;
+}
+
+.hero-message {
+    font-size: var(--font-size-2xl);
+    color: var(--color-text);
+    font-weight: var(--font-weight-semibold);
+    margin-top: var(--space-32);
+    padding: var(--space-32);
+    background: var(--color-surface);
+    border-radius: var(--radius-lg);
+    border-left: 6px solid var(--color-primary);
+    max-width: 900px;
+    margin-left: auto;
+    margin-right: auto;
+    box-shadow: var(--shadow-lg);
+}
+
+.hero-tagline {
+    font-size: var(--font-size-xl);
+    color: var(--color-primary);
+    margin-top: var(--space-24);
+    font-weight: var(--font-weight-medium);
+}
+
+.flow-visual {
+    margin-top: var(--space-32);
+    padding: var(--space-24);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--space-16);
+    font-size: var(--font-size-2xl);
+    color: var(--color-text-secondary);
+}
+
+/* Section Headers */
+.section-header {
+    text-align: center;
+    margin-bottom: var(--space-32);
+}
+
+.section-title {
+    font-size: 48px;
+    font-weight: var(--font-weight-bold);
+    margin-bottom: var(--space-16);
+    color: var(--color-primary);
+}
+
+.section-subtitle {
+    font-size: var(--font-size-2xl);
+    color: var(--color-text-secondary);
+}
+
+/* Definition Box */
+.definition-box {
+    background-color: var(--color-surface);
+    border-left: 6px solid var(--color-primary);
+    padding: var(--space-32);
+    border-radius: var(--radius-lg);
+    margin-bottom: var(--space-24);
+    box-shadow: var(--shadow-md);
+}
+
+.definition-text {
+    font-size: var(--font-size-xl);
+    line-height: 1.6;
+    margin-bottom: var(--space-16);
+}
+
+.definition-text:last-child {
+    margin-bottom: 0;
+}
+
+.purpose-list {
+    list-style: none;
+    margin-top: var(--space-16);
+}
+
+.purpose-list li {
+    padding: var(--space-12);
+    margin-bottom: var(--space-8);
+    background: var(--color-bg-3);
+    border-radius: var(--radius-base);
+    border-left: 3px solid var(--color-success);
+    font-size: var(--font-size-base);
+}
+
+/* Comparison Grid */
+.comparison-container {
+    background: var(--color-surface);
+    border-radius: var(--radius-lg);
+    padding: var(--space-32);
+    margin: var(--space-32) 0;
+    box-shadow: var(--shadow-md);
+}
+
+.comparison-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--space-24);
+    margin-top: var(--space-24);
+}
+
+.comparison-column {
+    background: var(--color-background);
+    padding: var(--space-24);
+    border-radius: var(--radius-lg);
+    border: 2px solid var(--color-card-border);
+}
+
+.comparison-header {
+    font-size: var(--font-size-2xl);
+    font-weight: var(--font-weight-bold);
+    margin-bottom: var(--space-16);
+    padding-bottom: var(--space-12);
+    border-bottom: 3px solid;
+}
+
+.comparison-column.traditional .comparison-header {
+    color: var(--color-error);
+    border-color: var(--color-error);
+}
+
+.comparison-column.vsm .comparison-header {
+    color: var(--color-success);
+    border-color: var(--color-success);
+}
+
+.comparison-items {
+    list-style: none;
+}
+
+.comparison-items li {
+    padding: var(--space-12) 0 var(--space-12) var(--space-24);
+    position: relative;
+    font-size: var(--font-size-base);
+}
+
+.comparison-column.traditional .comparison-items li::before {
+    content: '✗';
+    position: absolute;
+    left: 0;
+    color: var(--color-error);
+    font-weight: bold;
+}
+
+.comparison-column.vsm .comparison-items li::before {
+    content: '✓';
+    position: absolute;
+    left: 0;
+    color: var(--color-success);
+    font-weight: bold;
+}
+
+/* Metrics Grid */
+.metrics-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: var(--space-20);
+    margin: var(--space-32) 0;
+}
+
+.metric-card {
+    background: var(--color-surface);
+    border: 2px solid var(--color-card-border);
+    border-radius: var(--radius-lg);
+    padding: var(--space-24);
+    transition: all var(--duration-normal) var(--ease-standard);
+    cursor: pointer;
+}
+
+.metric-card:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-lg);
+    border-color: var(--color-primary);
+}
+
+.metric-name {
+    font-size: var(--font-size-lg);
+    font-weight: var(--font-weight-bold);
+    color: var(--color-primary);
+    margin-bottom: var(--space-12);
+}
+
+.metric-translation {
+    font-size: var(--font-size-sm);
+    color: var(--color-text-secondary);
+    margin-bottom: var(--space-8);
+    font-style: italic;
+}
+
+.metric-meaning {
+    font-size: var(--font-size-base);
+    margin-bottom: var(--space-12);
+    padding: var(--space-12);
+    background: var(--color-bg-1);
+    border-radius: var(--radius-sm);
+}
+
+.metric-example {
+    background: var(--color-bg-3);
+    padding: var(--space-12);
+    border-radius: var(--radius-sm);
+    font-size: var(--font-size-sm);
+    margin-top: var(--space-8);
+}
+
+.metric-formula {
+    background: var(--color-bg-2);
+    padding: var(--space-12);
+    border-radius: var(--radius-sm);
+    font-size: var(--font-size-base);
+    font-weight: var(--font-weight-semibold);
+    margin-top: var(--space-8);
+    text-align: center;
+}
+
+/* VSM Elements */
+.elements-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: var(--space-20);
+    margin: var(--space-32) 0;
+}
+
+.element-card {
+    background: var(--color-surface);
+    border: 2px solid var(--color-card-border);
+    border-radius: var(--radius-lg);
+    padding: var(--space-24);
+    transition: all var(--duration-normal) var(--ease-standard);
+}
+
+.element-card:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-lg);
+    border-color: var(--color-primary);
+}
+
+.element-icon {
+    font-size: 48px;
+    margin-bottom: var(--space-16);
+}
+
+.element-name {
+    font-size: var(--font-size-xl);
+    font-weight: var(--font-weight-semibold);
+    color: var(--color-primary);
+    margin-bottom: var(--space-8);
+}
+
+.element-symbol {
+    font-size: var(--font-size-sm);
+    color: var(--color-text-secondary);
+    margin-bottom: var(--space-12);
+    font-style: italic;
+}
+
+.element-description {
+    font-size: var(--font-size-base);
+    margin-bottom: var(--space-12);
+}
+
+/* Steps */
+.steps-container {
+    margin: var(--space-32) 0;
+}
+
+.step-item {
+    display: flex;
+    gap: var(--space-24);
+    margin-bottom: var(--space-32);
+    align-items: flex-start;
+}
+
+.step-number {
+    min-width: 70px;
+    height: 70px;
+    background: var(--color-primary);
+    color: white;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: var(--font-size-4xl);
+    font-weight: var(--font-weight-bold);
+    flex-shrink: 0;
+    box-shadow: var(--shadow-md);
+}
+
+.step-content {
+    flex: 1;
+    background: var(--color-surface);
+    padding: var(--space-24);
+    border-radius: var(--radius-lg);
+    border: 2px solid var(--color-card-border);
+}
+
+.step-name {
+    font-size: var(--font-size-2xl);
+    font-weight: var(--font-weight-semibold);
+    margin-bottom: var(--space-8);
+    color: var(--color-primary);
+}
+
+.step-description {
+    font-size: var(--font-size-base);
+    margin-bottom: var(--space-16);
+    color: var(--color-text-secondary);
+}
+
+.step-actions {
+    list-style: none;
+    margin-bottom: var(--space-16);
+}
+
+.step-actions li {
+    padding: var(--space-8) 0 var(--space-8) var(--space-24);
+    position: relative;
+    font-size: var(--font-size-base);
+}
+
+.step-actions li::before {
+    content: '→';
+    position: absolute;
+    left: 0;
+    color: var(--color-primary);
+    font-weight: bold;
+}
+
+.step-tip {
+    background: var(--color-bg-2);
+    padding: var(--space-12);
+    border-radius: var(--radius-sm);
+    font-size: var(--font-size-sm);
+    border-left: 3px solid var(--color-warning);
+}
+
+/* State Comparison Toggle */
+.state-comparison {
+    background: var(--color-surface);
+    border-radius: var(--radius-lg);
+    padding: var(--space-32);
+    margin: var(--space-32) 0;
+    box-shadow: var(--shadow-md);
+}
+
+.toggle-container {
+    display: flex;
+    justify-content: center;
+    gap: var(--space-16);
+    margin-bottom: var(--space-32);
+}
+
+.toggle-btn {
+    padding: var(--space-12) var(--space-32);
+    border: 2px solid var(--color-border);
+    background: var(--color-background);
+    color: var(--color-text);
+    border-radius: var(--radius-base);
+    font-size: var(--font-size-base);
+    font-weight: var(--font-weight-semibold);
+    cursor: pointer;
+    transition: all var(--duration-normal) var(--ease-standard);
+}
+
+.toggle-btn.active {
+    background: var(--color-primary);
+    color: var(--color-btn-primary-text);
+    border-color: var(--color-primary);
+}
+
+.toggle-btn:hover:not(.active) {
+    border-color: var(--color-primary);
+}
+
+.state-content {
+    display: none;
+}
+
+.state-content.active {
+    display: block;
+}
+
+.state-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: var(--space-20);
+}
+
+.state-metric {
+    background: var(--color-background);
+    padding: var(--space-20);
+    border-radius: var(--radius-base);
+    text-align: center;
+}
+
+.state-label {
+    font-size: var(--font-size-sm);
+    color: var(--color-text-secondary);
+    margin-bottom: var(--space-8);
+    text-transform: uppercase;
+}
+
+.state-value {
+    font-size: var(--font-size-3xl);
+    font-weight: var(--font-weight-bold);
+    color: var(--color-primary);
+}
+
+.state-value.bad {
+    color: var(--color-error);
+}
+
+.state-value.good {
+    color: var(--color-success);
+}
+
+.impact-box {
+    margin-top: var(--space-24);
+    padding: var(--space-24);
+    background: var(--color-bg-3);
+    border-radius: var(--radius-lg);
+    border-left: 4px solid var(--color-success);
+}
+
+.impact-box h4 {
+    font-size: var(--font-size-xl);
+    margin-bottom: var(--space-12);
+    color: var(--color-success);
+}
+
+.impact-box ul {
+    list-style: none;
+}
+
+.impact-box li {
+    padding: var(--space-8) 0 var(--space-8) var(--space-24);
+    position: relative;
+}
+
+.impact-box li::before {
+    content: '✓';
+    position: absolute;
+    left: 0;
+    color: var(--color-success);
+    font-weight: bold;
+}
+
+/* Real Example */
+.example-container {
+    background: var(--color-surface);
+    border-radius: var(--radius-lg);
+    padding: var(--space-32);
+    margin: var(--space-32) 0;
+    box-shadow: var(--shadow-md);
+}
+
+.example-header {
+    text-align: center;
+    margin-bottom: var(--space-32);
+}
+
+.example-title {
+    font-size: var(--font-size-3xl);
+    font-weight: var(--font-weight-bold);
+    color: var(--color-primary);
+    margin-bottom: var(--space-8);
+}
+
+.example-subtitle {
+    font-size: var(--font-size-xl);
+    color: var(--color-text-secondary);
+}
+
+.operations-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: var(--space-16);
+    margin: var(--space-24) 0;
+}
+
+.operation-box {
+    background: var(--color-background);
+    border: 2px solid var(--color-card-border);
+    border-radius: var(--radius-base);
+    padding: var(--space-16);
+    position: relative;
+}
+
+.operation-name {
+    font-size: var(--font-size-lg);
+    font-weight: var(--font-weight-semibold);
+    margin-bottom: var(--space-12);
+    color: var(--color-primary);
+}
+
+.operation-metrics {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--space-8);
+}
+
+.operation-metric {
+    font-size: var(--font-size-sm);
+    padding: var(--space-8);
+    background: var(--color-bg-1);
+    border-radius: var(--radius-sm);
+}
+
+.totals-box {
+    background: var(--color-bg-3);
+    padding: var(--space-24);
+    border-radius: var(--radius-lg);
+    margin: var(--space-24) 0;
+}
+
+.totals-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: var(--space-16);
+}
+
+.total-item {
+    text-align: center;
+}
+
+.total-label {
+    font-size: var(--font-size-sm);
+    color: var(--color-text-secondary);
+    margin-bottom: var(--space-4);
+}
+
+.total-value {
+    font-size: var(--font-size-2xl);
+    font-weight: var(--font-weight-bold);
+    color: var(--color-primary);
+}
+
+/* Push vs Pull */
+.system-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--space-24);
+    margin: var(--space-32) 0;
+}
+
+.system-card {
+    background: var(--color-surface);
+    border: 3px solid;
+    border-radius: var(--radius-lg);
+    padding: var(--space-24);
+}
+
+.system-card.push {
+    border-color: var(--color-error);
+}
+
+.system-card.pull {
+    border-color: var(--color-success);
+}
+
+.system-header {
+    font-size: var(--font-size-3xl);
+    font-weight: var(--font-weight-bold);
+    margin-bottom: var(--space-12);
+}
+
+.system-card.push .system-header {
+    color: var(--color-error);
+}
+
+.system-card.pull .system-header {
+    color: var(--color-success);
+}
+
+.system-description {
+    font-size: var(--font-size-base);
+    margin-bottom: var(--space-16);
+}
+
+.characteristics-list {
+    list-style: none;
+    margin-bottom: var(--space-16);
+}
+
+.characteristics-list li {
+    padding: var(--space-8) 0 var(--space-8) var(--space-24);
+    position: relative;
+    font-size: var(--font-size-sm);
+}
+
+.system-card.push .characteristics-list li::before {
+    content: '✗';
+    position: absolute;
+    left: 0;
+    color: var(--color-error);
+}
+
+.system-card.pull .characteristics-list li::before {
+    content: '✓';
+    position: absolute;
+    left: 0;
+    color: var(--color-success);
+}
+
+/* Mistakes Grid */
+.mistakes-grid {
+    display: grid;
+    gap: var(--space-24);
+    margin: var(--space-32) 0;
+}
+
+.mistake-card {
+    background: var(--color-surface);
+    border-left: 4px solid var(--color-error);
+    border-radius: var(--radius-lg);
+    padding: var(--space-24);
+    box-shadow: var(--shadow-sm);
+    transition: all var(--duration-normal) var(--ease-standard);
+}
+
+.mistake-card:hover {
+    box-shadow: var(--shadow-lg);
+}
+
+.mistake-title {
+    font-size: var(--font-size-xl);
+    font-weight: var(--font-weight-semibold);
+    color: var(--color-error);
+    margin-bottom: var(--space-16);
+}
+
+.mistake-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--space-16);
+}
+
+.mistake-item {
+    background: var(--color-background);
+    padding: var(--space-16);
+    border-radius: var(--radius-base);
+}
+
+.mistake-label {
+    font-size: var(--font-size-xs);
+    font-weight: var(--font-weight-semibold);
+    color: var(--color-text-secondary);
+    text-transform: uppercase;
+    margin-bottom: var(--space-8);
+}
+
+.mistake-text {
+    font-size: var(--font-size-sm);
+}
+
+/* Symbols */
+.symbols-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: var(--space-16);
+    margin: var(--space-32) 0;
+}
+
+.symbol-card {
+    background: var(--color-surface);
+    border: 2px solid var(--color-card-border);
+    border-radius: var(--radius-base);
+    padding: var(--space-20);
+    text-align: center;
+    transition: all var(--duration-normal) var(--ease-standard);
+}
+
+.symbol-card:hover {
+    transform: scale(1.05);
+    border-color: var(--color-primary);
+}
+
+.symbol-visual {
+    font-size: 48px;
+    margin-bottom: var(--space-12);
+}
+
+.symbol-name {
+    font-size: var(--font-size-base);
+    font-weight: var(--font-weight-semibold);
+    margin-bottom: var(--space-8);
+}
+
+.symbol-description {
+    font-size: var(--font-size-sm);
+    color: var(--color-text-secondary);
+}
+
+/* PCE Analysis */
+.pce-scale {
+    background: var(--color-surface);
+    border-radius: var(--radius-lg);
+    padding: var(--space-32);
+    margin: var(--space-32) 0;
+    box-shadow: var(--shadow-md);
+}
+
+.pce-bars {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-16);
+    margin: var(--space-24) 0;
+}
+
+.pce-bar-item {
+    display: flex;
+    align-items: center;
+    gap: var(--space-16);
+}
+
+.pce-bar-visual {
+    height: 40px;
+    border-radius: var(--radius-base);
+    display: flex;
+    align-items: center;
+    padding: 0 var(--space-16);
+    color: white;
+    font-weight: var(--font-weight-bold);
+    transition: all var(--duration-normal) var(--ease-standard);
+}
+
+.pce-bar-visual:hover {
+    transform: scaleX(1.02);
+}
+
+.pce-bar-label {
+    min-width: 150px;
+    font-size: var(--font-size-sm);
+}
+
+/* Tools Connection */
+.tools-flow {
+    background: var(--color-surface);
+    border-radius: var(--radius-lg);
+    padding: var(--space-32);
+    margin: var(--space-32) 0;
+    box-shadow: var(--shadow-md);
+}
+
+.tool-item {
+    display: flex;
+    align-items: center;
+    gap: var(--space-16);
+    padding: var(--space-16);
+    margin-bottom: var(--space-16);
+    background: var(--color-background);
+    border-radius: var(--radius-base);
+    border-left: 4px solid var(--color-primary);
+}
+
+.tool-arrow {
+    font-size: var(--font-size-3xl);
+    color: var(--color-primary);
+}
+
+.tool-content {
+    flex: 1;
+}
+
+.tool-name {
+    font-size: var(--font-size-lg);
+    font-weight: var(--font-weight-semibold);
+    color: var(--color-primary);
+    margin-bottom: var(--space-4);
+}
+
+.tool-when {
+    font-size: var(--font-size-sm);
+    color: var(--color-text-secondary);
+}
+
+/* Action Plan */
+.action-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: var(--space-20);
+    margin: var(--space-32) 0;
+}
+
+.action-card {
+    background: var(--color-surface);
+    border: 2px solid var(--color-primary);
+    border-radius: var(--radius-lg);
+    padding: var(--space-24);
+    transition: all var(--duration-normal) var(--ease-standard);
+}
+
+.action-card:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-lg);
+}
+
+.action-number {
+    display: inline-block;
+    width: 40px;
+    height: 40px;
+    background: var(--color-primary);
+    color: white;
+    border-radius: 50%;
+    text-align: center;
+    line-height: 40px;
+    font-weight: var(--font-weight-bold);
+    margin-bottom: var(--space-12);
+}
+
+.action-text {
+    font-size: var(--font-size-base);
+}
+
+/* Conclusion */
+.conclusion-box {
+    background: linear-gradient(135deg, var(--color-bg-1), var(--color-bg-3));
+    padding: var(--space-32);
+    border-radius: var(--radius-lg);
+    text-align: center;
+    margin: var(--space-32) 0;
+}
+
+.conclusion-text {
+    font-size: var(--font-size-xl);
+    line-height: 1.8;
+    margin-bottom: var(--space-16);
+}
+
+.next-step-box {
+    background: var(--color-surface);
+    border: 3px solid var(--color-primary);
+    border-radius: var(--radius-lg);
+    padding: var(--space-24);
+    margin-top: var(--space-24);
+}
+
+.next-step-label {
+    font-size: var(--font-size-base);
+    color: var(--color-text-secondary);
+    margin-bottom: var(--space-8);
+}
+
+.next-step-title {
+    font-size: var(--font-size-3xl);
+    font-weight: var(--font-weight-bold);
+    color: var(--color-primary);
+}
+
+/* PCE Calculator */
+.pce-calculator {
+    background: var(--color-surface);
+    border-radius: var(--radius-lg);
+    padding: var(--space-32);
+    margin: var(--space-24) 0;
+    box-shadow: var(--shadow-md);
+}
+
+.calculator-inputs {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--space-20);
+    margin-bottom: var(--space-24);
+}
+
+.input-group {
+    display: flex;
+    flex-direction: column;
+}
+
+.input-label {
+    font-size: var(--font-size-sm);
+    font-weight: var(--font-weight-semibold);
+    margin-bottom: var(--space-8);
+}
+
+.input-field {
+    padding: var(--space-12);
+    border: 2px solid var(--color-border);
+    border-radius: var(--radius-base);
+    font-size: var(--font-size-base);
+    background: var(--color-background);
+    color: var(--color-text);
+}
+
+.calculator-result {
+    background: var(--color-bg-3);
+    padding: var(--space-24);
+    border-radius: var(--radius-base);
+    text-align: center;
+}
+
+.result-label {
+    font-size: var(--font-size-base);
+    margin-bottom: var(--space-8);
+}
+
+.result-value {
+    font-size: 48px;
+    font-weight: var(--font-weight-bold);
+    color: var(--color-primary);
+}
+
+.result-interpretation {
+    margin-top: var(--space-12);
+    font-size: var(--font-size-sm);
+    color: var(--color-text-secondary);
+}
+
+/* Responsive */
+@media (max-width: 1024px) {
+    .hero-title { font-size: 60px; }
+    .japanese-char { font-size: 80px; }
+    .comparison-grid { grid-template-columns: 1fr; }
+    .system-grid { grid-template-columns: 1fr; }
+    .mistake-grid { grid-template-columns: 1fr; }
+}
+
+@media (max-width: 768px) {
+    .hero-title { font-size: 42px; }
+    .japanese-char { font-size: 60px; }
+    .section-title { font-size: 36px; }
+    .metrics-grid { grid-template-columns: 1fr; }
+    .elements-grid { grid-template-columns: 1fr; }
+    .operations-grid { grid-template-columns: 1fr; }
+    .step-item { flex-direction: column; align-items: center; }
+    .calculator-inputs { grid-template-columns: 1fr; }
+}
+    </style>
+</head>
+<body>
+    <!-- Hero Section -->
+    <div class="hero section">
+        <div class="container">
+            <div class="hero-content">
+                <div class="japanese-char">価値の流れ</div>
+                <h1 class="hero-title">КПСЦ</h1>
+                <p class="hero-subtitle">Карта потока создания ценности</p>
+                <p class="hero-english">Value Stream Mapping (VSM)</p>
+                <div class="hero-message">
+                    Визуализируй весь процесс от начала до конца и увидишь ВСЕ потери
+                </div>
+                <p class="hero-tagline">От поставщика → через все операции → до клиента</p>
+                <div class="flow-visual">
+                    📦 → 🏭 → 🏭 → 🏭 → 🚚 → 👤
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- What is VSM/КПСЦ -->
+    <div class="section compact">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Что такое КПСЦ?</h2>
+                <p class="section-subtitle">Инструмент визуализации процесса</p>
+            </div>
+
+            <div class="definition-box">
+                <p class="definition-text"><strong>КПСЦ - это графическое визуальное представление всех этапов, которые проходит материал или информация от поставщика до клиента</strong></p>
+                <p class="definition-text">Карта показывает операции, которые создают ценность, и операции, которые это ценность не создают</p>
+                <p class="definition-text">Это не просто диаграмма процесса - это инструмент анализа для выявления потерь</p>
+            </div>
+
+            <div class="definition-box" style="border-color: var(--color-success);">
+                <h3 style="color: var(--color-success); font-size: var(--font-size-2xl); margin-bottom: var(--space-16);">Три основные цели КПСЦ:</h3>
+                <ul class="purpose-list">
+                    <li>✓ Увидеть весь процесс целиком на одной карте</li>
+                    <li>✓ Выявить все потери (Муда, Мура, Мури)</li>
+                    <li>✓ Спланировать улучшения (будущее состояние)</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <!-- Why VSM Matters -->
+    <div class="section compact" style="background: var(--color-bg-1);">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Почему КПСЦ важна?</h2>
+                <p class="section-subtitle">Сила визуализации</p>
+            </div>
+
+            <div class="comparison-container">
+                <h3 style="text-align: center; font-size: var(--font-size-3xl); margin-bottom: var(--space-24);">Обычная диаграмма процесса vs КПСЦ</h3>
+                <div class="comparison-grid">
+                    <div class="comparison-column traditional">
+                        <div class="comparison-header">Традиционная диаграмма</div>
+                        <ul class="comparison-items">
+                            <li>Показывает, как работает процесс</li>
+                            <li>Видны только операции</li>
+                            <li>Не видно времени ожидания</li>
+                            <li>Не видно запасов</li>
+                            <li>Потери скрыты</li>
+                        </ul>
+                    </div>
+                    <div class="comparison-column vsm">
+                        <div class="comparison-header">КПСЦ (VSM)</div>
+                        <ul class="comparison-items">
+                            <li>Показывает ГДЕ потери</li>
+                            <li>Видны операции И ожидания</li>
+                            <li>Видно СКОЛЬКО времени занимают потери</li>
+                            <li>Видны все запасы между операциями</li>
+                            <li>Потери явно видны на карте</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="definition-box" style="border-color: var(--color-warning);">
+                <h3 style="color: var(--color-warning); font-size: var(--font-size-2xl); margin-bottom: var(--space-16);">📊 Реальный пример:</h3>
+                <p class="definition-text">• Время цикла на карте: <strong>240 часов</strong> (10 дней)</p>
+                <p class="definition-text">• Время обработки: <strong>24 часа</strong></p>
+                <p class="definition-text">• Время в очередях/ожидании: <strong>216 часов!</strong></p>
+                <p class="definition-text" style="color: var(--color-error); font-weight: var(--font-weight-bold);">• PCE (Эффективность) = 24/240 = <strong>10%</strong> → <strong>90% потери!</strong></p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Key Metrics -->
+    <div class="section compact">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Ключевые метрики КПСЦ</h2>
+                <p class="section-subtitle">Понимание чисел</p>
+            </div>
+
+            <div class="metrics-grid">
+                <div class="metric-card">
+                    <div class="metric-name">Lead Time (LT)</div>
+                    <div class="metric-translation">Время цикла</div>
+                    <div class="metric-meaning">Общее время от начала до конца процесса (включая всё: обработку, ожидание, перемещение)</div>
+                    <div class="metric-example">💡 От заказа до доставки клиенту - 240 часов</div>
+                </div>
+
+                <div class="metric-card">
+                    <div class="metric-name">Cycle Time (CT)</div>
+                    <div class="metric-translation">Время обработки / процесса</div>
+                    <div class="metric-meaning">Время фактической полезной работы, которая создает ценность</div>
+                    <div class="metric-example">💡 Только обработка материала - 24 часа</div>
+                </div>
+
+                <div class="metric-card">
+                    <div class="metric-name">Process Cycle Efficiency (PCE)</div>
+                    <div class="metric-translation">Эффективность процесса</div>
+                    <div class="metric-formula">PCE = (CT / LT) × 100%</div>
+                    <div class="metric-meaning">Какой процент времени идет на создание ценности</div>
+                    <div class="metric-example">💡 PCE = (24 / 240) × 100% = 10%<br>90% времени - потери!</div>
+                </div>
+
+                <div class="metric-card">
+                    <div class="metric-name">Queue Time (QT)</div>
+                    <div class="metric-translation">Время в очереди</div>
+                    <div class="metric-meaning">Время, когда работа ждет следующей операции</div>
+                    <div class="metric-example">💡 Детали ждут на передаче 48 часов</div>
+                </div>
+
+                <div class="metric-card">
+                    <div class="metric-name">Inventory (Inv)</div>
+                    <div class="metric-translation">Запасы</div>
+                    <div class="metric-meaning">Количество материала между операциями (в днях или единицах)</div>
+                    <div class="metric-example">💡 На буфере между операциями 500 деталей</div>
+                </div>
+            </div>
+
+            <div class="definition-box" style="border-color: var(--color-success); margin-top: var(--space-32);">
+                <h3 style="color: var(--color-success); font-size: var(--font-size-2xl); margin-bottom: var(--space-16);">🎯 Целевые значения PCE:</h3>
+                <p class="definition-text">❌ Плохо: <strong>PCE &lt; 15%</strong> (потери &gt; 85%)</p>
+                <p class="definition-text">⚠️ Норма: <strong>PCE 15-30%</strong> (потери 70-85%)</p>
+                <p class="definition-text">✓ Хорошо: <strong>PCE 30-50%</strong> (потери 50-70%)</p>
+                <p class="definition-text">✓✓ Отлично: <strong>PCE &gt; 50%</strong> (потери &lt; 50%)</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- VSM Elements -->
+    <div class="section compact" style="background: var(--color-bg-2);">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Элементы карты КПСЦ</h2>
+                <p class="section-subtitle">Строительные блоки</p>
+            </div>
+
+            <div class="elements-grid">
+                <div class="element-card">
+                    <div class="element-icon">📥</div>
+                    <div class="element-name">Supplier (Поставщик)</div>
+                    <div class="element-symbol">Прямоугольник в левом углу</div>
+                    <div class="element-description">Начало потока материала/информации. Компания, которая поставляет сырье</div>
+                </div>
+
+                <div class="element-card">
+                    <div class="element-icon">📦</div>
+                    <div class="element-name">Process Box (Коробка процесса)</div>
+                    <div class="element-symbol">Большой прямоугольник с метриками</div>
+                    <div class="element-description">Содержит: название операции, Cycle Time, Queue Time, Uptime, Batch size. Пример: Штамповка CT=2ч</div>
+                </div>
+
+                <div class="element-card">
+                    <div class="element-icon">→</div>
+                    <div class="element-name">Material Flow (Материальный поток)</div>
+                    <div class="element-symbol">Сплошная стрелка слева направо</div>
+                    <div class="element-description">Направление движения материала. Толще стрелка = больше объем</div>
+                </div>
+
+                <div class="element-card">
+                    <div class="element-icon">- - →</div>
+                    <div class="element-name">Information Flow (Информационный поток)</div>
+                    <div class="element-symbol">Пунктирная стрелка</div>
+                    <div class="element-description">Передача данных, приказов, информации. Может идти в любую сторону</div>
+                </div>
+
+                <div class="element-card">
+                    <div class="element-icon">🔺</div>
+                    <div class="element-name">Inventory Buffer (Буфер запасов)</div>
+                    <div class="element-symbol">Треугольник или облако</div>
+                    <div class="element-description">Место, где накапливаются запасы. Между операциями лежит 50 деталей</div>
+                </div>
+
+                <div class="element-card">
+                    <div class="element-icon">👤</div>
+                    <div class="element-name">Customer (Клиент)</div>
+                    <div class="element-symbol">Прямоугольник в правом углу</div>
+                    <div class="element-description">Конец потока, где получают ценность</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- How to Build VSM -->
+    <div class="section compact">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Как построить КПСЦ</h2>
+                <p class="section-subtitle">7 шагов к созданию карты</p>
+            </div>
+
+            <div class="steps-container">
+                <div class="step-item">
+                    <div class="step-number">1</div>
+                    <div class="step-content">
+                        <h3 class="step-name">Выбрать продукт</h3>
+                        <p class="step-description">Выбрать один продукт или семейство для анализа</p>
+                        <ul class="step-actions">
+                            <li>Выбрать продукт, где видны проблемы</li>
+                            <li>Не слишком простой, но и не слишком сложный</li>
+                            <li>Лучше проблемный продукт, чем идеальный</li>
+                        </ul>
+                        <div class="step-tip">💡 Пример: Выбираем двери для автомобилей</div>
+                    </div>
+                </div>
+
+                <div class="step-item">
+                    <div class="step-number">2</div>
+                    <div class="step-content">
+                        <h3 class="step-name">Определить границы</h3>
+                        <p class="step-description">Где начинается и где заканчивается процесс</p>
+                        <ul class="step-actions">
+                            <li>Откуда начало: от поставщика? от заказа? от дизайна?</li>
+                            <li>Где конец: производство? доставка? использование?</li>
+                            <li>Четко обозначить границы</li>
+                        </ul>
+                        <div class="step-tip">💡 Пример: От получения заказа до отправки клиенту</div>
+                    </div>
+                </div>
+
+                <div class="step-item">
+                    <div class="step-number">3</div>
+                    <div class="step-content">
+                        <h3 class="step-name">Идти на Гемба!</h3>
+                        <p class="step-description">Собрать реальные данные с места работы</p>
+                        <ul class="step-actions">
+                            <li>Прийти на производство/офис</li>
+                            <li>Встать у каждой операции и наблюдать</li>
+                            <li>Измерить время выполнения (CT)</li>
+                            <li>Посчитать запасы между операциями</li>
+                            <li>Спросить рабочих о проблемах</li>
+                        </ul>
+                        <div class="step-tip">⚠️ ВАЖНО: НИКОГДА не строй VSM по документам, только по наблюдению на месте!</div>
+                    </div>
+                </div>
+
+                <div class="step-item">
+                    <div class="step-number">4</div>
+                    <div class="step-content">
+                        <h3 class="step-name">Нарисовать AS-IS (текущее состояние)</h3>
+                        <p class="step-description">Карта текущего состояния</p>
+                        <ul class="step-actions">
+                            <li>Нарисовать на листе А3 (вручную лучше!)</li>
+                            <li>Слева направо: поставщик, операции, клиент</li>
+                            <li>Показать материальный поток (стрелки)</li>
+                            <li>Показать информационный поток (пунктир)</li>
+                            <li>Для каждой операции написать CT, QT, Inv</li>
+                        </ul>
+                        <div class="step-tip">💡 Пример: Карта с 4 операциями, между ними буферы запасов</div>
+                    </div>
+                </div>
+
+                <div class="step-item">
+                    <div class="step-number">5</div>
+                    <div class="step-content">
+                        <h3 class="step-name">Рассчитать метрики</h3>
+                        <p class="step-description">Вычислить ключевые показатели</p>
+                        <ul class="step-actions">
+                            <li>CT total = сумма всех Cycle Times</li>
+                            <li>QT total = сумма всех Queue Times</li>
+                            <li>LT = CT + QT + другие потери</li>
+                            <li>PCE = (CT / LT) × 100%</li>
+                        </ul>
+                        <div class="step-tip">💡 Пример: CT=8ч, QT=25ч, LT=50ч → PCE=16%</div>
+                    </div>
+                </div>
+
+                <div class="step-item">
+                    <div class="step-number">6</div>
+                    <div class="step-content">
+                        <h3 class="step-name">Выявить потери</h3>
+                        <p class="step-description">Найти все 8 видов муда и проблемы</p>
+                        <ul class="step-actions">
+                            <li>Большие буферы запасов → Муда перепроизводство</li>
+                            <li>Длинные QT → Муда ожидание</li>
+                            <li>Частые перемещения → Муда транспорт</li>
+                            <li>Переделки → Муда брак</li>
+                            <li>Неравномерный CT → Мура</li>
+                        </ul>
+                        <div class="step-tip">💡 Пример: Видим большие буферы перед краской (50 дверей ждут)</div>
+                    </div>
+                </div>
+
+                <div class="step-item">
+                    <div class="step-number">7</div>
+                    <div class="step-content">
+                        <h3 class="step-name">Спроектировать TO-BE (будущее состояние)</h3>
+                        <p class="step-description">Карта будущего состояния</p>
+                        <ul class="step-actions">
+                            <li>Сократить QT (самое простое)</li>
+                            <li>Синхронизировать операции (Хейдзунка)</li>
+                            <li>Применить Канбан (вытягивание)</li>
+                            <li>Применить SMED (быстрая переналадка)</li>
+                            <li>Использовать Pull систему вместо Push</li>
+                        </ul>
+                        <div class="step-tip">💡 Результат: LT 50→12ч, Inv 160→30, PCE 16%→67%</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Current vs Future State -->
+    <div class="section compact" style="background: var(--color-bg-3);">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Текущее vs Будущее состояние</h2>
+                <p class="section-subtitle">AS-IS vs TO-BE</p>
+            </div>
+
+            <div class="state-comparison">
+                <div class="toggle-container">
+                    <button class="toggle-btn active" onclick="showState('current')">Текущее состояние (AS-IS)</button>
+                    <button class="toggle-btn" onclick="showState('future')">Будущее состояние (TO-BE)</button>
+                </div>
+
+                <div id="current-state" class="state-content active">
+                    <div class="state-grid">
+                        <div class="state-metric">
+                            <div class="state-label">Lead Time</div>
+                            <div class="state-value bad">240 часов</div>
+                            <div class="state-label">(10 дней)</div>
+                        </div>
+                        <div class="state-metric">
+                            <div class="state-label">Cycle Time</div>
+                            <div class="state-value">24 часа</div>
+                        </div>
+                        <div class="state-metric">
+                            <div class="state-label">PCE</div>
+                            <div class="state-value bad">10%</div>
+                            <div class="state-label">90% потери!</div>
+                        </div>
+                        <div class="state-metric">
+                            <div class="state-label">Inventory</div>
+                            <div class="state-value bad">500+ деталей</div>
+                        </div>
+                        <div class="state-metric">
+                            <div class="state-label">Flow</div>
+                            <div class="state-value bad">Push</div>
+                            <div class="state-label">(толкаем)</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="future-state" class="state-content">
+                    <div class="state-grid">
+                        <div class="state-metric">
+                            <div class="state-label">Lead Time</div>
+                            <div class="state-value good">48 часов</div>
+                            <div class="state-label">(2 дня)</div>
+                        </div>
+                        <div class="state-metric">
+                            <div class="state-label">Cycle Time</div>
+                            <div class="state-value">24 часа</div>
+                            <div class="state-label">(не меняется)</div>
+                        </div>
+                        <div class="state-metric">
+                            <div class="state-label">PCE</div>
+                            <div class="state-value good">50%</div>
+                            <div class="state-label">Улучшение!</div>
+                        </div>
+                        <div class="state-metric">
+                            <div class="state-label">Inventory</div>
+                            <div class="state-value good">50 деталей</div>
+                            <div class="state-label">(в 10 раз меньше!)</div>
+                        </div>
+                        <div class="state-metric">
+                            <div class="state-label">Flow</div>
+                            <div class="state-value good">Pull</div>
+                            <div class="state-label">(вытягиваем)</div>
+                        </div>
+                    </div>
+
+                    <div class="impact-box">
+                        <h4>✨ Воздействие:</h4>
+                        <ul>
+                            <li>5x скорость доставки клиенту</li>
+                            <li>10x меньше запасов (освобождение капитала)</li>
+                            <li>40% сокращение потерь времени</li>
+                            <li>Значительное улучшение качества</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Real Manufacturing Example -->
+    <div class="section compact">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Реальный производственный пример</h2>
+                <p class="section-subtitle">Кейс: Завод автомобильных дверей</p>
+            </div>
+
+            <div class="example-container">
+                <div class="example-header">
+                    <div class="example-title">🚗 Завод автомобильных дверей</div>
+                    <div class="example-subtitle">Продукт: Двери для автомобилей</div>
+                </div>
+
+                <h3 style="text-align: center; font-size: var(--font-size-2xl); margin-bottom: var(--space-24); color: var(--color-error);">Текущее состояние (AS-IS):</h3>
+
+                <div class="operations-grid">
+                    <div class="operation-box">
+                        <div class="operation-name">1. Штамповка</div>
+                        <div class="operation-metrics">
+                            <div class="operation-metric">CT: 2ч</div>
+                            <div class="operation-metric">QT: 0ч</div>
+                            <div class="operation-metric">Inv: 50</div>
+                        </div>
+                    </div>
+
+                    <div class="operation-box">
+                        <div class="operation-name">2. Сварка</div>
+                        <div class="operation-metrics">
+                            <div class="operation-metric">CT: 1ч</div>
+                            <div class="operation-metric">QT: 8ч</div>
+                            <div class="operation-metric">Inv: 30</div>
+                        </div>
+                    </div>
+
+                    <div class="operation-box">
+                        <div class="operation-name">3. Краска</div>
+                        <div class="operation-metrics">
+                            <div class="operation-metric">CT: 3ч</div>
+                            <div class="operation-metric">QT: 5ч</div>
+                            <div class="operation-metric">Inv: 20</div>
+                        </div>
+                    </div>
+
+                    <div class="operation-box">
+                        <div class="operation-name">4. Сборка</div>
+                        <div class="operation-metrics">
+                            <div class="operation-metric">CT: 2ч</div>
+                            <div class="operation-metric">QT: 12ч</div>
+                            <div class="operation-metric">Inv: 60</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="totals-box">
+                    <h4 style="text-align: center; margin-bottom: var(--space-16);">Итоги (AS-IS):</h4>
+                    <div class="totals-grid">
+                        <div class="total-item">
+                            <div class="total-label">CT Total</div>
+                            <div class="total-value">8ч</div>
+                        </div>
+                        <div class="total-item">
+                            <div class="total-label">QT Total</div>
+                            <div class="total-value">25ч</div>
+                        </div>
+                        <div class="total-item">
+                            <div class="total-label">Lead Time</div>
+                            <div class="total-value" style="color: var(--color-error);">50ч</div>
+                        </div>
+                        <div class="total-item">
+                            <div class="total-label">Total Inv</div>
+                            <div class="total-value" style="color: var(--color-error);">160</div>
+                        </div>
+                        <div class="total-item">
+                            <div class="total-label">PCE</div>
+                            <div class="total-value" style="color: var(--color-error);">16%</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="definition-box" style="border-color: var(--color-error); margin: var(--space-24) 0;">
+                    <h4 style="color: var(--color-error); margin-bottom: var(--space-12);">❌ Выявленные проблемы:</h4>
+                    <p class="definition-text">• Большие буферы между операциями (160 дверей!)</p>
+                    <p class="definition-text">• Долгие очереди (QT 25 часов)</p>
+                    <p class="definition-text">• Неравномерность нагрузки</p>
+                    <p class="definition-text">• Запасы замораживают деньги</p>
+                </div>
+
+                <h3 style="text-align: center; font-size: var(--font-size-2xl); margin: var(--space-32) 0 var(--space-24); color: var(--color-success);">Будущее состояние (TO-BE):</h3>
+
+                <div class="definition-box" style="border-color: var(--color-success);">
+                    <h4 style="color: var(--color-success); margin-bottom: var(--space-12);">🔧 Применённые изменения:</h4>
+                    <p class="definition-text">✓ Применить Канбан вместо Push</p>
+                    <p class="definition-text">✓ Синхронизировать операции</p>
+                    <p class="definition-text">✓ SMED - быстрая переналадка</p>
+                    <p class="definition-text">✓ Хейдзунка - выравнивание</p>
+                </div>
+
+                <div class="totals-box">
+                    <h4 style="text-align: center; margin-bottom: var(--space-16);">Итоги (TO-BE):</h4>
+                    <div class="totals-grid">
+                        <div class="total-item">
+                            <div class="total-label">CT Total</div>
+                            <div class="total-value">8ч</div>
+                        </div>
+                        <div class="total-item">
+                            <div class="total-label">QT Total</div>
+                            <div class="total-value" style="color: var(--color-success);">2ч</div>
+                        </div>
+                        <div class="total-item">
+                            <div class="total-label">Lead Time</div>
+                            <div class="total-value" style="color: var(--color-success);">12ч</div>
+                        </div>
+                        <div class="total-item">
+                            <div class="total-label">Total Inv</div>
+                            <div class="total-value" style="color: var(--color-success);">12</div>
+                        </div>
+                        <div class="total-item">
+                            <div class="total-label">PCE</div>
+                            <div class="total-value" style="color: var(--color-success);">67%</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="definition-box" style="border-color: var(--color-success); margin-top: var(--space-24); background: var(--color-bg-3);">
+                    <h4 style="color: var(--color-success); margin-bottom: var(--space-12);">🎉 Улучшения:</h4>
+                    <p class="definition-text" style="font-weight: var(--font-weight-bold);">• LT: 50 → 12 часов (4x быстрее!)</p>
+                    <p class="definition-text" style="font-weight: var(--font-weight-bold);">• Inv: 160 → 12 (13x меньше!)</p>
+                    <p class="definition-text" style="font-weight: var(--font-weight-bold);">• PCE: 16% → 67% (4x больше эффективности!)</p>
+                    <p class="definition-text" style="font-weight: var(--font-weight-bold);">• Запасы освобождают $500k капитала</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Information Flow -->
+    <div class="section compact" style="background: var(--color-bg-4);">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Информационный поток на КПСЦ</h2>
+                <p class="section-subtitle">Как движутся данные</p>
+            </div>
+
+            <div class="definition-box">
+                <h3 style="font-size: var(--font-size-2xl); margin-bottom: var(--space-16); color: var(--color-primary);">Почему это важно:</h3>
+                <p class="definition-text">Не только материалы движутся, но и информация. Плохая информационная система создает такие же потери, как и плохой материальный поток</p>
+            </div>
+
+            <div class="comparison-container">
+                <h3 style="text-align: center; font-size: var(--font-size-3xl); margin-bottom: var(--space-24);">Плохой vs Хороший информационный поток</h3>
+                <div class="comparison-grid">
+                    <div class="comparison-column traditional">
+                        <div class="comparison-header">❌ Плохой поток</div>
+                        <ul class="comparison-items">
+                            <li>Информация ждет обработки (QT для информации)</li>
+                            <li>Много ошибок передачи (Муда - брак информации)</li>
+                            <li>Несколько систем не синхронизированы</li>
+                            <li>Бумажные документы теряются</li>
+                            <li>Задержки в принятии решений</li>
+                        </ul>
+                    </div>
+                    <div class="comparison-column vsm">
+                        <div class="comparison-header">✓ Хороший поток</div>
+                        <ul class="comparison-items">
+                            <li>Информация идет синхронно с материалом</li>
+                            <li>Real-time информация (Канбан сигналы)</li>
+                            <li>Единая система для всех</li>
+                            <li>Автоматизация передачи данных</li>
+                            <li>Быстрые решения на основе фактов</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="definition-box" style="border-color: var(--color-warning);">
+                <h4 style="color: var(--color-warning);">📊 Типы информации на КПСЦ:</h4>
+                <p class="definition-text">• Customer orders (заказы клиентов)</p>
+                <p class="definition-text">• Production schedules (графики производства)</p>
+                <p class="definition-text">• Quality data (данные о качестве)</p>
+                <p class="definition-text">• Instructions (указания рабочим)</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Push vs Pull -->
+    <div class="section compact">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Push vs Pull системы</h2>
+                <p class="section-subtitle">Толкание или вытягивание</p>
+            </div>
+
+            <div class="system-grid">
+                <div class="system-card push">
+                    <div class="system-header">PUSH (толкание) ❌</div>
+                    <p class="system-description">Производим, потом ищем кому продать</p>
+                    
+                    <h4 style="margin: var(--space-16) 0 var(--space-12);">Характеристики:</h4>
+                    <ul class="characteristics-list">
+                        <li>Производим большими партиями</li>
+                        <li>На каждом этапе копится запас</li>
+                        <li>Переделки и исправления</li>
+                        <li>Длинное LT</li>
+                        <li>Низкий PCE</li>
+                        <li>Много запасов замораживают капитал</li>
+                    </ul>
+
+                    <div class="definition-box" style="border-color: var(--color-error); margin-top: var(--space-16);">
+                        <p><strong>Результат:</strong> Много запасов, долгие сроки, потери</p>
+                    </div>
+                </div>
+
+                <div class="system-card pull">
+                    <div class="system-header">PULL (вытягивание) ✓</div>
+                    <p class="system-description">Производим только когда попросили</p>
+                    
+                    <h4 style="margin: var(--space-16) 0 var(--space-12);">Характеристики:</h4>
+                    <ul class="characteristics-list">
+                        <li>Производим маленькими партиями</li>
+                        <li>Минимум запасов между этапами</li>
+                        <li>Быстрые сроки</li>
+                        <li>Короткое LT</li>
+                        <li>Высокий PCE</li>
+                        <li>Канбан сигналы управляют производством</li>
+                    </ul>
+
+                    <div class="definition-box" style="border-color: var(--color-success); margin-top: var(--space-16);">
+                        <p><strong>Результат:</strong> Минимум запасов, быстрые сроки, эффективность</p>
+                        <p style="margin-top: var(--space-8);"><strong>Инструмент:</strong> Канбан (сигналы "нужно больше")</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Common Mistakes -->
+    <div class="section compact" style="background: var(--color-bg-4);">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Распространённые ошибки</h2>
+                <p class="section-subtitle">Чего НЕ делать при построении КПСЦ</p>
+            </div>
+
+            <div class="mistakes-grid">
+                <div class="mistake-card">
+                    <h3 class="mistake-title">❌ Строим карту в офисе по документам</h3>
+                    <div class="mistake-grid">
+                        <div class="mistake-item">
+                            <div class="mistake-label">Последствие</div>
+                            <div class="mistake-text">Неправильные данные, карта не отражает реальность, потеряем время</div>
+                        </div>
+                        <div class="mistake-item">
+                            <div class="mistake-label">✓ Решение</div>
+                            <div class="mistake-text">ИДТИ НА ГЕМБА, собрать реальные данные, измерить, посчитать, наблюдать</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="mistake-card">
+                    <h3 class="mistake-title">❌ Карта получилась очень сложной</h3>
+                    <div class="mistake-grid">
+                        <div class="mistake-item">
+                            <div class="mistake-label">Последствие</div>
+                            <div class="mistake-text">Никто не поймет, останется на полке, не будет использоваться</div>
+                        </div>
+                        <div class="mistake-item">
+                            <div class="mistake-label">✓ Решение</div>
+                            <div class="mistake-text">Упростить, показать основное, потом детализировать отдельные участки</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="mistake-card">
+                    <h3 class="mistake-title">❌ Не показываем информационный поток</h3>
+                    <div class="mistake-grid">
+                        <div class="mistake-item">
+                            <div class="mistake-label">Последствие</div>
+                            <div class="mistake-text">Видим только половину проблемы, пропускаем потери в информации</div>
+                        </div>
+                        <div class="mistake-item">
+                            <div class="mistake-label">✓ Решение</div>
+                            <div class="mistake-text">Информация так же важна как материал, показывай оба потока</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="mistake-card">
+                    <h3 class="mistake-title">❌ Ищем только потери в операциях</h3>
+                    <div class="mistake-grid">
+                        <div class="mistake-item">
+                            <div class="mistake-label">Последствие</div>
+                            <div class="mistake-text">Пропустим запасы, переделки, перемещения - главные потери</div>
+                        </div>
+                        <div class="mistake-item">
+                            <div class="mistake-label">✓ Решение</div>
+                            <div class="mistake-text">Смотри на весь процесс: операции И буферы И потоки И информацию</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="mistake-card">
+                    <h3 class="mistake-title">❌ Строим один раз и забиваем</h3>
+                    <div class="mistake-grid">
+                        <div class="mistake-item">
+                            <div class="mistake-label">Последствие</div>
+                            <div class="mistake-text">Процесс меняется, данные устаревают, карта теряет ценность</div>
+                        </div>
+                        <div class="mistake-item">
+                            <div class="mistake-label">✓ Решение</div>
+                            <div class="mistake-text">Обновлять карту регулярно (каждый квартал минимум), живой документ</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- VSM Symbols -->
+    <div class="section compact">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Символы и обозначения КПСЦ</h2>
+                <p class="section-subtitle">Визуальная легенда</p>
+            </div>
+
+            <div class="symbols-grid">
+                <div class="symbol-card">
+                    <div class="symbol-visual">📦</div>
+                    <div class="symbol-name">Process Box</div>
+                    <div class="symbol-description">Операция с метриками (CT/QT/Inv)</div>
+                </div>
+
+                <div class="symbol-card">
+                    <div class="symbol-visual">→</div>
+                    <div class="symbol-name">Solid Arrow</div>
+                    <div class="symbol-description">Материальный поток</div>
+                </div>
+
+                <div class="symbol-card">
+                    <div class="symbol-visual">- - →</div>
+                    <div class="symbol-name">Dotted Arrow</div>
+                    <div class="symbol-description">Информационный поток</div>
+                </div>
+
+                <div class="symbol-card">
+                    <div class="symbol-visual">🔺</div>
+                    <div class="symbol-name">Triangle</div>
+                    <div class="symbol-description">Буфер запасов</div>
+                </div>
+
+                <div class="symbol-card">
+                    <div class="symbol-visual">❌</div>
+                    <div class="symbol-name">X</div>
+                    <div class="symbol-description">Потеря/проблема</div>
+                </div>
+
+                <div class="symbol-card">
+                    <div class="symbol-visual">👤</div>
+                    <div class="symbol-name">Person</div>
+                    <div class="symbol-description">Персонал/оператор</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- PCE Deep Dive -->
+    <div class="section compact" style="background: var(--color-bg-5);">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Глубокое погружение в PCE</h2>
+                <p class="section-subtitle">Понимание эффективности процесса</p>
+            </div>
+
+            <div class="pce-scale">
+                <h3 style="text-align: center; font-size: var(--font-size-3xl); margin-bottom: var(--space-24);">Что означает PCE:</h3>
+                
+                <div class="pce-bars">
+                    <div class="pce-bar-item">
+                        <div class="pce-bar-label">10% PCE</div>
+                        <div class="pce-bar-visual" style="width: 10%; background: var(--color-error);">10%</div>
+                        <div style="margin-left: var(--space-12); color: var(--color-text-secondary);">90% потерь (плохо)</div>
+                    </div>
+
+                    <div class="pce-bar-item">
+                        <div class="pce-bar-label">25% PCE</div>
+                        <div class="pce-bar-visual" style="width: 25%; background: var(--color-warning);">25%</div>
+                        <div style="margin-left: var(--space-12); color: var(--color-text-secondary);">75% потерь (нормально для начала)</div>
+                    </div>
+
+                    <div class="pce-bar-item">
+                        <div class="pce-bar-label">50% PCE</div>
+                        <div class="pce-bar-visual" style="width: 50%; background: var(--color-success);">50%</div>
+                        <div style="margin-left: var(--space-12); color: var(--color-text-secondary);">50% потерь (хороший результат)</div>
+                    </div>
+
+                    <div class="pce-bar-item">
+                        <div class="pce-bar-label">75%+ PCE</div>
+                        <div class="pce-bar-visual" style="width: 75%; background: var(--color-primary);">75%+</div>
+                        <div style="margin-left: var(--space-12); color: var(--color-text-secondary);">Редко достигается, но это цель</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pce-calculator">
+                <h3 style="text-align: center; font-size: var(--font-size-3xl); margin-bottom: var(--space-24);">📊 Калькулятор PCE</h3>
+                <div class="calculator-inputs">
+                    <div class="input-group">
+                        <label class="input-label">Cycle Time (CT) - часов</label>
+                        <input type="number" id="ct-input" class="input-field" value="24" oninput="calculatePCE()">
+                    </div>
+                    <div class="input-group">
+                        <label class="input-label">Lead Time (LT) - часов</label>
+                        <input type="number" id="lt-input" class="input-field" value="240" oninput="calculatePCE()">
+                    </div>
+                </div>
+                <div class="calculator-result">
+                    <div class="result-label">Process Cycle Efficiency (PCE):</div>
+                    <div class="result-value" id="pce-result">10%</div>
+                    <div class="result-interpretation" id="pce-interpretation">90% времени - потери!</div>
+                </div>
+            </div>
+
+            <div class="definition-box" style="border-color: var(--color-success); margin-top: var(--space-32);">
+                <h3 style="color: var(--color-success); font-size: var(--font-size-2xl); margin-bottom: var(--space-16);">💡 Как улучшить PCE:</h3>
+                <p class="definition-text">• Уменьшить CT: оптимизировать операции (трудно)</p>
+                <p class="definition-text">• Уменьшить QT: уменьшить запасы, синхронизировать (легче)</p>
+                <p class="definition-text">• Для большинства компаний проще СОКРАЩАТЬ ОЖИДАНИЕ</p>
+                <p class="definition-text">• Было: CT=24, LT=240 → PCE=10%</p>
+                <p class="definition-text">• Сокращили QT на 50%: LT→130 → PCE≈18%</p>
+                <p class="definition-text">• Сокращили QT еще: LT→48 → PCE=50%</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- VSM to Lean Tools -->
+    <div class="section compact">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Как КПСЦ ведёт к Lean инструментам</h2>
+                <p class="section-subtitle">Связь с другими методами</p>
+            </div>
+
+            <div class="tools-flow">
+                <h3 style="text-align: center; font-size: var(--font-size-2xl); margin-bottom: var(--space-24);">КПСЦ → показывает где потери → применяем инструменты</h3>
+
+                <div class="tool-item">
+                    <div class="tool-arrow">→</div>
+                    <div class="tool-content">
+                        <div class="tool-name">5S</div>
+                        <div class="tool-when">Если видим беспорядок, неорганизованность рабочих мест</div>
+                    </div>
+                </div>
+
+                <div class="tool-item">
+                    <div class="tool-arrow">→</div>
+                    <div class="tool-content">
+                        <div class="tool-name">Канбан</div>
+                        <div class="tool-when">Если много запасов между операциями</div>
+                    </div>
+                </div>
+
+                <div class="tool-item">
+                    <div class="tool-arrow">→</div>
+                    <div class="tool-content">
+                        <div class="tool-name">SMED</div>
+                        <div class="tool-when">Если долгие переналадки оборудования</div>
+                    </div>
+                </div>
+
+                <div class="tool-item">
+                    <div class="tool-arrow">→</div>
+                    <div class="tool-content">
+                        <div class="tool-name">Хейдзунка</div>
+                        <div class="tool-when">Если неравномерный поток, пики и провалы</div>
+                    </div>
+                </div>
+
+                <div class="tool-item">
+                    <div class="tool-arrow">→</div>
+                    <div class="tool-content">
+                        <div class="tool-name">JIT (Just-In-Time)</div>
+                        <div class="tool-when">Если получится синхронизировать весь процесс</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="definition-box" style="border-color: var(--color-primary); margin-top: var(--space-32);">
+                <p class="definition-text" style="font-weight: var(--font-weight-bold); font-size: var(--font-size-xl);">✨ Результат: новая VSM с лучшими метриками - циклический процесс улучшения</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Action Plan -->
+    <div class="section compact" style="background: var(--color-bg-6);">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">План действий</h2>
+                <p class="section-subtitle">Что делать дальше</p>
+            </div>
+
+            <div class="action-grid">
+                <div class="action-card">
+                    <span class="action-number">1</span>
+                    <p class="action-text">Выбрать продукт для первой карты (проблемный, не слишком сложный)</p>
+                </div>
+                <div class="action-card">
+                    <span class="action-number">2</span>
+                    <p class="action-text">Собрать команду (люди из каждого этапа процесса)</p>
+                </div>
+                <div class="action-card">
+                    <span class="action-number">3</span>
+                    <p class="action-text">Пойти на Гемба (собрать реальные данные)</p>
+                </div>
+                <div class="action-card">
+                    <span class="action-number">4</span>
+                    <p class="action-text">Нарисовать карту AS-IS на листе А3 (вручную!)</p>
+                </div>
+                <div class="action-card">
+                    <span class="action-number">5</span>
+                    <p class="action-text">Рассчитать метрики (LT, CT, PCE)</p>
+                </div>
+                <div class="action-card">
+                    <span class="action-number">6</span>
+                    <p class="action-text">Выявить потери (отметить на карте)</p>
+                </div>
+                <div class="action-card">
+                    <span class="action-number">7</span>
+                    <p class="action-text">Спроектировать будущее состояние (TO-BE)</p>
+                </div>
+                <div class="action-card">
+                    <span class="action-number">8</span>
+                    <p class="action-text">Разработать план внедрения инструментов</p>
+                </div>
+                <div class="action-card">
+                    <span class="action-number">9</span>
+                    <p class="action-text">Повторить процесс регулярно (новые VSM каждый квартал)</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Conclusion -->
+    <div class="section" style="background: linear-gradient(135deg, var(--color-bg-1), var(--color-bg-3));">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Заключение</h2>
+            </div>
+
+            <div class="conclusion-box">
+                <p class="conclusion-text">🔍 <strong>КПСЦ - это не просто диаграмма, это рентгеновский снимок вашего процесса</strong></p>
+                <p class="conclusion-text">📊 <strong>VSM показывает холистичную картину всех потерь</strong></p>
+                <p class="conclusion-text">🎯 <strong>На основе VSM спроектируем будущее состояние</strong></p>
+                <p class="conclusion-text" style="margin-top: var(--space-24); font-size: var(--font-size-2xl); color: var(--color-primary);">✨ <strong>VSM - инструмент визуализации, который делает невидимое видимым</strong></p>
+            </div>
+
+            <div class="next-step-box">
+                <p class="next-step-label">СЛЕДУЮЩИЙ ИНСТРУМЕНТ:</p>
+                <h3 class="next-step-title">Ключевые показатели (KPI) - как измерять прогресс</h3>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Toggle between current and future state
+        function showState(state) {
+            const currentBtn = document.querySelectorAll('.toggle-btn')[0];
+            const futureBtn = document.querySelectorAll('.toggle-btn')[1];
+            const currentContent = document.getElementById('current-state');
+            const futureContent = document.getElementById('future-state');
+
+            if (state === 'current') {
+                currentBtn.classList.add('active');
+                futureBtn.classList.remove('active');
+                currentContent.classList.add('active');
+                futureContent.classList.remove('active');
+            } else {
+                futureBtn.classList.add('active');
+                currentBtn.classList.remove('active');
+                futureContent.classList.add('active');
+                currentContent.classList.remove('active');
+            }
+        }
+
+        // PCE Calculator
+        function calculatePCE() {
+            const ct = parseFloat(document.getElementById('ct-input').value) || 0;
+            const lt = parseFloat(document.getElementById('lt-input').value) || 0;
+            
+            if (lt === 0) {
+                document.getElementById('pce-result').textContent = '0%';
+                document.getElementById('pce-interpretation').textContent = 'Введите Lead Time';
+                return;
+            }
+
+            const pce = (ct / lt * 100).toFixed(1);
+            const losses = (100 - pce).toFixed(1);
+            
+            document.getElementById('pce-result').textContent = pce + '%';
+            
+            let interpretation = '';
+            let color = '';
+            
+            if (pce < 15) {
+                interpretation = `${losses}% времени - потери! (Плохо)`;
+                color = 'var(--color-error)';
+            } else if (pce < 30) {
+                interpretation = `${losses}% времени - потери (Норма для начала)`;
+                color = 'var(--color-warning)';
+            } else if (pce < 50) {
+                interpretation = `${losses}% времени - потери (Хороший результат)`;
+                color = 'var(--color-success)';
+            } else {
+                interpretation = `${losses}% времени - потери (Отлично!)`;
+                color = 'var(--color-primary)';
+            }
+            
+            document.getElementById('pce-interpretation').textContent = interpretation;
+            document.getElementById('pce-result').style.color = color;
+        }
+
+        // Initialize PCE calculator
+        calculatePCE();
+    </script>
+</body>
+</html>

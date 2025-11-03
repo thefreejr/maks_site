@@ -1,0 +1,1977 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Визуальное управление | Visual Management - Инструмент коммуникации Lean</title>
+    <style>
+:root {
+  --color-white: rgba(255, 255, 255, 1);
+  --color-black: rgba(0, 0, 0, 1);
+  --color-cream-50: rgba(252, 252, 249, 1);
+  --color-cream-100: rgba(255, 255, 253, 1);
+  --color-gray-200: rgba(245, 245, 245, 1);
+  --color-gray-300: rgba(167, 169, 169, 1);
+  --color-gray-400: rgba(119, 124, 124, 1);
+  --color-slate-500: rgba(98, 108, 113, 1);
+  --color-brown-600: rgba(94, 82, 64, 1);
+  --color-charcoal-700: rgba(31, 33, 33, 1);
+  --color-charcoal-800: rgba(38, 40, 40, 1);
+  --color-slate-900: rgba(19, 52, 59, 1);
+  --color-teal-300: rgba(50, 184, 198, 1);
+  --color-teal-400: rgba(45, 166, 178, 1);
+  --color-teal-500: rgba(33, 128, 141, 1);
+  --color-teal-600: rgba(29, 116, 128, 1);
+  --color-teal-700: rgba(26, 104, 115, 1);
+  --color-teal-800: rgba(41, 150, 161, 1);
+  --color-red-400: rgba(255, 84, 89, 1);
+  --color-red-500: rgba(192, 21, 47, 1);
+  --color-orange-400: rgba(230, 129, 97, 1);
+  --color-orange-500: rgba(168, 75, 47, 1);
+
+  --color-brown-600-rgb: 94, 82, 64;
+  --color-teal-500-rgb: 33, 128, 141;
+  --color-slate-900-rgb: 19, 52, 59;
+  --color-slate-500-rgb: 98, 108, 113;
+  --color-red-500-rgb: 192, 21, 47;
+  --color-red-400-rgb: 255, 84, 89;
+  --color-orange-500-rgb: 168, 75, 47;
+  --color-orange-400-rgb: 230, 129, 97;
+
+  --color-bg-1: rgba(59, 130, 246, 0.08);
+  --color-bg-2: rgba(245, 158, 11, 0.08);
+  --color-bg-3: rgba(34, 197, 94, 0.08);
+  --color-bg-4: rgba(239, 68, 68, 0.08);
+  --color-bg-5: rgba(147, 51, 234, 0.08);
+  --color-bg-6: rgba(249, 115, 22, 0.08);
+  --color-bg-7: rgba(236, 72, 153, 0.08);
+  --color-bg-8: rgba(6, 182, 212, 0.08);
+
+  --color-background: var(--color-cream-50);
+  --color-surface: var(--color-cream-100);
+  --color-text: var(--color-slate-900);
+  --color-text-secondary: var(--color-slate-500);
+  --color-primary: var(--color-teal-500);
+  --color-primary-hover: var(--color-teal-600);
+  --color-primary-active: var(--color-teal-700);
+  --color-secondary: rgba(var(--color-brown-600-rgb), 0.12);
+  --color-secondary-hover: rgba(var(--color-brown-600-rgb), 0.2);
+  --color-secondary-active: rgba(var(--color-brown-600-rgb), 0.25);
+  --color-border: rgba(var(--color-brown-600-rgb), 0.2);
+  --color-btn-primary-text: var(--color-cream-50);
+  --color-card-border: rgba(var(--color-brown-600-rgb), 0.12);
+  --color-card-border-inner: rgba(var(--color-brown-600-rgb), 0.12);
+  --color-error: var(--color-red-500);
+  --color-success: var(--color-teal-500);
+  --color-warning: var(--color-orange-500);
+  --color-info: var(--color-slate-500);
+  --color-focus-ring: rgba(var(--color-teal-500-rgb), 0.4);
+
+  --font-family-base: "FKGroteskNeue", "Geist", "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  --font-size-xs: 11px;
+  --font-size-sm: 12px;
+  --font-size-base: 14px;
+  --font-size-md: 14px;
+  --font-size-lg: 16px;
+  --font-size-xl: 18px;
+  --font-size-2xl: 20px;
+  --font-size-3xl: 24px;
+  --font-size-4xl: 30px;
+  --font-weight-normal: 400;
+  --font-weight-medium: 500;
+  --font-weight-semibold: 550;
+  --font-weight-bold: 600;
+  --line-height-tight: 1.2;
+  --line-height-normal: 1.5;
+
+  --space-4: 4px;
+  --space-8: 8px;
+  --space-12: 12px;
+  --space-16: 16px;
+  --space-20: 20px;
+  --space-24: 24px;
+  --space-32: 32px;
+
+  --radius-sm: 6px;
+  --radius-base: 8px;
+  --radius-md: 10px;
+  --radius-lg: 12px;
+  --radius-full: 9999px;
+
+  --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.04), 0 1px 2px rgba(0, 0, 0, 0.02);
+  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.04), 0 2px 4px -1px rgba(0, 0, 0, 0.02);
+  --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.04), 0 4px 6px -2px rgba(0, 0, 0, 0.02);
+
+  --duration-fast: 150ms;
+  --duration-normal: 250ms;
+  --ease-standard: cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --color-gray-400-rgb: 119, 124, 124;
+    --color-teal-300-rgb: 50, 184, 198;
+    --color-gray-300-rgb: 167, 169, 169;
+    --color-gray-200-rgb: 245, 245, 245;
+
+    --color-bg-1: rgba(29, 78, 216, 0.15);
+    --color-bg-2: rgba(180, 83, 9, 0.15);
+    --color-bg-3: rgba(21, 128, 61, 0.15);
+    --color-bg-4: rgba(185, 28, 28, 0.15);
+    --color-bg-5: rgba(107, 33, 168, 0.15);
+    --color-bg-6: rgba(194, 65, 12, 0.15);
+    --color-bg-7: rgba(190, 24, 93, 0.15);
+    --color-bg-8: rgba(8, 145, 178, 0.15);
+
+    --color-background: var(--color-charcoal-700);
+    --color-surface: var(--color-charcoal-800);
+    --color-text: var(--color-gray-200);
+    --color-text-secondary: rgba(var(--color-gray-300-rgb), 0.7);
+    --color-primary: var(--color-teal-300);
+    --color-primary-hover: var(--color-teal-400);
+    --color-primary-active: var(--color-teal-800);
+    --color-secondary: rgba(var(--color-gray-400-rgb), 0.15);
+    --color-secondary-hover: rgba(var(--color-gray-400-rgb), 0.25);
+    --color-secondary-active: rgba(var(--color-gray-400-rgb), 0.3);
+    --color-border: rgba(var(--color-gray-400-rgb), 0.3);
+    --color-error: var(--color-red-400);
+    --color-success: var(--color-teal-300);
+    --color-warning: var(--color-orange-400);
+    --color-info: var(--color-gray-300);
+    --color-focus-ring: rgba(var(--color-teal-300-rgb), 0.4);
+    --color-btn-primary-text: var(--color-slate-900);
+    --color-card-border: rgba(var(--color-gray-400-rgb), 0.2);
+    --color-card-border-inner: rgba(var(--color-gray-400-rgb), 0.15);
+  }
+}
+
+@font-face {
+  font-family: 'FKGroteskNeue';
+  src: url('https://r2cdn.perplexity.ai/fonts/FKGroteskNeue.woff2') format('woff2');
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: var(--font-family-base);
+    background-color: var(--color-background);
+    color: var(--color-text);
+    line-height: var(--line-height-normal);
+    scroll-behavior: smooth;
+}
+
+.container {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 0 var(--space-32);
+}
+
+.section {
+    padding: 80px 0;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+}
+
+.section.compact {
+    min-height: auto;
+    padding: 60px 0;
+}
+
+/* Hero Section */
+.hero {
+    text-align: center;
+    background: var(--color-bg-1);
+    position: relative;
+    overflow: hidden;
+}
+
+.hero::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: radial-gradient(circle at 50% 50%, rgba(33, 128, 141, 0.1) 0%, transparent 70%);
+    pointer-events: none;
+}
+
+.hero-content {
+    position: relative;
+    z-index: 1;
+}
+
+.hero-icon {
+    font-size: 100px;
+    margin-bottom: var(--space-16);
+}
+
+.hero-title {
+    font-size: 90px;
+    font-weight: var(--font-weight-bold);
+    margin-bottom: var(--space-16);
+    letter-spacing: 0.05em;
+    color: var(--color-primary);
+}
+
+.hero-subtitle {
+    font-size: var(--font-size-3xl);
+    color: var(--color-text);
+    margin-bottom: var(--space-12);
+    font-weight: var(--font-weight-semibold);
+}
+
+.hero-english {
+    font-size: var(--font-size-xl);
+    color: var(--color-text-secondary);
+    margin-bottom: var(--space-24);
+    font-style: italic;
+}
+
+.hero-message {
+    font-size: var(--font-size-2xl);
+    color: var(--color-text);
+    font-weight: var(--font-weight-semibold);
+    margin-top: var(--space-32);
+    padding: var(--space-32);
+    background: var(--color-surface);
+    border-radius: var(--radius-lg);
+    border-left: 6px solid var(--color-primary);
+    max-width: 900px;
+    margin-left: auto;
+    margin-right: auto;
+    box-shadow: var(--shadow-lg);
+}
+
+.hero-tagline {
+    font-size: var(--font-size-xl);
+    color: var(--color-primary);
+    margin-top: var(--space-24);
+    font-weight: var(--font-weight-medium);
+}
+
+/* Section Headers */
+.section-header {
+    text-align: center;
+    margin-bottom: var(--space-32);
+}
+
+.section-title {
+    font-size: 48px;
+    font-weight: var(--font-weight-bold);
+    margin-bottom: var(--space-16);
+    color: var(--color-primary);
+}
+
+.section-subtitle {
+    font-size: var(--font-size-2xl);
+    color: var(--color-text-secondary);
+}
+
+/* Definition Box */
+.definition-box {
+    background-color: var(--color-surface);
+    border-left: 6px solid var(--color-primary);
+    padding: var(--space-32);
+    border-radius: var(--radius-lg);
+    margin-bottom: var(--space-24);
+    box-shadow: var(--shadow-md);
+}
+
+.definition-text {
+    font-size: var(--font-size-xl);
+    line-height: 1.6;
+    margin-bottom: var(--space-16);
+}
+
+.definition-text:last-child {
+    margin-bottom: 0;
+}
+
+/* Scientific Facts */
+.facts-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: var(--space-20);
+    margin: var(--space-32) 0;
+}
+
+.fact-card {
+    background: var(--color-surface);
+    border-radius: var(--radius-lg);
+    padding: var(--space-24);
+    box-shadow: var(--shadow-md);
+    border-top: 4px solid var(--color-primary);
+    text-align: center;
+}
+
+.fact-icon {
+    font-size: 48px;
+    margin-bottom: var(--space-12);
+}
+
+.fact-value {
+    font-size: 36px;
+    font-weight: var(--font-weight-bold);
+    color: var(--color-primary);
+    margin-bottom: var(--space-8);
+}
+
+.fact-label {
+    font-size: var(--font-size-base);
+    color: var(--color-text);
+}
+
+/* Before/After Comparison */
+.comparison {
+    display: grid;
+    grid-template-columns: 1fr auto 1fr;
+    gap: var(--space-32);
+    align-items: center;
+    margin: var(--space-32) 0;
+}
+
+.comparison-column {
+    padding: var(--space-24);
+    border-radius: var(--radius-lg);
+    border: 3px solid;
+}
+
+.comparison-column.before {
+    border-color: var(--color-error);
+    background: var(--color-bg-4);
+}
+
+.comparison-column.after {
+    border-color: var(--color-success);
+    background: var(--color-bg-3);
+}
+
+.comparison-header {
+    font-size: var(--font-size-2xl);
+    font-weight: var(--font-weight-bold);
+    margin-bottom: var(--space-16);
+    padding-bottom: var(--space-12);
+    border-bottom: 3px solid;
+}
+
+.comparison-column.before .comparison-header {
+    color: var(--color-error);
+    border-color: var(--color-error);
+}
+
+.comparison-column.after .comparison-header {
+    color: var(--color-success);
+    border-color: var(--color-success);
+}
+
+.comparison-arrow {
+    font-size: 48px;
+    color: var(--color-primary);
+}
+
+.comparison-list {
+    list-style: none;
+}
+
+.comparison-list li {
+    padding: var(--space-12);
+    margin-bottom: var(--space-8);
+    background: var(--color-surface);
+    border-radius: var(--radius-sm);
+    font-size: var(--font-size-base);
+}
+
+/* Impact Stats */
+.impact-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: var(--space-16);
+    margin: var(--space-32) 0;
+}
+
+.impact-card {
+    background: var(--color-bg-3);
+    padding: var(--space-20);
+    border-radius: var(--radius-base);
+    text-align: center;
+    border: 2px solid var(--color-success);
+}
+
+.impact-metric {
+    font-size: var(--font-size-3xl);
+    font-weight: var(--font-weight-bold);
+    color: var(--color-success);
+    margin-bottom: var(--space-8);
+}
+
+.impact-label {
+    font-size: var(--font-size-base);
+    color: var(--color-text);
+}
+
+/* Three Levels */
+.levels-grid {
+    display: grid;
+    gap: var(--space-24);
+    margin: var(--space-32) 0;
+}
+
+.level-card {
+    background: var(--color-surface);
+    border-radius: var(--radius-lg);
+    padding: var(--space-32);
+    box-shadow: var(--shadow-md);
+    border-left: 6px solid;
+}
+
+.level-card.level-1 { border-color: #E74C3C; }
+.level-card.level-2 { border-color: #F39C12; }
+.level-card.level-3 { border-color: #27AE60; }
+
+.level-header {
+    display: flex;
+    align-items: center;
+    gap: var(--space-16);
+    margin-bottom: var(--space-20);
+}
+
+.level-number {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: var(--font-weight-bold);
+    font-size: var(--font-size-2xl);
+    color: white;
+}
+
+.level-card.level-1 .level-number { background: #E74C3C; }
+.level-card.level-2 .level-number { background: #F39C12; }
+.level-card.level-3 .level-number { background: #27AE60; }
+
+.level-title {
+    font-size: var(--font-size-2xl);
+    font-weight: var(--font-weight-bold);
+    color: var(--color-text);
+}
+
+.level-english {
+    font-size: var(--font-size-base);
+    color: var(--color-text-secondary);
+    font-style: italic;
+}
+
+.level-goal {
+    font-size: var(--font-size-lg);
+    font-weight: var(--font-weight-semibold);
+    color: var(--color-primary);
+    margin-bottom: var(--space-16);
+    padding: var(--space-12);
+    background: var(--color-bg-1);
+    border-radius: var(--radius-sm);
+}
+
+.level-tools,
+.level-examples {
+    margin-top: var(--space-16);
+}
+
+.level-tools h4,
+.level-examples h4 {
+    font-size: var(--font-size-lg);
+    color: var(--color-primary);
+    margin-bottom: var(--space-12);
+}
+
+.level-tools ul {
+    list-style: none;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: var(--space-8);
+}
+
+.level-tools li {
+    padding: var(--space-8);
+    background: var(--color-bg-2);
+    border-radius: var(--radius-sm);
+    font-size: var(--font-size-sm);
+}
+
+.level-examples p {
+    padding: var(--space-12);
+    background: var(--color-bg-3);
+    border-radius: var(--radius-sm);
+    margin-bottom: var(--space-8);
+}
+
+/* 8 Tools */
+.tools-grid {
+    display: grid;
+    gap: var(--space-24);
+    margin: var(--space-32) 0;
+}
+
+.tool-card {
+    background: var(--color-surface);
+    border-radius: var(--radius-lg);
+    padding: var(--space-24);
+    box-shadow: var(--shadow-md);
+    border-top: 6px solid;
+    cursor: pointer;
+    transition: all var(--duration-normal) var(--ease-standard);
+}
+
+.tool-card:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-lg);
+}
+
+.tool-card.tool-1 { border-color: #E74C3C; }
+.tool-card.tool-2 { border-color: #F39C12; }
+.tool-card.tool-3 { border-color: #27AE60; }
+.tool-card.tool-4 { border-color: #3498DB; }
+.tool-card.tool-5 { border-color: #9B59B6; }
+.tool-card.tool-6 { border-color: #E67E22; }
+.tool-card.tool-7 { border-color: #16A085; }
+.tool-card.tool-8 { border-color: #34495E; }
+
+.tool-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: var(--space-16);
+}
+
+.tool-name {
+    font-size: var(--font-size-2xl);
+    font-weight: var(--font-weight-bold);
+    color: var(--color-text);
+}
+
+.tool-expand {
+    font-size: var(--font-size-2xl);
+    color: var(--color-primary);
+    transition: transform var(--duration-normal) var(--ease-standard);
+}
+
+.tool-card.expanded .tool-expand {
+    transform: rotate(180deg);
+}
+
+.tool-translation {
+    font-size: var(--font-size-sm);
+    color: var(--color-text-secondary);
+    font-style: italic;
+    margin-bottom: var(--space-8);
+}
+
+.tool-purpose {
+    font-size: var(--font-size-lg);
+    font-weight: var(--font-weight-semibold);
+    color: var(--color-primary);
+    padding: var(--space-12);
+    background: var(--color-bg-1);
+    border-radius: var(--radius-sm);
+    margin-bottom: var(--space-16);
+}
+
+.tool-details {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height var(--duration-normal) var(--ease-standard);
+}
+
+.tool-card.expanded .tool-details {
+    max-height: 3000px;
+}
+
+.tool-details h4 {
+    font-size: var(--font-size-lg);
+    color: var(--color-primary);
+    margin: var(--space-16) 0 var(--space-12) 0;
+}
+
+.tool-details ul {
+    list-style: none;
+}
+
+.tool-details li {
+    padding: var(--space-8);
+    margin-bottom: var(--space-4);
+    background: var(--color-bg-2);
+    border-radius: var(--radius-sm);
+    font-size: var(--font-size-sm);
+}
+
+/* Color Coding System */
+.color-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: var(--space-20);
+    margin: var(--space-32) 0;
+}
+
+.color-card {
+    background: var(--color-surface);
+    border-radius: var(--radius-lg);
+    padding: var(--space-24);
+    box-shadow: var(--shadow-md);
+    border-left: 8px solid;
+}
+
+.color-card.green { border-color: #27AE60; }
+.color-card.yellow { border-color: #F39C12; }
+.color-card.red { border-color: #E74C3C; }
+.color-card.blue { border-color: #3498DB; }
+
+.color-symbol {
+    font-size: 48px;
+    text-align: center;
+    margin-bottom: var(--space-12);
+}
+
+.color-meaning {
+    font-size: var(--font-size-xl);
+    font-weight: var(--font-weight-bold);
+    margin-bottom: var(--space-12);
+    text-align: center;
+}
+
+.color-card.green .color-meaning { color: #27AE60; }
+.color-card.yellow .color-meaning { color: #F39C12; }
+.color-card.red .color-meaning { color: #E74C3C; }
+.color-card.blue .color-meaning { color: #3498DB; }
+
+.color-use {
+    font-size: var(--font-size-base);
+    color: var(--color-text);
+    text-align: center;
+}
+
+/* Implementation Roadmap */
+.roadmap-container {
+    background: var(--color-surface);
+    border-radius: var(--radius-lg);
+    padding: var(--space-32);
+    margin: var(--space-32) 0;
+    box-shadow: var(--shadow-md);
+}
+
+.roadmap-stages {
+    position: relative;
+    padding-left: 60px;
+}
+
+.roadmap-stages::before {
+    content: '';
+    position: absolute;
+    left: 20px;
+    top: 0;
+    bottom: 0;
+    width: 4px;
+    background: var(--color-primary);
+}
+
+.stage-item {
+    position: relative;
+    margin-bottom: var(--space-32);
+    padding: var(--space-24);
+    background: var(--color-background);
+    border-radius: var(--radius-lg);
+    border-left: 4px solid var(--color-primary);
+}
+
+.stage-marker {
+    position: absolute;
+    left: -52px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 40px;
+    height: 40px;
+    background: var(--color-primary);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-weight: var(--font-weight-bold);
+    box-shadow: 0 0 0 4px var(--color-surface);
+}
+
+.stage-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: var(--space-16);
+}
+
+.stage-name {
+    font-size: var(--font-size-xl);
+    font-weight: var(--font-weight-bold);
+    color: var(--color-primary);
+}
+
+.stage-duration {
+    font-size: var(--font-size-sm);
+    color: var(--color-text-secondary);
+    padding: var(--space-4) var(--space-12);
+    background: var(--color-bg-1);
+    border-radius: var(--radius-full);
+}
+
+.stage-actions {
+    list-style: none;
+}
+
+.stage-actions li {
+    padding: var(--space-12);
+    margin-bottom: var(--space-8);
+    background: var(--color-bg-2);
+    border-radius: var(--radius-sm);
+    font-size: var(--font-size-base);
+}
+
+/* Mistakes Grid */
+.mistakes-grid {
+    display: grid;
+    gap: var(--space-20);
+    margin: var(--space-32) 0;
+}
+
+.mistake-card {
+    background: var(--color-surface);
+    border-left: 4px solid var(--color-error);
+    border-radius: var(--radius-lg);
+    padding: var(--space-24);
+    box-shadow: var(--shadow-sm);
+}
+
+.mistake-title {
+    font-size: var(--font-size-lg);
+    font-weight: var(--font-weight-semibold);
+    color: var(--color-error);
+    margin-bottom: var(--space-12);
+}
+
+.mistake-comparison {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--space-16);
+    margin-top: var(--space-12);
+}
+
+.mistake-wrong {
+    background: var(--color-bg-4);
+    padding: var(--space-12);
+    border-radius: var(--radius-base);
+    border-left: 3px solid var(--color-error);
+}
+
+.mistake-right {
+    background: var(--color-bg-3);
+    padding: var(--space-12);
+    border-radius: var(--radius-base);
+    border-left: 3px solid var(--color-success);
+    font-weight: var(--font-weight-semibold);
+}
+
+/* Metrics List */
+.metrics-list {
+    background: var(--color-surface);
+    border-radius: var(--radius-lg);
+    padding: var(--space-32);
+    margin: var(--space-32) 0;
+    box-shadow: var(--shadow-md);
+}
+
+.metrics-list ul {
+    list-style: none;
+    display: grid;
+    gap: var(--space-12);
+}
+
+.metrics-list li {
+    padding: var(--space-16);
+    background: var(--color-bg-1);
+    border-radius: var(--radius-base);
+    border-left: 4px solid var(--color-primary);
+    font-size: var(--font-size-base);
+}
+
+/* Digital vs Physical */
+.comparison-tabs {
+    display: flex;
+    justify-content: center;
+    gap: var(--space-12);
+    margin-bottom: var(--space-24);
+    border-bottom: 2px solid var(--color-border);
+}
+
+.comparison-tab {
+    padding: var(--space-12) var(--space-24);
+    background: transparent;
+    border: none;
+    border-bottom: 3px solid transparent;
+    font-size: var(--font-size-base);
+    font-weight: var(--font-weight-semibold);
+    color: var(--color-text-secondary);
+    cursor: pointer;
+    transition: all var(--duration-fast) var(--ease-standard);
+}
+
+.comparison-tab.active {
+    color: var(--color-primary);
+    border-bottom-color: var(--color-primary);
+}
+
+.comparison-content {
+    display: none;
+}
+
+.comparison-content.active {
+    display: block;
+}
+
+.pros-cons {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--space-24);
+    margin-top: var(--space-20);
+}
+
+.pros,
+.cons {
+    padding: var(--space-20);
+    border-radius: var(--radius-base);
+}
+
+.pros {
+    background: var(--color-bg-3);
+    border-left: 4px solid var(--color-success);
+}
+
+.cons {
+    background: var(--color-bg-4);
+    border-left: 4px solid var(--color-error);
+}
+
+.pros h4 {
+    color: var(--color-success);
+    margin-bottom: var(--space-12);
+}
+
+.cons h4 {
+    color: var(--color-error);
+    margin-bottom: var(--space-12);
+}
+
+.pros ul,
+.cons ul {
+    list-style: none;
+}
+
+.pros li,
+.cons li {
+    padding: var(--space-8);
+    margin-bottom: var(--space-4);
+    background: var(--color-surface);
+    border-radius: var(--radius-sm);
+    font-size: var(--font-size-sm);
+}
+
+/* Obeya Concept */
+.obeya-visual {
+    background: var(--color-surface);
+    border-radius: var(--radius-lg);
+    padding: var(--space-32);
+    margin: var(--space-32) 0;
+    box-shadow: var(--shadow-md);
+    text-align: center;
+}
+
+.obeya-visual h3 {
+    font-size: var(--font-size-3xl);
+    color: var(--color-primary);
+    margin-bottom: var(--space-24);
+}
+
+.obeya-walls {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--space-16);
+    margin: var(--space-24) 0;
+}
+
+.obeya-wall {
+    background: var(--color-bg-1);
+    padding: var(--space-20);
+    border-radius: var(--radius-base);
+    border: 2px solid var(--color-primary);
+}
+
+.obeya-wall h4 {
+    color: var(--color-primary);
+    margin-bottom: var(--space-12);
+}
+
+/* Connection Cards */
+.connection-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: var(--space-20);
+    margin: var(--space-32) 0;
+}
+
+.connection-card {
+    background: var(--color-surface);
+    padding: var(--space-20);
+    border-radius: var(--radius-base);
+    border-left: 4px solid var(--color-primary);
+    box-shadow: var(--shadow-sm);
+}
+
+.connection-tool {
+    font-size: var(--font-size-lg);
+    font-weight: var(--font-weight-bold);
+    color: var(--color-primary);
+    margin-bottom: var(--space-8);
+}
+
+/* Action Plan */
+.action-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: var(--space-20);
+    margin: var(--space-32) 0;
+}
+
+.action-card {
+    background: var(--color-surface);
+    border: 2px solid var(--color-primary);
+    border-radius: var(--radius-lg);
+    padding: var(--space-20);
+    text-align: center;
+    transition: all var(--duration-normal) var(--ease-standard);
+}
+
+.action-card:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-lg);
+}
+
+.action-number {
+    display: inline-block;
+    width: 40px;
+    height: 40px;
+    background: var(--color-primary);
+    color: white;
+    border-radius: 50%;
+    text-align: center;
+    line-height: 40px;
+    font-weight: var(--font-weight-bold);
+    margin-bottom: var(--space-12);
+}
+
+/* Conclusion */
+.conclusion-box {
+    background: var(--color-bg-1);
+    padding: var(--space-32);
+    border-radius: var(--radius-lg);
+    text-align: center;
+    margin: var(--space-32) 0;
+}
+
+.conclusion-text {
+    font-size: var(--font-size-xl);
+    line-height: 1.8;
+    margin-bottom: var(--space-16);
+}
+
+/* Responsive */
+@media (max-width: 1024px) {
+    .hero-title { font-size: 60px; }
+    .comparison,
+    .pros-cons {
+        grid-template-columns: 1fr;
+        gap: var(--space-16);
+    }
+    .comparison-arrow {
+        transform: rotate(90deg);
+    }
+}
+
+@media (max-width: 768px) {
+    .hero-title { font-size: 48px; }
+    .section-title { font-size: 36px; }
+    .container { padding: 0 var(--space-16); }
+    .section { padding: 40px 0; }
+    .section.compact { padding: 30px 0; }
+    .roadmap-stages {
+        padding-left: 40px;
+    }
+    .roadmap-stages::before {
+        left: 10px;
+    }
+    .stage-marker {
+        left: -32px;
+        width: 30px;
+        height: 30px;
+        font-size: var(--font-size-sm);
+    }
+    .mistake-comparison,
+    .obeya-walls {
+        grid-template-columns: 1fr;
+    }
+}
+    </style>
+</head>
+<body>
+    <!-- Hero Section -->
+    <div class="hero section">
+        <div class="container">
+            <div class="hero-content">
+                <div class="hero-icon">📊📈✨</div>
+                <h1 class="hero-title">ВИЗУАЛЬНОЕ УПРАВЛЕНИЕ</h1>
+                <p class="hero-subtitle">Visual Management - Видение всего процесса с первого взгляда</p>
+                <p class="hero-english">The key communication tool that makes all processes visible and transparent</p>
+                <div class="hero-message">
+                    Информация, которую видно. Проблемы, которые видны. Решения, которые очевидны
+                </div>
+                <p class="hero-tagline">Любой может увидеть статус процесса без объяснений</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- What is Visual Management -->
+    <div class="section compact">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Что такое Визуальное управление?</h2>
+                <p class="section-subtitle">Мощная информационная система, не украшение</p>
+            </div>
+
+            <div class="definition-box">
+                <p class="definition-text"><strong>Визуальное управление - это расположение всех инструментов, деталей, процессов и информации так, чтобы они были хорошо видимы и каждый участник мог оценить состояние системы с первого взгляда</strong></p>
+                <p class="definition-text" style="font-size: var(--font-size-3xl); font-weight: var(--font-weight-bold); color: var(--color-primary); text-align: center; margin-top: var(--space-24);">💡 Лучше один раз увидеть, чем сто раз услышать</p>
+                <p class="definition-text">⚠️ Это не украшение - это мощная информационная система</p>
+            </div>
+
+            <div class="facts-grid">
+                <div class="fact-card">
+                    <div class="fact-icon">🧠</div>
+                    <div class="fact-value">60,000x</div>
+                    <div class="fact-label">Мозг обрабатывает изображения в 60,000 раз быстрее, чем текст</div>
+                </div>
+                <div class="fact-card">
+                    <div class="fact-icon">👁️</div>
+                    <div class="fact-value">83%</div>
+                    <div class="fact-label">информации воспринимается визуально, 11% слухом</div>
+                </div>
+                <div class="fact-card">
+                    <div class="fact-icon">💭</div>
+                    <div class="fact-value">50%</div>
+                    <div class="fact-label">запоминания при визуал + аудио vs 20% только визуал</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Why Visual Management Matters -->
+    <div class="section compact" style="background: var(--color-bg-2);">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Почему Визуальное управление важно?</h2>
+                <p class="section-subtitle">Сила видимости</p>
+            </div>
+
+            <div style="background: var(--color-surface); border-radius: var(--radius-lg); padding: var(--space-32); box-shadow: var(--shadow-md);">
+                <div class="comparison">
+                    <div class="comparison-column before">
+                        <div class="comparison-header">❌ Без Визуального управления</div>
+                        <ul class="comparison-list">
+                            <li>Непонятно что происходит</li>
+                            <li>Статус неизвестен без спроса</li>
+                            <li>Проблемы скрыты пока не поздно</li>
+                            <li>Решения на неполной информации</li>
+                            <li>Люди не знают стандартов</li>
+                        </ul>
+                    </div>
+                    <div class="comparison-arrow">→</div>
+                    <div class="comparison-column after">
+                        <div class="comparison-header">✓ С Визуальным управлением</div>
+                        <ul class="comparison-list">
+                            <li>Статус виден с первого взгляда</li>
+                            <li>Проблемы очевидны сразу</li>
+                            <li>Все знают стандарты</li>
+                            <li>Быстрые решения на фактах</li>
+                            <li>Ответственность ясна</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div style="margin-top: var(--space-32);">
+                    <h3 style="text-align: center; font-size: var(--font-size-2xl); margin-bottom: var(--space-16); color: var(--color-primary);">📊 Реальное влияние:</h3>
+                    <div class="impact-grid">
+                        <div class="impact-card">
+                            <div class="impact-metric">↓ 80%</div>
+                            <div class="impact-label">Время решения (видишь сразу)</div>
+                        </div>
+                        <div class="impact-card">
+                            <div class="impact-metric">↓ 60%</div>
+                            <div class="impact-label">Время ответа на проблему</div>
+                        </div>
+                        <div class="impact-card">
+                            <div class="impact-metric">↓ 50%</div>
+                            <div class="impact-label">Время коммуникации</div>
+                        </div>
+                        <div class="impact-card">
+                            <div class="impact-metric">↓ 40%</div>
+                            <div class="impact-label">Время обучения</div>
+                        </div>
+                        <div class="impact-card">
+                            <div class="impact-metric">↑ 25%</div>
+                            <div class="impact-label">Качество</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Three Levels -->
+    <div class="section compact">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Три уровня Визуального управления</h2>
+                <p class="section-subtitle">Иерархия от рабочего места до предприятия</p>
+            </div>
+
+            <div class="levels-grid">
+                <div class="level-card level-1">
+                    <div class="level-header">
+                        <div class="level-number">1</div>
+                        <div>
+                            <h3 class="level-title">РАБОЧЕЕ МЕСТО</h3>
+                            <p class="level-english">Workstation Visuals</p>
+                        </div>
+                    </div>
+                    <div class="level-goal">🎯 Оператор знает ровно что делать</div>
+                    <div class="level-tools">
+                        <h4>Инструменты:</h4>
+                        <ul>
+                            <li>Плакаты</li>
+                            <li>Картинки</li>
+                            <li>Чек-листы</li>
+                            <li>Ярлыки</li>
+                        </ul>
+                    </div>
+                    <div class="level-examples">
+                        <h4>Примеры:</h4>
+                        <p><strong>Производство:</strong> Маркированные ящики, разноцветные зоны, стандарт на стене</p>
+                        <p><strong>Офис:</strong> Ярлыки на файлах, стандарт организации стола</p>
+                    </div>
+                </div>
+
+                <div class="level-card level-2">
+                    <div class="level-header">
+                        <div class="level-number">2</div>
+                        <div>
+                            <h3 class="level-title">ОТДЕЛЕНИЕ / ЗОНА</h3>
+                            <p class="level-english">Area Visuals</p>
+                        </div>
+                    </div>
+                    <div class="level-goal">🎯 Каждый в отделе видит прогресс</div>
+                    <div class="level-tools">
+                        <h4>Инструменты:</h4>
+                        <ul>
+                            <li>Доски метрик</li>
+                            <li>Дашборды производства</li>
+                            <li>Дисплеи KPI</li>
+                        </ul>
+                    </div>
+                    <div class="level-examples">
+                        <h4>Примеры:</h4>
+                        <p><strong>Производство:</strong> Ежедневный выход target vs actual</p>
+                        <p><strong>Офис:</strong> Kanban доска проекта</p>
+                    </div>
+                </div>
+
+                <div class="level-card level-3">
+                    <div class="level-header">
+                        <div class="level-number">3</div>
+                        <div>
+                            <h3 class="level-title">ПРЕДПРИЯТИЕ</h3>
+                            <p class="level-english">Enterprise Visuals</p>
+                        </div>
+                    </div>
+                    <div class="level-goal">🎯 Все связаны с целями компании</div>
+                    <div class="level-tools">
+                        <h4>Инструменты:</h4>
+                        <ul>
+                            <li>Obeya (большая комната)</li>
+                            <li>Компанийские дашборды</li>
+                            <li>Стратегические доски</li>
+                        </ul>
+                    </div>
+                    <div class="level-examples">
+                        <h4>Примеры:</h4>
+                        <p><strong>Производство:</strong> Ежедневные цели по выходу, метрики безопасности, метрики качества на всех линиях</p>
+                        <p><strong>Офис:</strong> Компанийские OKRs, квартальные результаты</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 8 Key Tools -->
+    <div class="section compact" style="background: var(--color-bg-3);">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">8 ключевых инструментов</h2>
+                <p class="section-subtitle">Нажмите на карточку для деталей</p>
+            </div>
+
+            <div class="tools-grid">
+                <div class="tool-card tool-1" onclick="toggleTool(this)">
+                    <div class="tool-header">
+                        <h3 class="tool-name">ANDON (Андон)</h3>
+                        <span class="tool-expand">▼</span>
+                    </div>
+                    <p class="tool-translation">Лампа (яп.)</p>
+                    <div class="tool-purpose">🚨 Мгновенный визуальный и звуковой сигнал проблемы</div>
+                    <div class="tool-details">
+                        <h4>Как работает:</h4>
+                        <ul>
+                            <li>Оператор видит проблему</li>
+                            <li>Нажимает кнопку / дергает трос</li>
+                            <li>Желтый свет загорается (проблема)</li>
+                            <li>Звуковой сигнал - тревога</li>
+                            <li>Мастер прибегает сразу</li>
+                            <li>Проблема решена перед продолжением</li>
+                        </ul>
+                        <h4>Преимущества:</h4>
+                        <ul>
+                            <li>Быстрый ответ (секунды, не часы)</li>
+                            <li>Качество защищено (проблема остановлена сразу)</li>
+                            <li>Операторы уполномочены (могут остановить линию)</li>
+                            <li>Культура качества (стоп для качества, не игнорируем)</li>
+                        </ul>
+                        <p style="margin-top: var(--space-12); padding: var(--space-12); background: var(--color-bg-1); border-radius: var(--radius-sm);"><strong>Пример:</strong> Toyota линия сборки: рабочий дергает → желтый свет → мастер прибегает → проблема решена</p>
+                    </div>
+                </div>
+
+                <div class="tool-card tool-2" onclick="toggleTool(this)">
+                    <div class="tool-header">
+                        <h3 class="tool-name">PRODUCTION DASHBOARD</h3>
+                        <span class="tool-expand">▼</span>
+                    </div>
+                    <div class="tool-purpose">📊 Показать суточный план vs реальность</div>
+                    <div class="tool-details">
+                        <h4>Что показывает:</h4>
+                        <ul>
+                            <li>Целевой выход (план)</li>
+                            <li>Реальный выход (факт)</li>
+                            <li>Разница (отклонение)</li>
+                            <li>Тренды (улучшается или хуже)</li>
+                            <li>Встреченные проблемы</li>
+                        </ul>
+                        <p style="margin-top: var(--space-12); padding: var(--space-12); background: var(--color-bg-3); border-radius: var(--radius-sm); font-weight: var(--font-weight-semibold);">✓ Каждый знает если на графике или отстаем</p>
+                    </div>
+                </div>
+
+                <div class="tool-card tool-3" onclick="toggleTool(this)">
+                    <div class="tool-header">
+                        <h3 class="tool-name">KANBAN BOARD</h3>
+                        <span class="tool-expand">▼</span>
+                    </div>
+                    <div class="tool-purpose">📋 Показать статус всех задач/работ</div>
+                    <div class="tool-details">
+                        <h4>Колонки:</h4>
+                        <ul>
+                            <li>Backlog (очередь)</li>
+                            <li>In Progress (в работе)</li>
+                            <li>Testing (тестирование)</li>
+                            <li>Done (готово)</li>
+                        </ul>
+                        <h4>Цветовое кодирование карточек:</h4>
+                        <ul>
+                            <li>Green (норма)</li>
+                            <li>Yellow (внимание)</li>
+                            <li>Red (срочно)</li>
+                        </ul>
+                        <p style="margin-top: var(--space-12); padding: var(--space-12); background: var(--color-bg-3); border-radius: var(--radius-sm); font-weight: var(--font-weight-semibold);">✓ Каждый видит что дальше, что блокировано, что готово</p>
+                    </div>
+                </div>
+
+                <div class="tool-card tool-4" onclick="toggleTool(this)">
+                    <div class="tool-header">
+                        <h3 class="tool-name">KPI DASHBOARD</h3>
+                        <span class="tool-expand">▼</span>
+                    </div>
+                    <div class="tool-purpose">📈 Показать ключевые метрики</div>
+                    <div class="tool-details">
+                        <h4>Типичные метрики:</h4>
+                        <ul>
+                            <li>Безопасность (инциденты, близкие ситуации)</li>
+                            <li>Качество (% брака, дефектов)</li>
+                            <li>Производительность (выход, эффективность)</li>
+                            <li>Стоимость (отходы, траты)</li>
+                            <li>Доставка (% вовремя)</li>
+                        </ul>
+                        <p style="margin-top: var(--space-12); padding: var(--space-12); background: var(--color-bg-1); border-radius: var(--radius-sm);"><strong>Обновление:</strong> Ежедневно или в реальном времени</p>
+                        <p style="margin-top: var(--space-8); padding: var(--space-12); background: var(--color-bg-3); border-radius: var(--radius-sm); font-weight: var(--font-weight-semibold);">✓ Каждый ответствен, тренды видны</p>
+                    </div>
+                </div>
+
+                <div class="tool-card tool-5" onclick="toggleTool(this)">
+                    <div class="tool-header">
+                        <h3 class="tool-name">5S BOARD</h3>
+                        <span class="tool-expand">▼</span>
+                    </div>
+                    <div class="tool-purpose">🧹 Показать какие стандарты</div>
+                    <div class="tool-details">
+                        <h4>Что показывает:</h4>
+                        <ul>
+                            <li>Фото до/после</li>
+                            <li>Чек-лист (что проверять)</li>
+                            <li>Ответственность (кто что делает)</li>
+                            <li>Расписание (когда делать)</li>
+                            <li>Оценки аудита</li>
+                        </ul>
+                        <p style="margin-top: var(--space-12); padding: var(--space-12); background: var(--color-bg-3); border-radius: var(--radius-sm); font-weight: var(--font-weight-semibold);">✓ Каждый знает стандарт, может следовать</p>
+                    </div>
+                </div>
+
+                <div class="tool-card tool-6" onclick="toggleTool(this)">
+                    <div class="tool-header">
+                        <h3 class="tool-name">SAFETY BOARD</h3>
+                        <span class="tool-expand">▼</span>
+                    </div>
+                    <div class="tool-purpose">⚠️ Предупредить об опасностях и процедурах</div>
+                    <div class="tool-details">
+                        <h4>Что показывает:</h4>
+                        <ul>
+                            <li>Предупреждения об опасности</li>
+                            <li>Процедуры безопасности</li>
+                            <li>Требования СИЗ</li>
+                            <li>Процедуры эвакуации</li>
+                            <li>Дни без инцидентов</li>
+                            <li>Отчеты об инцидентах и уроки</li>
+                        </ul>
+                        <p style="margin-top: var(--space-12); padding: var(--space-12); background: var(--color-bg-3); border-radius: var(--radius-sm); font-weight: var(--font-weight-semibold);">✓ Безопасность в голове каждого, опасности видны</p>
+                    </div>
+                </div>
+
+                <div class="tool-card tool-7" onclick="toggleTool(this)">
+                    <div class="tool-header">
+                        <h3 class="tool-name">SCHEDULE BOARD</h3>
+                        <span class="tool-expand">▼</span>
+                    </div>
+                    <div class="tool-purpose">📅 Показать что планируется</div>
+                    <div class="tool-details">
+                        <h4>Что показывает:</h4>
+                        <ul>
+                            <li>Ежедневные задачи</li>
+                            <li>Еженедельные цели</li>
+                            <li>Расписание обслуживания оборудования</li>
+                            <li>Расписание обучения</li>
+                            <li>Временная шкала проекта</li>
+                        </ul>
+                        <p style="margin-top: var(--space-12); padding: var(--space-12); background: var(--color-bg-3); border-radius: var(--radius-sm); font-weight: var(--font-weight-semibold);">✓ Каждый знает что идет, может подготовиться</p>
+                    </div>
+                </div>
+
+                <div class="tool-card tool-8" onclick="toggleTool(this)">
+                    <div class="tool-header">
+                        <h3 class="tool-name">CROSS-TRAINING BOARD</h3>
+                        <span class="tool-expand">▼</span>
+                    </div>
+                    <div class="tool-purpose">👥 Показать кто может что делать</div>
+                    <div class="tool-details">
+                        <h4>Что показывает:</h4>
+                        <ul>
+                            <li>Каждый оператор</li>
+                            <li>Навыки (зеленый=может, желтый=учится, красный=еще нет)</li>
+                            <li>Прогресс обучения</li>
+                            <li>План развития</li>
+                        </ul>
+                        <p style="margin-top: var(--space-12); padding: var(--space-12); background: var(--color-bg-3); border-radius: var(--radius-sm); font-weight: var(--font-weight-semibold);">✓ Каждый видит возможность, знает путь обучения</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Color Coding System -->
+    <div class="section compact">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Система цветового кодирования</h2>
+                <p class="section-subtitle">Язык Визуального управления</p>
+            </div>
+
+            <div class="color-grid">
+                <div class="color-card green">
+                    <div class="color-symbol">✓</div>
+                    <div class="color-meaning">ЗЕЛЕНЫЙ</div>
+                    <div class="color-use">Хорошо, на графике, безопасно, нет проблем</div>
+                    <div style="margin-top: var(--space-12); font-size: var(--font-size-sm); color: var(--color-text-secondary);">Нормальное состояние</div>
+                </div>
+
+                <div class="color-card yellow">
+                    <div class="color-symbol">⚠</div>
+                    <div class="color-meaning">ЖЕЛТЫЙ</div>
+                    <div class="color-use">Осторожно, мониторить, становится не по плану, нужно внимание</div>
+                    <div style="margin-top: var(--space-12); font-size: var(--font-size-sm); color: var(--color-text-secondary);">Требует внимания</div>
+                </div>
+
+                <div class="color-card red">
+                    <div class="color-symbol">✗</div>
+                    <div class="color-meaning">КРАСНЫЙ</div>
+                    <div class="color-use">Стоп, проблема, срочно, нужно немедленное действие</div>
+                    <div style="margin-top: var(--space-12); font-size: var(--font-size-sm); color: var(--color-text-secondary);">Критическое</div>
+                </div>
+
+                <div class="color-card blue">
+                    <div class="color-symbol">ℹ</div>
+                    <div class="color-meaning">БЕЛЫЙ/СИНИЙ</div>
+                    <div class="color-use">Информация, нейтральный, справочный</div>
+                    <div style="margin-top: var(--space-12); font-size: var(--font-size-sm); color: var(--color-text-secondary);">Информация</div>
+                </div>
+            </div>
+
+            <div style="margin-top: var(--space-32); padding: var(--space-24); background: var(--color-surface); border-radius: var(--radius-lg); box-shadow: var(--shadow-md); text-align: center;">
+                <p style="font-size: var(--font-size-xl); font-weight: var(--font-weight-semibold);">💡 Консистентные цвета помогают быстрому распознаванию во всех системах</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Implementation Roadmap -->
+    <div class="section compact" style="background: var(--color-bg-5);">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">План внедрения</h2>
+                <p class="section-subtitle">Как построить Визуальное управление</p>
+            </div>
+
+            <div class="roadmap-container">
+                <div class="roadmap-stages">
+                    <div class="stage-item">
+                        <div class="stage-marker">1</div>
+                        <div class="stage-header">
+                            <h3 class="stage-name">Фундамент</h3>
+                            <span class="stage-duration">Неделя 1</span>
+                        </div>
+                        <ul class="stage-actions">
+                            <li>Определить что должно быть видимо (какие метрики важны?)</li>
+                            <li>Выбрать 3-5 самых критичных метрик</li>
+                            <li>Спроектировать как их показывать</li>
+                            <li>Выбрать место: где работают / собираются люди</li>
+                        </ul>
+                    </div>
+
+                    <div class="stage-item">
+                        <div class="stage-marker">2</div>
+                        <div class="stage-header">
+                            <h3 class="stage-name">Пилот</h3>
+                            <span class="stage-duration">Недели 2-3</span>
+                        </div>
+                        <ul class="stage-actions">
+                            <li>Создать тестовую доску</li>
+                            <li>Тестировать с командой</li>
+                            <li>Получить обратную связь</li>
+                            <li>Адаптировать дизайн</li>
+                        </ul>
+                    </div>
+
+                    <div class="stage-item">
+                        <div class="stage-marker">3</div>
+                        <div class="stage-header">
+                            <h3 class="stage-name">Основные метрики</h3>
+                            <span class="stage-duration">Недели 4-6</span>
+                        </div>
+                        <ul class="stage-actions">
+                            <li>Внедрить доску основных метрик</li>
+                            <li>Ежедневные обновления кем-то</li>
+                            <li>Ежедневная встреча-обзор (5-15 мин)</li>
+                            <li>Отслеживать соответствие</li>
+                        </ul>
+                    </div>
+
+                    <div class="stage-item">
+                        <div class="stage-marker">4</div>
+                        <div class="stage-header">
+                            <h3 class="stage-name">Расширение</h3>
+                            <span class="stage-duration">Недели 7-12</span>
+                        </div>
+                        <ul class="stage-actions">
+                            <li>Добавить больше метрик</li>
+                            <li>Внедрить систему Andon</li>
+                            <li>Kanban доски</li>
+                            <li>Доски безопасности</li>
+                        </ul>
+                    </div>
+
+                    <div class="stage-item">
+                        <div class="stage-marker">5</div>
+                        <div class="stage-header">
+                            <h3 class="stage-name">Культура</h3>
+                            <span class="stage-duration">Месяцы 3+</span>
+                        </div>
+                        <ul class="stage-actions">
+                            <li>Visual management часть ежедневной рутины</li>
+                            <li>Обзор метрик в ежедневном стендапе</li>
+                            <li>Постоянное обновление и улучшение</li>
+                            <li>Культура где проблемы видны и решаются</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Manufacturing Example -->
+    <div class="section compact">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Реальный пример: Производственная линия</h2>
+                <p class="section-subtitle">До и после внедрения</p>
+            </div>
+
+            <div style="background: var(--color-surface); border-radius: var(--radius-lg); padding: var(--space-32); box-shadow: var(--shadow-md);">
+                <div class="comparison">
+                    <div class="comparison-column before">
+                        <div class="comparison-header">❌ До Visual Management</div>
+                        <ul class="comparison-list">
+                            <li>Никто не знает суточную цель</li>
+                            <li>Никто не знает реальный выход</li>
+                            <li>Мастера узнают о проблемах часов через</li>
+                            <li>Решения на старых данных</li>
+                            <li>Проблемы качества неизвестны до конца дня</li>
+                        </ul>
+                    </div>
+                    <div class="comparison-arrow">→</div>
+                    <div class="comparison-column after">
+                        <div class="comparison-header">✓ После (Первый месяц)</div>
+                        <ul class="comparison-list">
+                            <li>Производство на графике 95% дней</li>
+                            <li>Проблемы решены за 15 мин (vs 3+ часов)</li>
+                            <li>Операторы проактивны (видят проблемы первыми)</li>
+                            <li>Мораль повыше (прозрачность строит доверие)</li>
+                            <li>Качество +15% (меньше дефектов проходит)</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div style="margin-top: var(--space-32); padding: var(--space-24); background: var(--color-bg-1); border-radius: var(--radius-lg);">
+                    <h3 style="color: var(--color-primary); font-size: var(--font-size-2xl); margin-bottom: var(--space-16); text-align: center;">📊 Внедрение Visual Management:</h3>
+                    <p style="font-size: var(--font-size-lg); margin-bottom: var(--space-12);"><strong>Большая доска у каждой линии показывает:</strong></p>
+                    <ul style="list-style: none; display: grid; gap: var(--space-8);">
+                        <li style="padding: var(--space-12); background: var(--color-surface); border-radius: var(--radius-sm);">• Суточная цель (например 500 единиц)</li>
+                        <li style="padding: var(--space-12); background: var(--color-surface); border-radius: var(--radius-sm);">• Реальный выход обновляется каждый час (красный/желтый/зеленый)</li>
+                        <li style="padding: var(--space-12); background: var(--color-surface); border-radius: var(--radius-sm);">• Причины простоя (если отстаем)</li>
+                        <li style="padding: var(--space-12); background: var(--color-surface); border-radius: var(--radius-sm);">• Дефекты найдены сегодня</li>
+                        <li style="padding: var(--space-12); background: var(--color-surface); border-radius: var(--radius-sm);">• Дней с последнего инцидента безопасности</li>
+                        <li style="padding: var(--space-12); background: var(--color-surface); border-radius: var(--radius-sm);">• Andon огни у каждой станции (красный = проблема)</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Office Example -->
+    <div class="section compact" style="background: var(--color-bg-6);">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Реальный пример: Офис / Разработка ПО</h2>
+                <p class="section-subtitle">До и после Kanban доски</p>
+            </div>
+
+            <div style="background: var(--color-surface); border-radius: var(--radius-lg); padding: var(--space-32); box-shadow: var(--shadow-md);">
+                <div class="comparison">
+                    <div class="comparison-column before">
+                        <div class="comparison-header">❌ До</div>
+                        <ul class="comparison-list">
+                            <li>Никто не знает статус проекта</li>
+                            <li>Email цепи чтобы спросить статус</li>
+                            <li>Встречи чтобы синхронизировать</li>
+                            <li>Сюрпризы возле дедлайна</li>
+                        </ul>
+                    </div>
+                    <div class="comparison-arrow">→</div>
+                    <div class="comparison-column after">
+                        <div class="comparison-header">✓ После</div>
+                        <ul class="comparison-list">
+                            <li>Все видят статус мгновенно</li>
+                            <li>Блоки решены быстрее (видимое = приоритизировано)</li>
+                            <li>Standups короче (видишь на доске)</li>
+                            <li>Вовремя: +40%</li>
+                            <li>Удовлетворенность команды: +30%</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div style="margin-top: var(--space-32); padding: var(--space-24); background: var(--color-bg-1); border-radius: var(--radius-lg);">
+                    <h3 style="color: var(--color-primary); font-size: var(--font-size-2xl); margin-bottom: var(--space-16); text-align: center;">📋 Внедрение Kanban Board:</h3>
+                    <ul style="list-style: none; display: grid; gap: var(--space-8);">
+                        <li style="padding: var(--space-12); background: var(--color-surface); border-radius: var(--radius-sm);">• Большая физическая или цифровая доска Kanban</li>
+                        <li style="padding: var(--space-12); background: var(--color-surface); border-radius: var(--radius-sm);">• Колонки: Backlog → In Progress → Review → Done</li>
+                        <li style="padding: var(--space-12); background: var(--color-surface); border-radius: var(--radius-sm);">• Каждая задача на карточке с владельцем, приоритетом, дедлайном</li>
+                        <li style="padding: var(--space-12); background: var(--color-surface); border-radius: var(--radius-sm);">• Обновляется ежедневно на стендапе</li>
+                        <li style="padding: var(--space-12); background: var(--color-surface); border-radius: var(--radius-sm);">• Блоки видны (что застопорено?)</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Common Mistakes -->
+    <div class="section compact">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Распространенные ошибки</h2>
+                <p class="section-subtitle">Чего НЕ делать</p>
+            </div>
+
+            <div class="mistakes-grid">
+                <div class="mistake-card">
+                    <div class="mistake-title">❌ "Красивое украшение" вместо информационной системы</div>
+                    <div class="mistake-comparison">
+                        <div class="mistake-wrong"><strong>Неправильно:</strong> Фанси графика без смысла</div>
+                        <div class="mistake-right"><strong>Правильно:</strong> Простая, четкая, действиемая информация</div>
+                    </div>
+                </div>
+
+                <div class="mistake-card">
+                    <div class="mistake-title">❌ "Обновлять ежемесячно" вместо реального времени</div>
+                    <div class="mistake-comparison">
+                        <div class="mistake-wrong"><strong>Неправильно:</strong> Данные недельной давности</div>
+                        <div class="mistake-right"><strong>Правильно:</strong> Обновлять ежедневно или каждый час</div>
+                    </div>
+                </div>
+
+                <div class="mistake-card">
+                    <div class="mistake-title">❌ "Только для менеджмента" вместо для всех</div>
+                    <div class="mistake-comparison">
+                        <div class="mistake-wrong"><strong>Неправильно:</strong> Операторы не видят метрик</div>
+                        <div class="mistake-right"><strong>Правильно:</strong> Все видят, все ответственны</div>
+                    </div>
+                </div>
+
+                <div class="mistake-card">
+                    <div class="mistake-title">❌ "Слишком много информации" вместо сфокусированного</div>
+                    <div class="mistake-comparison">
+                        <div class="mistake-wrong"><strong>Неправильно:</strong> 50 метрик на одной доске (подавляет)</div>
+                        <div class="mistake-right"><strong>Правильно:</strong> 3-5 самых критичных метрик (четко)</div>
+                    </div>
+                </div>
+
+                <div class="mistake-card">
+                    <div class="mistake-title">❌ "Нет стандартов" вместо консистентного</div>
+                    <div class="mistake-comparison">
+                        <div class="mistake-wrong"><strong>Неправильно:</strong> Каждая зона разный формат/цвета</div>
+                        <div class="mistake-right"><strong>Правильно:</strong> Стандарты по всей компании</div>
+                    </div>
+                </div>
+
+                <div class="mistake-card">
+                    <div class="mistake-title">❌ "Нет действия на показанные проблемы"</div>
+                    <div class="mistake-comparison">
+                        <div class="mistake-wrong"><strong>Неправильно:</strong> Проблема видна но никто не чинит</div>
+                        <div class="mistake-right"><strong>Правильно:</strong> Проблема видна → немедленное действие → решено</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Measuring Success -->
+    <div class="section compact" style="background: var(--color-bg-7);">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Измерение успеха</h2>
+                <p class="section-subtitle">Метрики Visual Management</p>
+            </div>
+
+            <div class="metrics-list">
+                <ul>
+                    <li>📊 <strong>Скорость выявления проблемы</strong> - как быстро обнаружена</li>
+                    <li>⚡ <strong>Скорость решения проблемы</strong> - как быстро решена</li>
+                    <li>⏱️ <strong>Время решения</strong> - время чтобы решить на информации</li>
+                    <li>🔍 <strong>Процент дефектов выявленных рано</strong> - % caught early</li>
+                    <li>🛡️ <strong>Снижение инцидентов безопасности</strong> - safety improvement</li>
+                    <li>😊 <strong>Удовлетворенность команды</strong> - нравится ли прозрачность?</li>
+                    <li>💬 <strong>Время коммуникации</strong> - встречи заменены доской</li>
+                    <li>📈 <strong>Улучшение производительности</strong> - output increase</li>
+                    <li>✨ <strong>Улучшение качества</strong> - quality improvement</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <!-- Digital vs Physical -->
+    <div class="section compact">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Цифровое vs Физическое vs Гибридное</h2>
+                <p class="section-subtitle">Сравнение подходов</p>
+            </div>
+
+            <div style="background: var(--color-surface); border-radius: var(--radius-lg); padding: var(--space-32); box-shadow: var(--shadow-md);">
+                <div class="comparison-tabs">
+                    <button class="comparison-tab active" onclick="showComparison('physical')">Физические доски</button>
+                    <button class="comparison-tab" onclick="showComparison('digital')">Цифровые дашборды</button>
+                    <button class="comparison-tab" onclick="showComparison('hybrid')">Гибридный подход</button>
+                </div>
+
+                <div id="physical" class="comparison-content active">
+                    <h3 style="font-size: var(--font-size-2xl); color: var(--color-primary); margin-bottom: var(--space-16); text-align: center;">Физические доски (Whiteboard, Paper)</h3>
+                    <div class="pros-cons">
+                        <div class="pros">
+                            <h4>✓ Преимущества</h4>
+                            <ul>
+                                <li>Видны мгновенно</li>
+                                <li>Нет нужды в технологии</li>
+                                <li>Руки-на-подход</li>
+                                <li>Команда собирается вместе</li>
+                            </ul>
+                        </div>
+                        <div class="cons">
+                            <h4>✗ Недостатки</h4>
+                            <ul>
+                                <li>Ручные обновления</li>
+                                <li>Ограниченный охват</li>
+                                <li>Требует место</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <p style="margin-top: var(--space-16); padding: var(--space-16); background: var(--color-bg-1); border-radius: var(--radius-base); text-align: center; font-weight: var(--font-weight-semibold);">💡 Использовать когда: Маленькая команда, быстрые обновления, ощутимое взаимодействие</p>
+                </div>
+
+                <div id="digital" class="comparison-content">
+                    <h3 style="font-size: var(--font-size-2xl); color: var(--color-primary); margin-bottom: var(--space-16); text-align: center;">Цифровые дашборды (Экраны, ПО)</h3>
+                    <div class="pros-cons">
+                        <div class="pros">
+                            <h4>✓ Преимущества</h4>
+                            <ul>
+                                <li>Обновления в реальном времени</li>
+                                <li>Удаленный доступ</li>
+                                <li>Отслеживание истории</li>
+                                <li>Автоматизация</li>
+                            </ul>
+                        </div>
+                        <div class="cons">
+                            <h4>✗ Недостатки</h4>
+                            <ul>
+                                <li>Зависимость от технологии</li>
+                                <li>Требует настройка</li>
+                                <li>Менее ощутимо</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <p style="margin-top: var(--space-16); padding: var(--space-16); background: var(--color-bg-1); border-radius: var(--radius-base); text-align: center; font-weight: var(--font-weight-semibold);">💡 Использовать когда: Распределенные команды, данные в реальном времени, сложные метрики</p>
+                </div>
+
+                <div id="hybrid" class="comparison-content">
+                    <h3 style="font-size: var(--font-size-2xl); color: var(--color-primary); margin-bottom: var(--space-16); text-align: center;">Гибридный подход (Комбинация)</h3>
+                    <div style="padding: var(--space-24); background: var(--color-bg-3); border-radius: var(--radius-lg); border-left: 6px solid var(--color-success);">
+                        <h4 style="color: var(--color-success); font-size: var(--font-size-xl); margin-bottom: var(--space-16);">✓ Лучшее из обоих миров:</h4>
+                        <ul style="list-style: none; display: grid; gap: var(--space-12);">
+                            <li style="padding: var(--space-12); background: var(--color-surface); border-radius: var(--radius-sm);">📋 Физическая доска в командной зоне (для ежедневного стендапа)</li>
+                            <li style="padding: var(--space-12); background: var(--color-surface); border-radius: var(--radius-sm);">💻 Цифровой дашборд для удаленных просмотров</li>
+                            <li style="padding: var(--space-12); background: var(--color-surface); border-radius: var(--radius-sm);">🔄 Автоматическая синхронизация данных</li>
+                            <li style="padding: var(--space-12); background: var(--color-surface); border-radius: var(--radius-sm);">👥 Команда физически собирается у доски</li>
+                            <li style="padding: var(--space-12); background: var(--color-surface); border-radius: var(--radius-sm);">🌍 Удаленные участники видят то же самое онлайн</li>
+                        </ul>
+                        <p style="margin-top: var(--space-16); font-size: var(--font-size-lg); font-weight: var(--font-weight-bold); text-align: center; color: var(--color-success);">⭐ Рекомендуется для большинства организаций</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Connection to Other Lean Tools -->
+    <div class="section compact" style="background: var(--color-bg-8);">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Связь с другими Lean инструментами</h2>
+                <p class="section-subtitle">Как Visual Management все делает возможным</p>
+            </div>
+
+            <div class="definition-box" style="border-color: var(--color-warning);">
+                <p class="definition-text" style="font-size: var(--font-size-2xl); font-weight: var(--font-weight-bold); color: var(--color-warning); text-align: center;">⚠️ Все другие lean инструменты не работают без Visual Management</p>
+            </div>
+
+            <div class="connection-grid">
+                <div class="connection-card">
+                    <div class="connection-tool">🧹 5S</div>
+                    <p>Визуальные стандарты держат 5S живым</p>
+                </div>
+                <div class="connection-card">
+                    <div class="connection-tool">📦 Kanban</div>
+                    <p>Визуальная доска - ядро pull системы</p>
+                </div>
+                <div class="connection-card">
+                    <div class="connection-tool">⚙️ TPM</div>
+                    <p>Статус оборудования виден на дашборде</p>
+                </div>
+                <div class="connection-card">
+                    <div class="connection-tool">🌱 Kaizen</div>
+                    <p>Проблемы видимы = возможности улучшения</p>
+                </div>
+                <div class="connection-card">
+                    <div class="connection-tool">🔄 PDCA</div>
+                    <p>Визуальные результаты = отслеживание прогресса улучшения</p>
+                </div>
+                <div class="connection-card">
+                    <div class="connection-tool">🚨 Andon</div>
+                    <p>Jidoka (качество) принцип сделан видимым</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Obeya Concept -->
+    <div class="section compact">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Концепция Obeya</h2>
+                <p class="section-subtitle">Управление большой комнатой</p>
+            </div>
+
+            <div class="obeya-visual">
+                <h3>大部屋 (Obeya) - "Большая комната" (яп.)</h3>
+                <p style="font-size: var(--font-size-xl); margin: var(--space-24) 0;">Идея: Все о проекте/отделе видимо в одной комнате</p>
+                
+                <div class="obeya-walls">
+                    <div class="obeya-wall">
+                        <h4>Стена 1: Планы</h4>
+                        <p>Временная шкала проекта, цели, расписание</p>
+                    </div>
+                    <div class="obeya-wall">
+                        <h4>Стена 2: Прогресс</h4>
+                        <p>Что сделано, что в работе, что дальше</p>
+                    </div>
+                    <div class="obeya-wall">
+                        <h4>Стена 3: Проблемы</h4>
+                        <p>Текущие проблемы, блоки, риски</p>
+                    </div>
+                    <div class="obeya-wall">
+                        <h4>Стена 4: Метрики</h4>
+                        <p>KPI, тренды, производительность</p>
+                    </div>
+                </div>
+
+                <div style="margin-top: var(--space-32); padding: var(--space-24); background: var(--color-bg-3); border-radius: var(--radius-lg); border-left: 6px solid var(--color-success);">
+                    <h4 style="color: var(--color-success); font-size: var(--font-size-xl); margin-bottom: var(--space-12);">✓ Преимущества Obeya:</h4>
+                    <ul style="list-style: none; display: grid; gap: var(--space-8);">
+                        <li style="padding: var(--space-8); background: var(--color-surface); border-radius: var(--radius-sm);">👥 Все заинтересованные лица видят всё</li>
+                        <li style="padding: var(--space-8); background: var(--color-surface); border-radius: var(--radius-sm);">⚡ Быстрые ежедневные встречи вместо множества маленьких</li>
+                        <li style="padding: var(--space-8); background: var(--color-surface); border-radius: var(--radius-sm);">🏭 Используется Toyota, лучшими компаниями для сложных проектов</li>
+                        <li style="padding: var(--space-8); background: var(--color-surface); border-radius: var(--radius-sm);">💪 Мощно для управления проектами, кросс-функциональной работы</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Action Plan -->
+    <div class="section compact" style="background: var(--color-bg-4);">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">План действий</h2>
+                <p class="section-subtitle">Что делать дальше</p>
+            </div>
+
+            <div class="action-grid">
+                <div class="action-card">
+                    <span class="action-number">1</span>
+                    <p>Выявить 3-5 критичных метрик</p>
+                </div>
+                <div class="action-card">
+                    <span class="action-number">2</span>
+                    <p>Спроектировать визуальное представление</p>
+                </div>
+                <div class="action-card">
+                    <span class="action-number">3</span>
+                    <p>Создать прототип</p>
+                </div>
+                <div class="action-card">
+                    <span class="action-number">4</span>
+                    <p>Пилот с командой</p>
+                </div>
+                <div class="action-card">
+                    <span class="action-number">5</span>
+                    <p>Получить обратную связь</p>
+                </div>
+                <div class="action-card">
+                    <span class="action-number">6</span>
+                    <p>Уточнить дизайн</p>
+                </div>
+                <div class="action-card">
+                    <span class="action-number">7</span>
+                    <p>Внедрить формально</p>
+                </div>
+                <div class="action-card">
+                    <span class="action-number">8</span>
+                    <p>Ежедневная рутина обновления</p>
+                </div>
+                <div class="action-card">
+                    <span class="action-number">9</span>
+                    <p>Регулярно обзор</p>
+                </div>
+                <div class="action-card">
+                    <span class="action-number">10</span>
+                    <p>Непрерывное улучшение</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Conclusion -->
+    <div class="section" style="background: var(--color-bg-1);">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Заключение</h2>
+            </div>
+
+            <div class="conclusion-box">
+                <p class="conclusion-text">💡 <strong>Visual Management - это не украшение, это система</strong></p>
+                <p class="conclusion-text">👁️ <strong>Информация, которая видна, становится действиемой</strong></p>
+                <p class="conclusion-text">🔍 <strong>Проблемы, которые видны, решаются</strong></p>
+                <p class="conclusion-text">💪 <strong>Люди, которые видят статус, уполномочены</strong></p>
+                <p class="conclusion-text">🤝 <strong>Прозрачность строит доверие и ответственность</strong></p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Toggle tool details
+        function toggleTool(element) {
+            element.classList.toggle('expanded');
+        }
+
+        // Show comparison tab
+        function showComparison(type) {
+            // Hide all
+            const contents = document.querySelectorAll('.comparison-content');
+            contents.forEach(content => content.classList.remove('active'));
+            
+            const tabs = document.querySelectorAll('.comparison-tab');
+            tabs.forEach(tab => tab.classList.remove('active'));
+            
+            // Show selected
+            document.getElementById(type).classList.add('active');
+            event.target.classList.add('active');
+        }
+    </script>
+</body>
+</html>

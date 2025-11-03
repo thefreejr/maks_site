@@ -1,0 +1,1968 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HEIJUNKA - Выравнивание производства</title>
+    <style>
+:root {
+  --color-white: rgba(255, 255, 255, 1);
+  --color-black: rgba(0, 0, 0, 1);
+  --color-cream-50: rgba(252, 252, 249, 1);
+  --color-cream-100: rgba(255, 255, 253, 1);
+  --color-gray-200: rgba(245, 245, 245, 1);
+  --color-gray-300: rgba(167, 169, 169, 1);
+  --color-gray-400: rgba(119, 124, 124, 1);
+  --color-slate-500: rgba(98, 108, 113, 1);
+  --color-brown-600: rgba(94, 82, 64, 1);
+  --color-charcoal-700: rgba(31, 33, 33, 1);
+  --color-charcoal-800: rgba(38, 40, 40, 1);
+  --color-slate-900: rgba(19, 52, 59, 1);
+  --color-teal-300: rgba(50, 184, 198, 1);
+  --color-teal-400: rgba(45, 166, 178, 1);
+  --color-teal-500: rgba(33, 128, 141, 1);
+  --color-teal-600: rgba(29, 116, 128, 1);
+  --color-teal-700: rgba(26, 104, 115, 1);
+  --color-teal-800: rgba(41, 150, 161, 1);
+  --color-red-400: rgba(255, 84, 89, 1);
+  --color-red-500: rgba(192, 21, 47, 1);
+  --color-orange-400: rgba(230, 129, 97, 1);
+  --color-orange-500: rgba(168, 75, 47, 1);
+
+  --color-brown-600-rgb: 94, 82, 64;
+  --color-teal-500-rgb: 33, 128, 141;
+  --color-slate-900-rgb: 19, 52, 59;
+  --color-slate-500-rgb: 98, 108, 113;
+  --color-red-500-rgb: 192, 21, 47;
+  --color-red-400-rgb: 255, 84, 89;
+  --color-orange-500-rgb: 168, 75, 47;
+  --color-orange-400-rgb: 230, 129, 97;
+
+  --color-bg-1: rgba(59, 130, 246, 0.08);
+  --color-bg-2: rgba(245, 158, 11, 0.08);
+  --color-bg-3: rgba(34, 197, 94, 0.08);
+  --color-bg-4: rgba(239, 68, 68, 0.08);
+  --color-bg-5: rgba(147, 51, 234, 0.08);
+  --color-bg-6: rgba(249, 115, 22, 0.08);
+  --color-bg-7: rgba(236, 72, 153, 0.08);
+  --color-bg-8: rgba(6, 182, 212, 0.08);
+
+  --color-background: var(--color-cream-50);
+  --color-surface: var(--color-cream-100);
+  --color-text: var(--color-slate-900);
+  --color-text-secondary: var(--color-slate-500);
+  --color-primary: var(--color-teal-500);
+  --color-primary-hover: var(--color-teal-600);
+  --color-primary-active: var(--color-teal-700);
+  --color-secondary: rgba(var(--color-brown-600-rgb), 0.12);
+  --color-secondary-hover: rgba(var(--color-brown-600-rgb), 0.2);
+  --color-secondary-active: rgba(var(--color-brown-600-rgb), 0.25);
+  --color-border: rgba(var(--color-brown-600-rgb), 0.2);
+  --color-btn-primary-text: var(--color-cream-50);
+  --color-card-border: rgba(var(--color-brown-600-rgb), 0.12);
+  --color-card-border-inner: rgba(var(--color-brown-600-rgb), 0.12);
+  --color-error: var(--color-red-500);
+  --color-success: var(--color-teal-500);
+  --color-warning: var(--color-orange-500);
+  --color-info: var(--color-slate-500);
+  --color-focus-ring: rgba(var(--color-teal-500-rgb), 0.4);
+
+  --font-family-base: "FKGroteskNeue", "Geist", "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  --font-size-xs: 11px;
+  --font-size-sm: 12px;
+  --font-size-base: 14px;
+  --font-size-md: 14px;
+  --font-size-lg: 16px;
+  --font-size-xl: 18px;
+  --font-size-2xl: 20px;
+  --font-size-3xl: 24px;
+  --font-size-4xl: 30px;
+  --font-weight-normal: 400;
+  --font-weight-medium: 500;
+  --font-weight-semibold: 550;
+  --font-weight-bold: 600;
+  --line-height-tight: 1.2;
+  --line-height-normal: 1.5;
+
+  --space-4: 4px;
+  --space-8: 8px;
+  --space-12: 12px;
+  --space-16: 16px;
+  --space-20: 20px;
+  --space-24: 24px;
+  --space-32: 32px;
+
+  --radius-sm: 6px;
+  --radius-base: 8px;
+  --radius-md: 10px;
+  --radius-lg: 12px;
+  --radius-full: 9999px;
+
+  --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.04), 0 1px 2px rgba(0, 0, 0, 0.02);
+  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.04), 0 2px 4px -1px rgba(0, 0, 0, 0.02);
+  --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.04), 0 4px 6px -2px rgba(0, 0, 0, 0.02);
+
+  --duration-fast: 150ms;
+  --duration-normal: 250ms;
+  --ease-standard: cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --color-gray-400-rgb: 119, 124, 124;
+    --color-teal-300-rgb: 50, 184, 198;
+    --color-gray-300-rgb: 167, 169, 169;
+    --color-gray-200-rgb: 245, 245, 245;
+
+    --color-bg-1: rgba(29, 78, 216, 0.15);
+    --color-bg-2: rgba(180, 83, 9, 0.15);
+    --color-bg-3: rgba(21, 128, 61, 0.15);
+    --color-bg-4: rgba(185, 28, 28, 0.15);
+    --color-bg-5: rgba(107, 33, 168, 0.15);
+    --color-bg-6: rgba(194, 65, 12, 0.15);
+    --color-bg-7: rgba(190, 24, 93, 0.15);
+    --color-bg-8: rgba(8, 145, 178, 0.15);
+
+    --color-background: var(--color-charcoal-700);
+    --color-surface: var(--color-charcoal-800);
+    --color-text: var(--color-gray-200);
+    --color-text-secondary: rgba(var(--color-gray-300-rgb), 0.7);
+    --color-primary: var(--color-teal-300);
+    --color-primary-hover: var(--color-teal-400);
+    --color-primary-active: var(--color-teal-800);
+    --color-secondary: rgba(var(--color-gray-400-rgb), 0.15);
+    --color-secondary-hover: rgba(var(--color-gray-400-rgb), 0.25);
+    --color-secondary-active: rgba(var(--color-gray-400-rgb), 0.3);
+    --color-border: rgba(var(--color-gray-400-rgb), 0.3);
+    --color-error: var(--color-red-400);
+    --color-success: var(--color-teal-300);
+    --color-warning: var(--color-orange-400);
+    --color-info: var(--color-gray-300);
+    --color-focus-ring: rgba(var(--color-teal-300-rgb), 0.4);
+    --color-btn-primary-text: var(--color-slate-900);
+    --color-card-border: rgba(var(--color-gray-400-rgb), 0.2);
+    --color-card-border-inner: rgba(var(--color-gray-400-rgb), 0.15);
+  }
+}
+
+@font-face {
+  font-family: 'FKGroteskNeue';
+  src: url('https://r2cdn.perplexity.ai/fonts/FKGroteskNeue.woff2') format('woff2');
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: var(--font-family-base);
+    background-color: var(--color-background);
+    color: var(--color-text);
+    line-height: var(--line-height-normal);
+    scroll-behavior: smooth;
+}
+
+.container {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 0 var(--space-32);
+}
+
+.section {
+    padding: 80px 0;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+}
+
+.section.compact {
+    min-height: auto;
+    padding: 60px 0;
+}
+
+/* Hero Section */
+.hero {
+    background: var(--color-bg-8);
+    position: relative;
+    overflow: hidden;
+}
+
+.hero-content {
+    text-align: center;
+}
+
+.hero-icon {
+    font-size: 100px;
+    margin-bottom: var(--space-24);
+}
+
+.hero-title {
+    font-size: 120px;
+    font-weight: var(--font-weight-bold);
+    margin-bottom: var(--space-16);
+    letter-spacing: 0.05em;
+    color: var(--color-primary);
+}
+
+.hero-japanese {
+    font-size: 48px;
+    color: var(--color-text);
+    margin-bottom: var(--space-12);
+}
+
+.hero-subtitle {
+    font-size: var(--font-size-3xl);
+    color: var(--color-text);
+    margin-bottom: var(--space-12);
+    font-weight: var(--font-weight-semibold);
+}
+
+.hero-translation {
+    font-size: var(--font-size-xl);
+    color: var(--color-text-secondary);
+    margin-bottom: var(--space-32);
+    font-style: italic;
+}
+
+.hero-message {
+    font-size: var(--font-size-2xl);
+    color: var(--color-text);
+    font-weight: var(--font-weight-bold);
+    padding: var(--space-32);
+    background: var(--color-surface);
+    border-radius: var(--radius-lg);
+    border-left: 6px solid var(--color-success);
+    max-width: 900px;
+    margin: var(--space-32) auto;
+    box-shadow: var(--shadow-lg);
+}
+
+.hero-tagline {
+    font-size: var(--font-size-2xl);
+    color: var(--color-primary);
+    margin-top: var(--space-24);
+    font-weight: var(--font-weight-bold);
+}
+
+.hero-quote {
+    font-size: var(--font-size-xl);
+    color: var(--color-warning);
+    margin-top: var(--space-16);
+    font-style: italic;
+    font-weight: var(--font-weight-medium);
+}
+
+/* Wave Visualization */
+.wave-comparison {
+    display: flex;
+    gap: var(--space-32);
+    align-items: center;
+    margin: var(--space-32) 0;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.wave-box {
+    flex: 1;
+    min-width: 300px;
+    padding: var(--space-32);
+    background: var(--color-surface);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-md);
+}
+
+.wave-box.chaotic {
+    border-top: 6px solid var(--color-error);
+}
+
+.wave-box.smooth {
+    border-top: 6px solid var(--color-success);
+}
+
+.wave-title {
+    font-size: var(--font-size-2xl);
+    font-weight: var(--font-weight-bold);
+    margin-bottom: var(--space-16);
+    text-align: center;
+}
+
+.wave-box.chaotic .wave-title {
+    color: var(--color-error);
+}
+
+.wave-box.smooth .wave-title {
+    color: var(--color-success);
+}
+
+/* Section Headers */
+.section-header {
+    text-align: center;
+    margin-bottom: var(--space-32);
+}
+
+.section-title {
+    font-size: 48px;
+    font-weight: var(--font-weight-bold);
+    margin-bottom: var(--space-16);
+    color: var(--color-primary);
+}
+
+.section-subtitle {
+    font-size: var(--font-size-2xl);
+    color: var(--color-text-secondary);
+}
+
+/* Definition Box */
+.definition-box {
+    background-color: var(--color-surface);
+    border-left: 6px solid var(--color-primary);
+    padding: var(--space-32);
+    border-radius: var(--radius-lg);
+    margin-bottom: var(--space-32);
+    box-shadow: var(--shadow-md);
+}
+
+.definition-text {
+    font-size: var(--font-size-xl);
+    line-height: 1.6;
+    margin-bottom: var(--space-16);
+}
+
+.definition-text:last-child {
+    margin-bottom: 0;
+}
+
+/* Info Grid */
+.info-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: var(--space-20);
+    margin: var(--space-32) 0;
+}
+
+.info-card {
+    background: var(--color-surface);
+    border-radius: var(--radius-lg);
+    padding: var(--space-24);
+    box-shadow: var(--shadow-md);
+    border-top: 4px solid var(--color-primary);
+}
+
+.info-label {
+    font-size: var(--font-size-sm);
+    color: var(--color-text-secondary);
+    text-transform: uppercase;
+    font-weight: var(--font-weight-medium);
+    margin-bottom: var(--space-8);
+}
+
+.info-value {
+    font-size: var(--font-size-xl);
+    font-weight: var(--font-weight-bold);
+    color: var(--color-text);
+}
+
+/* Comparison */
+.comparison {
+    display: grid;
+    grid-template-columns: 1fr auto 1fr;
+    gap: var(--space-32);
+    align-items: center;
+    margin: var(--space-32) 0;
+}
+
+.comparison-column {
+    padding: var(--space-24);
+    border-radius: var(--radius-lg);
+    border: 3px solid;
+}
+
+.comparison-column.before {
+    border-color: var(--color-error);
+    background: var(--color-bg-4);
+}
+
+.comparison-column.after {
+    border-color: var(--color-success);
+    background: var(--color-bg-3);
+}
+
+.comparison-header {
+    font-size: var(--font-size-2xl);
+    font-weight: var(--font-weight-bold);
+    margin-bottom: var(--space-16);
+    padding-bottom: var(--space-12);
+    border-bottom: 3px solid;
+}
+
+.comparison-column.before .comparison-header {
+    color: var(--color-error);
+    border-color: var(--color-error);
+}
+
+.comparison-column.after .comparison-header {
+    color: var(--color-success);
+    border-color: var(--color-success);
+}
+
+.comparison-arrow {
+    font-size: 48px;
+    color: var(--color-primary);
+}
+
+.comparison-list {
+    list-style: none;
+}
+
+.comparison-list li {
+    padding: var(--space-12);
+    margin-bottom: var(--space-8);
+    background: var(--color-surface);
+    border-radius: var(--radius-sm);
+}
+
+/* Weekly Schedule */
+.weekly-schedule {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: var(--space-12);
+    margin: var(--space-32) 0;
+}
+
+.day-card {
+    background: var(--color-surface);
+    border-radius: var(--radius-lg);
+    padding: var(--space-20);
+    box-shadow: var(--shadow-md);
+    text-align: center;
+}
+
+.day-card.overload {
+    background: var(--color-bg-4);
+    border: 3px solid var(--color-error);
+}
+
+.day-card.underload {
+    background: var(--color-bg-2);
+    border: 3px solid var(--color-warning);
+}
+
+.day-card.normal {
+    background: var(--color-bg-3);
+    border: 3px solid var(--color-success);
+}
+
+.day-name {
+    font-size: var(--font-size-lg);
+    font-weight: var(--font-weight-bold);
+    margin-bottom: var(--space-8);
+    color: var(--color-text);
+}
+
+.day-orders {
+    font-size: 36px;
+    font-weight: var(--font-weight-bold);
+    margin-bottom: var(--space-8);
+}
+
+.day-card.overload .day-orders {
+    color: var(--color-error);
+}
+
+.day-card.underload .day-orders {
+    color: var(--color-warning);
+}
+
+.day-card.normal .day-orders {
+    color: var(--color-success);
+}
+
+.day-status {
+    font-size: var(--font-size-sm);
+    font-weight: var(--font-weight-bold);
+    margin-bottom: var(--space-8);
+    text-transform: uppercase;
+}
+
+.day-result {
+    font-size: var(--font-size-sm);
+    color: var(--color-text-secondary);
+}
+
+/* Heijunka Box */
+.heijunka-box {
+    background: var(--color-surface);
+    border-radius: var(--radius-lg);
+    padding: var(--space-32);
+    box-shadow: var(--shadow-md);
+    margin: var(--space-32) 0;
+}
+
+.box-grid {
+    display: grid;
+    grid-template-columns: 150px repeat(4, 1fr);
+    gap: var(--space-8);
+    margin-top: var(--space-16);
+}
+
+.box-header {
+    background: var(--color-primary);
+    color: var(--color-btn-primary-text);
+    padding: var(--space-12);
+    text-align: center;
+    font-weight: var(--font-weight-bold);
+    border-radius: var(--radius-sm);
+}
+
+.box-product {
+    background: var(--color-bg-1);
+    padding: var(--space-12);
+    font-weight: var(--font-weight-bold);
+    border-radius: var(--radius-sm);
+}
+
+.box-slot {
+    background: var(--color-bg-2);
+    padding: var(--space-12);
+    text-align: center;
+    border: 2px dashed var(--color-border);
+    border-radius: var(--radius-sm);
+    min-height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: var(--font-size-sm);
+}
+
+/* T-shirt Example */
+.tshirt-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--space-32);
+    margin: var(--space-32) 0;
+}
+
+.tshirt-approach {
+    background: var(--color-surface);
+    border-radius: var(--radius-lg);
+    padding: var(--space-32);
+    box-shadow: var(--shadow-md);
+}
+
+.tshirt-approach.traditional {
+    border-top: 6px solid var(--color-error);
+}
+
+.tshirt-approach.heijunka {
+    border-top: 6px solid var(--color-success);
+}
+
+.approach-title {
+    font-size: var(--font-size-2xl);
+    font-weight: var(--font-weight-bold);
+    margin-bottom: var(--space-16);
+    text-align: center;
+}
+
+.tshirt-approach.traditional .approach-title {
+    color: var(--color-error);
+}
+
+.tshirt-approach.heijunka .approach-title {
+    color: var(--color-success);
+}
+
+.color-blocks {
+    display: flex;
+    gap: var(--space-12);
+    margin: var(--space-16) 0;
+    flex-wrap: wrap;
+}
+
+.color-block {
+    padding: var(--space-16);
+    border-radius: var(--radius-base);
+    font-weight: var(--font-weight-bold);
+    text-align: center;
+    color: white;
+    flex: 1;
+    min-width: 60px;
+}
+
+.color-block.red { background: #EF4444; }
+.color-block.blue { background: #3B82F6; }
+.color-block.green { background: #10B981; }
+.color-block.yellow { background: #F59E0B; color: var(--color-text); }
+
+/* Toggle Switch */
+.toggle-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: var(--space-16);
+    margin: var(--space-32) 0;
+    padding: var(--space-24);
+    background: var(--color-surface);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-md);
+}
+
+.toggle-label {
+    font-size: var(--font-size-xl);
+    font-weight: var(--font-weight-bold);
+}
+
+.toggle-switch {
+    position: relative;
+    width: 80px;
+    height: 40px;
+    background: var(--color-secondary);
+    border-radius: var(--radius-full);
+    cursor: pointer;
+    transition: background var(--duration-normal);
+}
+
+.toggle-switch.active {
+    background: var(--color-primary);
+}
+
+.toggle-slider {
+    position: absolute;
+    top: 4px;
+    left: 4px;
+    width: 32px;
+    height: 32px;
+    background: white;
+    border-radius: 50%;
+    transition: transform var(--duration-normal);
+    box-shadow: var(--shadow-md);
+}
+
+.toggle-switch.active .toggle-slider {
+    transform: translateX(40px);
+}
+
+/* Implementation Steps */
+.steps-container {
+    margin: var(--space-32) 0;
+}
+
+.step-item {
+    background: var(--color-surface);
+    border-radius: var(--radius-lg);
+    padding: var(--space-24);
+    margin-bottom: var(--space-16);
+    box-shadow: var(--shadow-md);
+    border-left: 6px solid var(--color-primary);
+    cursor: pointer;
+    transition: all var(--duration-normal);
+}
+
+.step-item:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-lg);
+}
+
+.step-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.step-title {
+    font-size: var(--font-size-xl);
+    font-weight: var(--font-weight-bold);
+    color: var(--color-primary);
+}
+
+.step-icon {
+    font-size: var(--font-size-2xl);
+    transition: transform var(--duration-normal);
+}
+
+.step-item.expanded .step-icon {
+    transform: rotate(180deg);
+}
+
+.step-content {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height var(--duration-normal);
+}
+
+.step-item.expanded .step-content {
+    max-height: 500px;
+    margin-top: var(--space-16);
+}
+
+.step-content ul {
+    list-style: none;
+}
+
+.step-content li {
+    padding: var(--space-8);
+    margin-bottom: var(--space-4);
+    background: var(--color-bg-1);
+    border-radius: var(--radius-sm);
+}
+
+/* Type Cards */
+.type-cards {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--space-32);
+    margin: var(--space-32) 0;
+}
+
+.type-card {
+    background: var(--color-surface);
+    border-radius: var(--radius-lg);
+    padding: var(--space-32);
+    box-shadow: var(--shadow-md);
+    border-top: 6px solid var(--color-primary);
+}
+
+.type-number {
+    font-size: 48px;
+    font-weight: var(--font-weight-bold);
+    color: var(--color-primary);
+    margin-bottom: var(--space-12);
+}
+
+.type-name {
+    font-size: var(--font-size-2xl);
+    font-weight: var(--font-weight-bold);
+    margin-bottom: var(--space-8);
+    color: var(--color-text);
+}
+
+.type-russian {
+    font-size: var(--font-size-lg);
+    color: var(--color-text-secondary);
+    margin-bottom: var(--space-16);
+    font-style: italic;
+}
+
+/* Metrics Grid */
+.metrics-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: var(--space-20);
+    margin: var(--space-32) 0;
+}
+
+.metric-card {
+    background: var(--color-surface);
+    border-radius: var(--radius-lg);
+    padding: var(--space-24);
+    box-shadow: var(--shadow-md);
+    text-align: center;
+}
+
+.metric-icon {
+    font-size: 36px;
+    margin-bottom: var(--space-12);
+}
+
+.metric-name {
+    font-size: var(--font-size-lg);
+    font-weight: var(--font-weight-bold);
+    color: var(--color-primary);
+    margin-bottom: var(--space-8);
+}
+
+.metric-value {
+    font-size: var(--font-size-base);
+    color: var(--color-text-secondary);
+}
+
+/* Connection Grid */
+.connection-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: var(--space-20);
+    margin: var(--space-32) 0;
+}
+
+.connection-card {
+    background: var(--color-surface);
+    padding: var(--space-20);
+    border-radius: var(--radius-base);
+    border-left: 4px solid var(--color-primary);
+    box-shadow: var(--shadow-sm);
+}
+
+.connection-tool {
+    font-size: var(--font-size-lg);
+    font-weight: var(--font-weight-bold);
+    color: var(--color-primary);
+    margin-bottom: var(--space-8);
+}
+
+/* Quote Box */
+.quote-box {
+    background: var(--color-surface);
+    border-left: 6px solid var(--color-warning);
+    border-radius: var(--radius-lg);
+    padding: var(--space-32);
+    margin: var(--space-32) 0;
+    box-shadow: var(--shadow-lg);
+    text-align: center;
+}
+
+.quote-text {
+    font-size: var(--font-size-3xl);
+    font-style: italic;
+    color: var(--color-text);
+    margin-bottom: var(--space-16);
+    line-height: 1.6;
+}
+
+.quote-author {
+    font-size: var(--font-size-xl);
+    color: var(--color-warning);
+    font-weight: var(--font-weight-bold);
+}
+
+/* Conclusion Box */
+.conclusion-box {
+    background: var(--color-bg-3);
+    padding: var(--space-32);
+    border-radius: var(--radius-lg);
+    text-align: center;
+    margin: var(--space-32) 0;
+    border: 3px solid var(--color-primary);
+}
+
+.conclusion-text {
+    font-size: var(--font-size-2xl);
+    line-height: 1.8;
+    margin-bottom: var(--space-16);
+    font-weight: var(--font-weight-medium);
+}
+
+/* Mistakes Grid */
+.mistakes-grid {
+    display: grid;
+    gap: var(--space-20);
+    margin: var(--space-32) 0;
+}
+
+.mistake-card {
+    background: var(--color-surface);
+    border-left: 4px solid var(--color-error);
+    border-radius: var(--radius-lg);
+    padding: var(--space-24);
+    box-shadow: var(--shadow-sm);
+}
+
+.mistake-title {
+    font-size: var(--font-size-xl);
+    font-weight: var(--font-weight-semibold);
+    color: var(--color-error);
+    margin-bottom: var(--space-12);
+}
+
+.mistake-comparison {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: var(--space-16);
+    margin-top: var(--space-12);
+}
+
+.mistake-wrong {
+    background: var(--color-bg-4);
+    padding: var(--space-12);
+    border-radius: var(--radius-base);
+    border-left: 3px solid var(--color-error);
+}
+
+.mistake-right {
+    background: var(--color-bg-3);
+    padding: var(--space-12);
+    border-radius: var(--radius-base);
+    border-left: 3px solid var(--color-success);
+}
+
+.mistake-result {
+    background: var(--color-bg-1);
+    padding: var(--space-12);
+    border-radius: var(--radius-base);
+    border-left: 3px solid var(--color-primary);
+    font-weight: var(--font-weight-bold);
+}
+
+/* Benefits Section */
+.benefits-container {
+    display: grid;
+    gap: var(--space-24);
+    margin: var(--space-32) 0;
+}
+
+.benefit-category {
+    background: var(--color-surface);
+    border-radius: var(--radius-lg);
+    padding: var(--space-24);
+    box-shadow: var(--shadow-md);
+    border-left: 6px solid var(--color-primary);
+}
+
+.benefit-category h3 {
+    font-size: var(--font-size-2xl);
+    font-weight: var(--font-weight-bold);
+    color: var(--color-primary);
+    margin-bottom: var(--space-16);
+}
+
+.benefit-category ul {
+    list-style: none;
+}
+
+.benefit-category li {
+    padding: var(--space-12);
+    margin-bottom: var(--space-8);
+    background: var(--color-bg-1);
+    border-radius: var(--radius-sm);
+}
+
+/* Responsive */
+@media (max-width: 1024px) {
+    .hero-title { font-size: 80px; }
+    .comparison,
+    .mistake-comparison,
+    .tshirt-grid,
+    .type-cards {
+        grid-template-columns: 1fr;
+        gap: var(--space-16);
+    }
+    .comparison-arrow {
+        transform: rotate(90deg);
+    }
+    .weekly-schedule {
+        grid-template-columns: 1fr;
+    }
+    .box-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 768px) {
+    .hero-title { font-size: 60px; }
+    .hero-japanese { font-size: 32px; }
+    .section-title { font-size: 36px; }
+    .container { padding: 0 var(--space-16); }
+    .section { padding: 40px 0; }
+    .section.compact { padding: 30px 0; }
+    .wave-comparison { flex-direction: column; }
+}
+    </style>
+</head>
+<body>
+    <!-- Hero Section -->
+    <div class="hero section">
+        <div class="container">
+            <div class="hero-content">
+                <div class="hero-icon">📊</div>
+                <h1 class="hero-title">HEIJUNKA</h1>
+                <div class="hero-japanese">平準化</div>
+                <p class="hero-subtitle">Выравнивание производства</p>
+                <p class="hero-translation">Level Scheduling / Load Leveling</p>
+                
+                <div class="wave-comparison">
+                    <div class="wave-box chaotic">
+                        <div class="wave-title">❌ Без Heijunka</div>
+                        <svg width="100%" height="120" viewBox="0 0 300 120" style="margin: var(--space-16) 0;">
+                            <path d="M0,60 Q30,20 60,30 T120,80 Q150,100 180,50 T240,90 L270,40 L300,70" 
+                                  stroke="#EF4444" stroke-width="4" fill="none"/>
+                        </svg>
+                        <p style="text-align: center; color: var(--color-error); font-weight: var(--font-weight-bold);">Авралы и простои</p>
+                    </div>
+                    
+                    <div class="wave-box smooth">
+                        <div class="wave-title">✓ С Heijunka</div>
+                        <svg width="100%" height="120" viewBox="0 0 300 120" style="margin: var(--space-16) 0;">
+                            <line x1="0" y1="60" x2="300" y2="60" stroke="#10B981" stroke-width="4"/>
+                        </svg>
+                        <p style="text-align: center; color: var(--color-success); font-weight: var(--font-weight-bold);">Равномерная работа</p>
+                    </div>
+                </div>
+                
+                <div class="hero-message">
+                    От авралов и простоев к равномерной работе
+                </div>
+                <p class="hero-tagline">Сегодня как вчера, вчера как завтра</p>
+                <p class="hero-quote">"Spread the work evenly" — Taiichi Ohno</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- What is Heijunka -->
+    <div class="section compact">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Что такое Heijunka?</h2>
+                <p class="section-subtitle">Определение</p>
+            </div>
+
+            <div class="definition-box">
+                <p class="definition-text"><strong>Heijunka - выравнивание производства по видам и объемам продукции в течение фиксированного периода времени</strong></p>
+                <p class="definition-text" style="font-size: var(--font-size-lg); color: var(--color-text-secondary); margin-top: var(--space-16);">"Heijunka" = "to level, to smooth" (яп.)</p>
+            </div>
+
+            <div class="info-grid">
+                <div class="info-card">
+                    <div class="info-label">Происхождение</div>
+                    <div class="info-value">Toyota Production System</div>
+                </div>
+                <div class="info-card">
+                    <div class="info-label">Философия</div>
+                    <div class="info-value" style="color: var(--color-primary);">Работай как черепаха, а не как заяц</div>
+                </div>
+                <div class="info-card">
+                    <div class="info-label">Цель</div>
+                    <div class="info-value">Eliminate peaks and valleys</div>
+                </div>
+            </div>
+
+            <div style="margin-top: var(--space-32); padding: var(--space-24); background: var(--color-surface); border-radius: var(--radius-lg); box-shadow: var(--shadow-md);">
+                <div class="info-grid">
+                    <div class="info-card" style="background: var(--color-bg-4); border-color: var(--color-error);">
+                        <div class="info-label">НЕ о чем</div>
+                        <div class="info-value" style="color: var(--color-error);">Скорость</div>
+                    </div>
+                    <div class="info-card" style="background: var(--color-bg-3); border-color: var(--color-success);">
+                        <div class="info-label">О чем</div>
+                        <div class="info-value" style="color: var(--color-success);">Постоянство и предсказуемость</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Problem Without Heijunka -->
+    <div class="section compact" style="background: var(--color-bg-4);">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Проблема без Heijunka</h2>
+                <p class="section-subtitle">Хаос неравномерной загрузки</p>
+            </div>
+
+            <div class="weekly-schedule">
+                <div class="day-card overload">
+                    <div class="day-name">Понедельник</div>
+                    <div class="day-orders">200</div>
+                    <div class="day-status">ПЕРЕГРУЗКА</div>
+                    <div class="day-result">Сверхурочные, стресс, ошибки</div>
+                </div>
+                <div class="day-card normal">
+                    <div class="day-name">Вторник</div>
+                    <div class="day-orders">100</div>
+                    <div class="day-status">НОРМАЛЬНО</div>
+                    <div class="day-result">Обычная работа</div>
+                </div>
+                <div class="day-card underload">
+                    <div class="day-name">Среда</div>
+                    <div class="day-orders">50</div>
+                    <div class="day-status">НЕДОГРУЗКА</div>
+                    <div class="day-result">Отправляем людей домой</div>
+                </div>
+                <div class="day-card normal">
+                    <div class="day-name">Четверг</div>
+                    <div class="day-orders">100</div>
+                    <div class="day-status">РАЗГОН</div>
+                    <div class="day-result">Снова стресс</div>
+                </div>
+                <div class="day-card underload">
+                    <div class="day-name">Пятница</div>
+                    <div class="day-orders">50</div>
+                    <div class="day-status">СПАД</div>
+                    <div class="day-result">Неэффективно</div>
+                </div>
+            </div>
+
+            <div style="background: var(--color-surface); padding: var(--space-32); border-radius: var(--radius-lg); box-shadow: var(--shadow-md); margin-top: var(--space-32);">
+                <h3 style="text-align: center; font-size: var(--font-size-3xl); color: var(--color-error); margin-bottom: var(--space-24);">Общие результаты:</h3>
+                <ul style="list-style: none;">
+                    <li style="padding: var(--space-12); margin-bottom: var(--space-8); background: var(--color-bg-4); border-radius: var(--radius-sm);">❌ Перегрузка: Стресс, ошибки, проблемы качества, выгорание</li>
+                    <li style="padding: var(--space-12); margin-bottom: var(--space-8); background: var(--color-bg-4); border-radius: var(--radius-sm);">❌ Недогрузка: Простой оборудования, простой людей, отходы</li>
+                    <li style="padding: var(--space-12); margin-bottom: var(--space-8); background: var(--color-bg-4); border-radius: var(--radius-sm);">❌ Непредсказуемо: Нельзя планировать, нельзя улучшать</li>
+                    <li style="padding: var(--space-12); margin-bottom: var(--space-8); background: var(--color-bg-4); border-radius: var(--radius-sm);">❌ Высокие затраты: От неэффективности</li>
+                    <li style="padding: var(--space-12); margin-bottom: var(--space-8); background: var(--color-bg-4); border-radius: var(--radius-sm);">❌ Мораль: Низкая от стресса</li>
+                </ul>
+                <p style="text-align: center; margin-top: var(--space-24); font-size: var(--font-size-xl); font-weight: var(--font-weight-bold); color: var(--color-error);">Это называется Mura (Unevenness) - одна из 3 потерь</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Heijunka Solution -->
+    <div class="section compact" style="background: var(--color-bg-3);">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Решение Heijunka</h2>
+                <p class="section-subtitle">Сглаженный подход</p>
+            </div>
+
+            <div class="comparison">
+                <div class="comparison-column before">
+                    <div class="comparison-header">❌ Традиционно</div>
+                    <ul class="comparison-list">
+                        <li>500 заказов в неделю</li>
+                        <li>Неравномерно распределено</li>
+                        <li>Пики и долины</li>
+                    </ul>
+                </div>
+                <div class="comparison-arrow">→</div>
+                <div class="comparison-column after">
+                    <div class="comparison-header">✓ Heijunka</div>
+                    <ul class="comparison-list">
+                        <li>500 заказов в неделю</li>
+                        <li><strong>100 заказов в день</strong></li>
+                        <li>Равномерно каждый день</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div style="background: var(--color-surface); padding: var(--space-32); border-radius: var(--radius-lg); box-shadow: var(--shadow-md); margin-top: var(--space-32);">
+                <h3 style="text-align: center; font-size: var(--font-size-3xl); color: var(--color-success); margin-bottom: var(--space-24);">Результаты Heijunka:</h3>
+                <div class="info-grid">
+                    <div class="info-card" style="background: var(--color-bg-3); border-color: var(--color-success);">
+                        <div class="info-value" style="color: var(--color-success);">✓ Постоянная нагрузка</div>
+                    </div>
+                    <div class="info-card" style="background: var(--color-bg-3); border-color: var(--color-success);">
+                        <div class="info-value" style="color: var(--color-success);">✓ Без стресса</div>
+                    </div>
+                    <div class="info-card" style="background: var(--color-bg-3); border-color: var(--color-success);">
+                        <div class="info-value" style="color: var(--color-success);">✓ Эффективное использование</div>
+                    </div>
+                    <div class="info-card" style="background: var(--color-bg-3); border-color: var(--color-success);">
+                        <div class="info-value" style="color: var(--color-success);">✓ Высокое качество</div>
+                    </div>
+                    <div class="info-card" style="background: var(--color-bg-3); border-color: var(--color-success);">
+                        <div class="info-value" style="color: var(--color-success);">✓ Низкие запасы</div>
+                    </div>
+                    <div class="info-card" style="background: var(--color-bg-3); border-color: var(--color-success);">
+                        <div class="info-value" style="color: var(--color-success);">✓ Предсказуемо</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Two Types -->
+    <div class="section compact">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Два типа Heijunka</h2>
+                <p class="section-subtitle">Выравнивание по объемам и номенклатуре</p>
+            </div>
+
+            <div class="type-cards">
+                <div class="type-card">
+                    <div class="type-number">1</div>
+                    <div class="type-name">VOLUME LEVELING</div>
+                    <div class="type-russian">Выравнивание по объемам</div>
+                    <p style="margin-bottom: var(--space-16);"><strong>Что:</strong> Одинаковое количество в каждый период</p>
+                    <p style="margin-bottom: var(--space-16);"><strong>Пример:</strong> 500 units/week → 100 units/day</p>
+                    <p style="margin-bottom: var(--space-16);"><strong>Решает:</strong> Пики перегрузки/недогрузки</p>
+                    <p style="font-weight: var(--font-weight-bold); color: var(--color-success);"><strong>Выгода:</strong> Предсказуемая нагрузка</p>
+                </div>
+
+                <div class="type-card">
+                    <div class="type-number">2</div>
+                    <div class="type-name">MIX LEVELING</div>
+                    <div class="type-russian">Выравнивание по номенклатуре (Mixed Model Scheduling)</div>
+                    <p style="margin-bottom: var(--space-16);"><strong>Что:</strong> Разные виды продукции в ротации</p>
+                    <p style="margin-bottom: var(--space-16);"><strong>Традиционно:</strong> Сначала все A, потом все B, потом все C (длинные переналадки)</p>
+                    <p style="margin-bottom: var(--space-16);"><strong>Heijunka:</strong> A-B-C-A-B-C-A-B-C... (частые, но короткие переналадки)</p>
+                    <p style="font-weight: var(--font-weight-bold); color: var(--color-success);"><strong>Выгода:</strong> Сбалансированный спрос к поставщикам</p>
+                </div>
+            </div>
+
+            <div style="margin-top: var(--space-32); padding: var(--space-32); background: var(--color-surface); border-radius: var(--radius-lg); box-shadow: var(--shadow-md);">
+                <h3 style="text-align: center; font-size: var(--font-size-2xl); color: var(--color-primary); margin-bottom: var(--space-16);">Детальный пример Mix Leveling:</h3>
+                <div class="comparison">
+                    <div class="comparison-column before">
+                        <div class="comparison-header">Традиционный</div>
+                        <p style="margin-bottom: var(--space-12);"><strong>Недельный спрос:</strong> 5 A's, 3 B's, 2 C's, 2 D's</p>
+                        <p style="font-family: monospace; font-size: var(--font-size-xl); padding: var(--space-12); background: var(--color-bg-4); border-radius: var(--radius-sm);">AAAAABBBBCCDD</p>
+                        <p style="color: var(--color-error); margin-top: var(--space-12);">Плохие переналадки!</p>
+                    </div>
+                    <div class="comparison-arrow">→</div>
+                    <div class="comparison-column after">
+                        <div class="comparison-header">Heijunka</div>
+                        <p style="margin-bottom: var(--space-12);"><strong>Тот же спрос:</strong> 5 A's, 3 B's, 2 C's, 2 D's</p>
+                        <p style="font-family: monospace; font-size: var(--font-size-xl); padding: var(--space-12); background: var(--color-bg-3); border-radius: var(--radius-sm);">ACDBACDBACDB</p>
+                        <p style="color: var(--color-success); margin-top: var(--space-12);">Равномерные переналадки!</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Heijunka Box -->
+    <div class="section compact" style="background: var(--color-bg-5);">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Heijunka Box</h2>
+                <p class="section-subtitle">Физический инструмент</p>
+            </div>
+
+            <div class="definition-box">
+                <p class="definition-text"><strong>Heijunka Box - это матрица/решетка на стене для управления выровненным производством</strong></p>
+            </div>
+
+            <div class="info-grid">
+                <div class="info-card">
+                    <div class="info-label">Строки</div>
+                    <div class="info-value">Разные типы продукции</div>
+                </div>
+                <div class="info-card">
+                    <div class="info-label">Столбцы</div>
+                    <div class="info-value">Временные периоды (часы/партии)</div>
+                </div>
+                <div class="info-card">
+                    <div class="info-label">Содержит</div>
+                    <div class="info-value">Карточки Kanban</div>
+                </div>
+            </div>
+
+            <div class="heijunka-box">
+                <h3 style="text-align: center; font-size: var(--font-size-2xl); color: var(--color-primary); margin-bottom: var(--space-16);">Как это выглядит:</h3>
+                <div class="box-grid">
+                    <div></div>
+                    <div class="box-header">Час 1</div>
+                    <div class="box-header">Час 2</div>
+                    <div class="box-header">Час 3</div>
+                    <div class="box-header">Час 4</div>
+                    
+                    <div class="box-product">Продукт A</div>
+                    <div class="box-slot">📋 A</div>
+                    <div class="box-slot">📋 A</div>
+                    <div class="box-slot"></div>
+                    <div class="box-slot">📋 A</div>
+                    
+                    <div class="box-product">Продукт B</div>
+                    <div class="box-slot"></div>
+                    <div class="box-slot">📋 B</div>
+                    <div class="box-slot">📋 B</div>
+                    <div class="box-slot"></div>
+                    
+                    <div class="box-product">Продукт C</div>
+                    <div class="box-slot">📋 C</div>
+                    <div class="box-slot"></div>
+                    <div class="box-slot"></div>
+                    <div class="box-slot">📋 C</div>
+                    
+                    <div class="box-product">Продукт D</div>
+                    <div class="box-slot"></div>
+                    <div class="box-slot"></div>
+                    <div class="box-slot">📋 D</div>
+                    <div class="box-slot"></div>
+                </div>
+            </div>
+
+            <div style="margin-top: var(--space-32); padding: var(--space-24); background: var(--color-surface); border-radius: var(--radius-lg); box-shadow: var(--shadow-md);">
+                <h3 style="text-align: center; font-size: var(--font-size-2xl); color: var(--color-primary); margin-bottom: var(--space-16);">Как это работает:</h3>
+                <ol style="list-style-position: inside;">
+                    <li style="padding: var(--space-12); margin-bottom: var(--space-8); background: var(--color-bg-1); border-radius: var(--radius-sm);">Каждый час или партию - вытягиваем одну карточку Kanban из коробки</li>
+                    <li style="padding: var(--space-12); margin-bottom: var(--space-8); background: var(--color-bg-1); border-radius: var(--radius-sm);">Карточка показывает, что производить следующим</li>
+                    <li style="padding: var(--space-12); margin-bottom: var(--space-8); background: var(--color-bg-1); border-radius: var(--radius-sm);">Карточки расположены для обеспечения сбалансированного микса</li>
+                    <li style="padding: var(--space-12); margin-bottom: var(--space-8); background: var(--color-bg-1); border-radius: var(--radius-sm);">Запускает производство в выровненной последовательности</li>
+                </ol>
+            </div>
+        </div>
+    </div>
+
+    <!-- T-shirt Example -->
+    <div class="section compact">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Реальный пример: Производство футболок</h2>
+                <p class="section-subtitle">Сравнение подходов</p>
+            </div>
+
+            <div style="background: var(--color-surface); padding: var(--space-32); border-radius: var(--radius-lg); box-shadow: var(--shadow-md); margin-bottom: var(--space-32);">
+                <h3 style="text-align: center; font-size: var(--font-size-2xl); color: var(--color-primary); margin-bottom: var(--space-16);">Недельный спрос:</h3>
+                <div class="color-blocks">
+                    <div class="color-block red">Красные<br>100 шт</div>
+                    <div class="color-block blue">Синие<br>50 шт</div>
+                    <div class="color-block green">Зеленые<br>30 шт</div>
+                    <div class="color-block yellow">Желтые<br>20 шт</div>
+                </div>
+                <p style="text-align: center; font-size: var(--font-size-xl); font-weight: var(--font-weight-bold); margin-top: var(--space-16);">Всего: 200 units/week = 40 units/day</p>
+            </div>
+
+            <div class="toggle-container">
+                <span class="toggle-label">Традиционный</span>
+                <div class="toggle-switch" onclick="toggleApproach(this)">
+                    <div class="toggle-slider"></div>
+                </div>
+                <span class="toggle-label">Heijunka</span>
+            </div>
+
+            <div id="traditional-approach" class="tshirt-approach traditional" style="display: block;">
+                <div class="approach-title">❌ Традиционный подход (Batch Production)</div>
+                
+                <div style="margin: var(--space-16) 0;">
+                    <p style="padding: var(--space-12); background: var(--color-bg-4); border-radius: var(--radius-sm); margin-bottom: var(--space-8);"><strong>Понедельник-Вторник:</strong> Все 100 красных</p>
+                    <p style="padding: var(--space-12); background: var(--color-bg-4); border-radius: var(--radius-sm); margin-bottom: var(--space-8);"><strong>Среда:</strong> Все 50 синих</p>
+                    <p style="padding: var(--space-12); background: var(--color-bg-4); border-radius: var(--radius-sm); margin-bottom: var(--space-8);"><strong>Четверг:</strong> Все 30 зеленых</p>
+                    <p style="padding: var(--space-12); background: var(--color-bg-4); border-radius: var(--radius-sm); margin-bottom: var(--space-8);"><strong>Пятница:</strong> Все 20 желтых</p>
+                </div>
+                
+                <h4 style="color: var(--color-error); margin-top: var(--space-24); margin-bottom: var(--space-12);">Проблемы:</h4>
+                <ul style="list-style: none;">
+                    <li style="padding: var(--space-8); margin-bottom: var(--space-4); background: var(--color-bg-4); border-radius: var(--radius-sm);">❌ Понедельник: ПЕРЕГРУЗКА (100 единиц)</li>
+                    <li style="padding: var(--space-8); margin-bottom: var(--space-4); background: var(--color-bg-4); border-radius: var(--radius-sm);">❌ Вторник: Огромная переналадка на синий</li>
+                    <li style="padding: var(--space-8); margin-bottom: var(--space-4); background: var(--color-bg-4); border-radius: var(--radius-sm);">❌ Среда: НЕДОГРУЗКА (50 единиц)</li>
+                    <li style="padding: var(--space-8); margin-bottom: var(--space-4); background: var(--color-bg-4); border-radius: var(--radius-sm);">❌ Использование оборудования: Очень неравномерно</li>
+                    <li style="padding: var(--space-8); margin-bottom: var(--space-4); background: var(--color-bg-4); border-radius: var(--radius-sm);">❌ Качество: Ниже (усталые работники в понедельник)</li>
+                    <li style="padding: var(--space-8); margin-bottom: var(--space-4); background: var(--color-bg-4); border-radius: var(--radius-sm);">❌ Запасы: Высокие (все красные до синих)</li>
+                </ul>
+            </div>
+
+            <div id="heijunka-approach" class="tshirt-approach heijunka" style="display: none;">
+                <div class="approach-title">✓ Heijunka подход (Mixed Model)</div>
+                
+                <div style="margin: var(--space-16) 0;">
+                    <p style="padding: var(--space-12); background: var(--color-bg-3); border-radius: var(--radius-sm); margin-bottom: var(--space-8);"><strong>Каждый день:</strong> 20 красных, 10 синих, 6 зеленых, 4 желтых</p>
+                    <p style="padding: var(--space-12); background: var(--color-bg-3); border-radius: var(--radius-sm); margin-bottom: var(--space-8); font-family: monospace; font-size: var(--font-size-lg);"><strong>Последовательность:</strong> R-R-B-G-Y-R-R-B-G-Y... (повторяющаяся)</p>
+                </div>
+                
+                <h4 style="color: var(--color-success); margin-top: var(--space-24); margin-bottom: var(--space-12);">Характеристики:</h4>
+                <ul style="list-style: none;">
+                    <li style="padding: var(--space-8); margin-bottom: var(--space-4); background: var(--color-bg-3); border-radius: var(--radius-sm);">✓ Одинаковая работа каждый день</li>
+                    <li style="padding: var(--space-8); margin-bottom: var(--space-4); background: var(--color-bg-3); border-radius: var(--radius-sm);">✓ Те же переналадки каждый день</li>
+                    <li style="padding: var(--space-8); margin-bottom: var(--space-4); background: var(--color-bg-3); border-radius: var(--radius-sm);">✓ Та же команда каждый день</li>
+                    <li style="padding: var(--space-8); margin-bottom: var(--space-4); background: var(--color-bg-3); border-radius: var(--radius-sm);">✓ Предсказуемый ритм</li>
+                </ul>
+                
+                <h4 style="color: var(--color-success); margin-top: var(--space-24); margin-bottom: var(--space-12);">Выгоды:</h4>
+                <ul style="list-style: none;">
+                    <li style="padding: var(--space-8); margin-bottom: var(--space-4); background: var(--color-bg-3); border-radius: var(--radius-sm);">✓ Постоянная нагрузка</li>
+                    <li style="padding: var(--space-8); margin-bottom: var(--space-4); background: var(--color-bg-3); border-radius: var(--radius-sm);">✓ Постоянное качество</li>
+                    <li style="padding: var(--space-8); margin-bottom: var(--space-4); background: var(--color-bg-3); border-radius: var(--radius-sm);">✓ Низкие запасы</li>
+                    <li style="padding: var(--space-8); margin-bottom: var(--space-4); background: var(--color-bg-3); border-radius: var(--radius-sm);">✓ Сбалансированная нагрузка на поставщиков (покупка постепенная)</li>
+                    <li style="padding: var(--space-8); margin-bottom: var(--space-4); background: var(--color-bg-3); border-radius: var(--radius-sm);">✓ Оборудование и работники: Предсказуемо</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <!-- Pitch Concept -->
+    <div class="section compact" style="background: var(--color-bg-2);">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Концепция Pitch</h2>
+                <p class="section-subtitle">Время между продуктами</p>
+            </div>
+
+            <div class="definition-box">
+                <p class="definition-text"><strong>Pitch = Целевой интервал производства для каждого продукта</strong></p>
+                <p class="definition-text" style="font-size: var(--font-size-lg); margin-top: var(--space-16);"><strong>Формула:</strong> Pitch = Cycle Time × Batch Size</p>
+            </div>
+
+            <div style="background: var(--color-surface); padding: var(--space-32); border-radius: var(--radius-lg); box-shadow: var(--shadow-md); margin-top: var(--space-32);">
+                <h3 style="text-align: center; font-size: var(--font-size-2xl); color: var(--color-primary); margin-bottom: var(--space-24);">Пример расчета:</h3>
+                <div class="info-grid">
+                    <div class="info-card">
+                        <div class="info-label">Спрос в неделю</div>
+                        <div class="info-value">100 units/week</div>
+                    </div>
+                    <div class="info-card">
+                        <div class="info-label">Спрос в день</div>
+                        <div class="info-value">20 units/day</div>
+                    </div>
+                    <div class="info-card">
+                        <div class="info-label">Время на единицу</div>
+                        <div class="info-value">24 минуты</div>
+                    </div>
+                </div>
+                <p style="text-align: center; font-size: var(--font-size-xl); margin-top: var(--space-24); padding: var(--space-16); background: var(--color-bg-2); border-radius: var(--radius-base);">Если цикл: 1 футболка за 30 мин → Pitch: сделать 1, ждать 6 мин, повторить</p>
+            </div>
+
+            <div style="margin-top: var(--space-32); padding: var(--space-24); background: var(--color-surface); border-radius: var(--radius-lg); box-shadow: var(--shadow-md);">
+                <h3 style="text-align: center; font-size: var(--font-size-2xl); color: var(--color-primary); margin-bottom: var(--space-16);">Цель Pitch:</h3>
+                <ul style="list-style: none;">
+                    <li style="padding: var(--space-12); margin-bottom: var(--space-8); background: var(--color-bg-1); border-radius: var(--radius-sm);">✓ Поддерживает постоянный ритм</li>
+                    <li style="padding: var(--space-12); margin-bottom: var(--space-8); background: var(--color-bg-1); border-radius: var(--radius-sm);">✓ Визуальная подсказка для операторов (таймер)</li>
+                    <li style="padding: var(--space-12); margin-bottom: var(--space-8); background: var(--color-bg-1); border-radius: var(--radius-sm);">✓ Помогает синхронизироваться с Takt Time</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <!-- Takt Time vs Pitch -->
+    <div class="section compact">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Takt Time vs Pitch</h2>
+                <p class="section-subtitle">Ключевые концепции</p>
+            </div>
+
+            <div class="type-cards">
+                <div class="type-card" style="border-color: #3B82F6; background: var(--color-bg-1);">
+                    <div class="type-number" style="color: #3B82F6;">🎯</div>
+                    <div class="type-name" style="color: #3B82F6;">TAKT TIME</div>
+                    <div class="type-russian">Ритм спроса КЛИЕНТА</div>
+                    <p style="margin-bottom: var(--space-16);"><strong>Определение:</strong> Клиенту нужно X единиц в день</p>
+                    <p style="margin-bottom: var(--space-16); font-family: monospace; background: var(--color-surface); padding: var(--space-12); border-radius: var(--radius-sm);"><strong>Формула:</strong><br>Takt = Доступное время / Спрос клиента</p>
+                    <p style="margin-bottom: var(--space-16);"><strong>Пример:</strong> 480 min/day ÷ 100 units = 4.8 min/unit</p>
+                    <p style="font-weight: var(--font-weight-bold); color: #3B82F6;"><strong>Фокус:</strong> Внешний (клиент)</p>
+                </div>
+
+                <div class="type-card" style="border-color: #F59E0B; background: var(--color-bg-2);">
+                    <div class="type-number" style="color: #F59E0B;">⚙️</div>
+                    <div class="type-name" style="color: #F59E0B;">PITCH</div>
+                    <div class="type-russian">Ритм НАШЕГО производства</div>
+                    <p style="margin-bottom: var(--space-16);"><strong>Определение:</strong> Мы делаем партии через интервалы</p>
+                    <p style="margin-bottom: var(--space-16); font-family: monospace; background: var(--color-surface); padding: var(--space-12); border-radius: var(--radius-sm);"><strong>Формула:</strong><br>Pitch = Время цикла × Размер партии</p>
+                    <p style="margin-bottom: var(--space-16);"><strong>Пример:</strong> 3 min/unit × 1.5 batch = 4.5 min</p>
+                    <p style="font-weight: var(--font-weight-bold); color: #F59E0B;"><strong>Фокус:</strong> Внутренний (производство)</p>
+                </div>
+            </div>
+
+            <div style="margin-top: var(--space-32); padding: var(--space-32); background: var(--color-surface); border-radius: var(--radius-lg); box-shadow: var(--shadow-md);">
+                <h3 style="text-align: center; font-size: var(--font-size-3xl); color: var(--color-primary); margin-bottom: var(--space-24);">🎯 Цель: Takt Time = Pitch</h3>
+                <div class="info-grid">
+                    <div class="info-card" style="background: var(--color-bg-4); border-color: var(--color-error);">
+                        <div class="info-label">Если Pitch &gt; Takt</div>
+                        <div class="info-value" style="color: var(--color-error);">Не успеваем = ПРОБЛЕМА</div>
+                    </div>
+                    <div class="info-card" style="background: var(--color-bg-2); border-color: var(--color-warning);">
+                        <div class="info-label">Если Pitch &lt; Takt</div>
+                        <div class="info-value" style="color: var(--color-warning);">Делаем слишком быстро = ПОТЕРИ</div>
+                    </div>
+                    <div class="info-card" style="background: var(--color-bg-3); border-color: var(--color-success);">
+                        <div class="info-label">Если Pitch = Takt</div>
+                        <div class="info-value" style="color: var(--color-success);">Идеальный ритм! = ОТЛИЧНО</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Implementation Steps -->
+    <div class="section compact" style="background: var(--color-bg-6);">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Как внедрить Heijunka</h2>
+                <p class="section-subtitle">Пошаговый процесс</p>
+            </div>
+
+            <div class="steps-container">
+                <div class="step-item" onclick="toggleStep(this)">
+                    <div class="step-header">
+                        <div class="step-title">Шаг 1: Анализ спроса клиента</div>
+                        <div class="step-icon">▼</div>
+                    </div>
+                    <div class="step-content">
+                        <ul>
+                            <li>Собрать данные о спросе за 4-12 недель</li>
+                            <li>Какие продукты? Какие количества?</li>
+                            <li>Когда нужно исполнить заказы?</li>
+                            <li>Какая вариативность?</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="step-item" onclick="toggleStep(this)">
+                    <div class="step-header">
+                        <div class="step-title">Шаг 2: Расчет среднего спроса</div>
+                        <div class="step-icon">▼</div>
+                    </div>
+                    <div class="step-content">
+                        <ul>
+                            <li>Общий спрос / количество периодов</li>
+                            <li>Это становится целевым производством за период</li>
+                            <li>Пример: 500/week ÷ 5 days = 100/day</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="step-item" onclick="toggleStep(this)">
+                    <div class="step-header">
+                        <div class="step-title">Шаг 3: Определение пропорций микса</div>
+                        <div class="step-icon">▼</div>
+                    </div>
+                    <div class="step-content">
+                        <ul>
+                            <li>От общего спроса, какой % каждого продукта?</li>
+                            <li>Пример: 50% Красный, 25% Синий, 15% Зеленый, 10% Желтый</li>
+                            <li>Эта пропорция остается постоянной</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="step-item" onclick="toggleStep(this)">
+                    <div class="step-header">
+                        <div class="step-title">Шаг 4: Создание выровненной последовательности</div>
+                        <div class="step-icon">▼</div>
+                    </div>
+                    <div class="step-content">
+                        <ul>
+                            <li>Расположить продукты по пропорции</li>
+                            <li>Пример: R-R-B-G-Y-R-R-B-G-Y...</li>
+                            <li>Использовать повторяющийся паттерн</li>
+                            <li>Каждый полный паттерн представляет один период</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="step-item" onclick="toggleStep(this)">
+                    <div class="step-header">
+                        <div class="step-title">Шаг 5: Создание Heijunka Box</div>
+                        <div class="step-icon">▼</div>
+                    </div>
+                    <div class="step-content">
+                        <ul>
+                            <li>Нарисовать сетку на стене (или использовать ПО)</li>
+                            <li>Временные периоды сверху</li>
+                            <li>Продукты слева</li>
+                            <li>Разместить карточки Kanban по последовательности</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="step-item" onclick="toggleStep(this)">
+                    <div class="step-header">
+                        <div class="step-title">Шаг 6: Внедрение системы Pull</div>
+                        <div class="step-icon">▼</div>
+                    </div>
+                    <div class="step-content">
+                        <ul>
+                            <li>В каждом интервале pitch вытянуть одну карточку</li>
+                            <li>Эта карточка показывает что делать</li>
+                            <li>Сделать, когда готово - вытянуть следующую карточку</li>
+                            <li>Не нужно расписание кроме коробки</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="step-item" onclick="toggleStep(this)">
+                    <div class="step-header">
+                        <div class="step-title">Шаг 7: Мониторинг и корректировка</div>
+                        <div class="step-icon">▼</div>
+                    </div>
+                    <div class="step-content">
+                        <ul>
+                            <li>Отслеживать: совпадает ли факт с целью</li>
+                            <li>Если спрос меняется - обновить коробку</li>
+                            <li>Если микс меняется - обновить последовательность</li>
+                            <li>Непрерывное совершенствование</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Connection to Kanban -->
+    <div class="section compact" style="background: var(--color-bg-1);">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Связь с Kanban</h2>
+                <p class="section-subtitle">Как они работают вместе</p>
+            </div>
+
+            <div class="comparison">
+                <div class="comparison-column before">
+                    <div class="comparison-header">Без Heijunka</div>
+                    <p style="margin-bottom: var(--space-12);"><strong>Kanban:</strong> Pull система</p>
+                    <p style="margin-bottom: var(--space-12);"><strong>Проблема:</strong> Kanban вытягивает хаотично</p>
+                    <p style="color: var(--color-error); font-weight: var(--font-weight-bold);">Результат: Неравномерная нагрузка</p>
+                </div>
+                <div class="comparison-arrow">→</div>
+                <div class="comparison-column after">
+                    <div class="comparison-header">С Heijunka</div>
+                    <p style="margin-bottom: var(--space-12);"><strong>Kanban:</strong> Pull система</p>
+                    <p style="margin-bottom: var(--space-12);"><strong>Heijunka:</strong> Выравнивает pull</p>
+                    <p style="color: var(--color-success); font-weight: var(--font-weight-bold);">Результат: Плавное вытягивание</p>
+                </div>
+            </div>
+
+            <div style="margin-top: var(--space-32); padding: var(--space-32); background: var(--color-surface); border-radius: var(--radius-lg); box-shadow: var(--shadow-md);">
+                <h3 style="text-align: center; font-size: var(--font-size-2xl); color: var(--color-primary); margin-bottom: var(--space-16);">Heijunka Box = физическое воплощение выровненного Kanban</h3>
+                <p style="text-align: center; font-size: var(--font-size-lg); margin-top: var(--space-16);">Пример: Heijunka box содержит 8 A-карточек, 4 B-карточки, 2 C-карточки (пропорция соответствует спросу)</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Benefits -->
+    <div class="section compact">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Выгоды Heijunka</h2>
+                <p class="section-subtitle">Почему это важно</p>
+            </div>
+
+            <div class="benefits-container">
+                <div class="benefit-category">
+                    <h3>🏭 Для производства:</h3>
+                    <ul>
+                        <li>Постоянная нагрузка (без выгорания)</li>
+                        <li>Оборудование используется равномерно (не ломается)</li>
+                        <li>Легче выявлять проблемы (стабильная базовая линия)</li>
+                        <li>Упрощенное планирование</li>
+                        <li>Лучшее качество (стабильный темп)</li>
+                    </ul>
+                </div>
+
+                <div class="benefit-category">
+                    <h3>📦 Для запасов:</h3>
+                    <ul>
+                        <li>Ниже незавершенное производство (WIP)</li>
+                        <li>Меньше хранения готовой продукции</li>
+                        <li>Быстрее оборачиваемость</li>
+                        <li>Ниже затраты на хранение</li>
+                    </ul>
+                </div>
+
+                <div class="benefit-category">
+                    <h3>👥 Для сотрудников:</h3>
+                    <ul>
+                        <li>Предсказуемая работа (меньше стресса)</li>
+                        <li>Стабильный темп (без спешки)</li>
+                        <li>Время на улучшения (не тушение пожаров)</li>
+                        <li>Выше моральный дух</li>
+                        <li>Лучше безопасность (не торопятся)</li>
+                    </ul>
+                </div>
+
+                <div class="benefit-category">
+                    <h3>🚚 Для поставщиков:</h3>
+                    <ul>
+                        <li>Предсказуемый спрос</li>
+                        <li>Стабильные заказы (не пир/голод)</li>
+                        <li>Лучшее планирование</li>
+                        <li>Более счастливые отношения</li>
+                    </ul>
+                </div>
+
+                <div class="benefit-category">
+                    <h3>🎯 Для клиентов:</h3>
+                    <ul>
+                        <li>Постоянное качество</li>
+                        <li>Надежная доставка</li>
+                        <li>Нет задержек из-за хаоса</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Lumpy Demand Challenge -->
+    <div class="section compact" style="background: var(--color-bg-7);">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Вызов: Неравномерный спрос</h2>
+                <p class="section-subtitle">Реальные ситуации</p>
+            </div>
+
+            <div style="background: var(--color-surface); padding: var(--space-32); border-radius: var(--radius-lg); box-shadow: var(--shadow-md); margin-bottom: var(--space-32);">
+                <h3 style="text-align: center; font-size: var(--font-size-2xl); color: var(--color-error); margin-bottom: var(--space-16);">❌ Сценарий: Клиент не может выровнять заказы</h3>
+                <p style="text-align: center; font-size: var(--font-size-xl); padding: var(--space-16); background: var(--color-bg-4); border-radius: var(--radius-base);">Клиент: "Мне нужно 500 во вторник, 0 в среду, 100 в четверг"</p>
+            </div>
+
+            <div style="background: var(--color-surface); padding: var(--space-32); border-radius: var(--radius-lg); box-shadow: var(--shadow-md);">
+                <h3 style="text-align: center; font-size: var(--font-size-2xl); color: var(--color-success); margin-bottom: var(--space-24);">✓ Решение: Использовать буфер готовой продукции</h3>
+                
+                <div class="info-grid">
+                    <div class="info-card">
+                        <div class="info-label">Стратегия</div>
+                        <div class="info-value">Производить 200/день (выровненно)</div>
+                    </div>
+                    <div class="info-card">
+                        <div class="info-label">День 1</div>
+                        <div class="info-value">Сделать 200 (хранить 200)</div>
+                    </div>
+                    <div class="info-card">
+                        <div class="info-label">День 2</div>
+                        <div class="info-value">Сделать 200, отгрузить 500 из запасов</div>
+                    </div>
+                    <div class="info-card">
+                        <div class="info-label">День 3</div>
+                        <div class="info-value">Сделать 200, использовать для заказа четверга</div>
+                    </div>
+                </div>
+                
+                <p style="text-align: center; font-size: var(--font-size-xl); margin-top: var(--space-24); padding: var(--space-16); background: var(--color-bg-3); border-radius: var(--radius-base); font-weight: var(--font-weight-bold); color: var(--color-success);">Результат: Поставщик может работать выровненно несмотря на неравномерные заказы</p>
+                
+                <p style="text-align: center; font-size: var(--font-size-lg); margin-top: var(--space-16); color: var(--color-text-secondary);">Это называется "Level Selling" (平準販売 / выравнивание спроса на границе с клиентом)</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Automotive Example -->
+    <div class="section compact">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Реальный пример: Автомобильная сборка</h2>
+                <p class="section-subtitle">Производство автомобилей</p>
+            </div>
+
+            <div class="tshirt-grid">
+                <div class="tshirt-approach traditional">
+                    <div class="approach-title">❌ Традиционный подход</div>
+                    <ul style="list-style: none;">
+                        <li style="padding: var(--space-12); margin-bottom: var(--space-8); background: var(--color-bg-4); border-radius: var(--radius-sm);"><strong>Понедельник:</strong> Собрать 500 седанов</li>
+                        <li style="padding: var(--space-12); margin-bottom: var(--space-8); background: var(--color-bg-4); border-radius: var(--radius-sm);"><strong>Вторник:</strong> Собрать 300 SUV</li>
+                        <li style="padding: var(--space-12); margin-bottom: var(--space-8); background: var(--color-bg-4); border-radius: var(--radius-sm);"><strong>Среда:</strong> Собрать 200 грузовиков</li>
+                    </ul>
+                    <h4 style="color: var(--color-error); margin-top: var(--space-16); margin-bottom: var(--space-12);">Проблемы:</h4>
+                    <ul style="list-style: none;">
+                        <li style="padding: var(--space-8); margin-bottom: var(--space-4); background: var(--color-bg-4); border-radius: var(--radius-sm);">❌ Понедельник перегружен</li>
+                        <li style="padding: var(--space-8); margin-bottom: var(--space-4); background: var(--color-bg-4); border-radius: var(--radius-sm);">❌ Среда недогружена</li>
+                        <li style="padding: var(--space-8); margin-bottom: var(--space-4); background: var(--color-bg-4); border-radius: var(--radius-sm);">❌ Огромные переналадки во вторник/среду</li>
+                    </ul>
+                </div>
+
+                <div class="tshirt-approach heijunka">
+                    <div class="approach-title">✓ Heijunka подход</div>
+                    <ul style="list-style: none;">
+                        <li style="padding: var(--space-12); margin-bottom: var(--space-8); background: var(--color-bg-3); border-radius: var(--radius-sm);"><strong>Каждый час:</strong> Собрать 5 седанов, 3 SUV, 2 грузовика</li>
+                        <li style="padding: var(--space-12); margin-bottom: var(--space-8); background: var(--color-bg-3); border-radius: var(--radius-sm); font-family: monospace;"><strong>Последовательность:</strong> S-S-V-T-S-S-V-T...</li>
+                    </ul>
+                    <h4 style="color: var(--color-success); margin-top: var(--space-16); margin-bottom: var(--space-12);">Выгоды:</h4>
+                    <ul style="list-style: none;">
+                        <li style="padding: var(--space-8); margin-bottom: var(--space-4); background: var(--color-bg-3); border-radius: var(--radius-sm);">✓ Одинаковая работа каждый час</li>
+                        <li style="padding: var(--space-8); margin-bottom: var(--space-4); background: var(--color-bg-3); border-radius: var(--radius-sm);">✓ Малые частые переналадки</li>
+                        <li style="padding: var(--space-8); margin-bottom: var(--space-4); background: var(--color-bg-3); border-radius: var(--radius-sm);">✓ Конвейер работает стабильно</li>
+                        <li style="padding: var(--space-8); margin-bottom: var(--space-4); background: var(--color-bg-3); border-radius: var(--radius-sm);">✓ Постоянное качество</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Common Mistakes -->
+    <div class="section compact" style="background: var(--color-bg-4);">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Распространенные ошибки Heijunka</h2>
+                <p class="section-subtitle">Что НЕ делать</p>
+            </div>
+
+            <div class="mistakes-grid">
+                <div class="mistake-card">
+                    <div class="mistake-title">❌ Игнорировать неравномерный спрос</div>
+                    <div class="mistake-comparison">
+                        <div class="mistake-wrong"><strong>Неправильно:</strong><br>Насильно выравнивать когда клиент не может</div>
+                        <div class="mistake-right"><strong>Правильно:</strong><br>Использовать буферный запас</div>
+                        <div class="mistake-result"><strong>Результат:</strong><br>Гибкость</div>
+                    </div>
+                </div>
+
+                <div class="mistake-card">
+                    <div class="mistake-title">❌ Слишком жесткое расписание</div>
+                    <div class="mistake-comparison">
+                        <div class="mistake-wrong"><strong>Неправильно:</strong><br>Никогда не менять последовательность</div>
+                        <div class="mistake-right"><strong>Правильно:</strong><br>Обновлять когда микс меняется</div>
+                        <div class="mistake-result"><strong>Результат:</strong><br>Адаптивность</div>
+                    </div>
+                </div>
+
+                <div class="mistake-card">
+                    <div class="mistake-title">❌ Heijunka без Kanban</div>
+                    <div class="mistake-comparison">
+                        <div class="mistake-wrong"><strong>Неправильно:</strong><br>Просто планировать без pull</div>
+                        <div class="mistake-right"><strong>Правильно:</strong><br>Использовать коробку для pull, не push</div>
+                        <div class="mistake-result"><strong>Результат:</strong><br>Настоящий Lean</div>
+                    </div>
+                </div>
+
+                <div class="mistake-card">
+                    <div class="mistake-title">❌ Неправильный размер буфера</div>
+                    <div class="mistake-comparison">
+                        <div class="mistake-wrong"><strong>Неправильно:</strong><br>Нет буфера (не переживет колебания)</div>
+                        <div class="mistake-right"><strong>Правильно:</strong><br>Малый стратегический буфер (1-2 дня)</div>
+                        <div class="mistake-result"><strong>Результат:</strong><br>Стабильность</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- MURA Waste -->
+    <div class="section compact" style="background: var(--color-bg-5);">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">MURA - Неравномерность</h2>
+                <p class="section-subtitle">Потери, которые устраняет Heijunka</p>
+            </div>
+
+            <div style="background: var(--color-surface); padding: var(--space-32); border-radius: var(--radius-lg); box-shadow: var(--shadow-md);">
+                <div style="text-align: center; margin-bottom: var(--space-32);">
+                    <div style="font-size: 72px; margin-bottom: var(--space-16);">斑</div>
+                    <h3 style="font-size: var(--font-size-3xl); color: var(--color-primary); margin-bottom: var(--space-8);">MURA (斑)</h3>
+                    <p style="font-size: var(--font-size-xl);">Unevenness / Variability / Неравномерность</p>
+                </div>
+
+                <div class="info-grid">
+                    <div class="info-card">
+                        <div class="info-label">Классификация</div>
+                        <div class="info-value">Одна из 3М (Muda/Muri/Mura)</div>
+                    </div>
+                    <div class="info-card">
+                        <div class="info-label">Причины</div>
+                        <div class="info-value">Вызывает Muri (перегрузку) в некоторые дни</div>
+                    </div>
+                    <div class="info-card">
+                        <div class="info-label">Антидот</div>
+                        <div class="info-value" style="color: var(--color-success);">Heijunka</div>
+                    </div>
+                </div>
+
+                <div style="margin-top: var(--space-32); padding: var(--space-24); background: var(--color-bg-3); border-radius: var(--radius-base); text-align: center;">
+                    <p style="font-size: var(--font-size-2xl); font-weight: var(--font-weight-bold); color: var(--color-success);">Устраняя Mura → Естественно устраняете Muri</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Success Metrics -->
+    <div class="section compact">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Измерение успеха Heijunka</h2>
+                <p class="section-subtitle">Метрики</p>
+            </div>
+
+            <div class="metrics-grid">
+                <div class="metric-card">
+                    <div class="metric-icon">🎯</div>
+                    <div class="metric-name">Plan achievement</div>
+                    <div class="metric-value">% дней на или близко к цели</div>
+                </div>
+                <div class="metric-card">
+                    <div class="metric-icon">🔄</div>
+                    <div class="metric-name">Mix variation</div>
+                    <div class="metric-value">Насколько факт соответствует плановой пропорции</div>
+                </div>
+                <div class="metric-card">
+                    <div class="metric-icon">📦</div>
+                    <div class="metric-name">WIP reduction</div>
+                    <div class="metric-value">Снижение запасов</div>
+                </div>
+                <div class="metric-card">
+                    <div class="metric-icon">⏱️</div>
+                    <div class="metric-name">Lead time</div>
+                    <div class="metric-value">Сокращение времени производственного цикла</div>
+                </div>
+                <div class="metric-card">
+                    <div class="metric-icon">✓</div>
+                    <div class="metric-name">Quality</div>
+                    <div class="metric-value">Меньше дефектов (от стабильного темпа)</div>
+                </div>
+                <div class="metric-card">
+                    <div class="metric-icon">🛡️</div>
+                    <div class="metric-name">Safety</div>
+                    <div class="metric-value">Меньше происшествий (не торопятся)</div>
+                </div>
+                <div class="metric-card">
+                    <div class="metric-icon">😊</div>
+                    <div class="metric-name">Morale</div>
+                    <div class="metric-value">Выше удовлетворенность команды</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Connection to Other Tools -->
+    <div class="section compact" style="background: var(--color-bg-1);">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Связь с другими Lean инструментами</h2>
+                <p class="section-subtitle">Как Heijunka способствует другим инструментам</p>
+            </div>
+
+            <div class="connection-grid">
+                <div class="connection-card">
+                    <div class="connection-tool">📦 Kanban</div>
+                    <p>Работает с выровненными коробками</p>
+                </div>
+                <div class="connection-card">
+                    <div class="connection-tool">🔄 PDCA</div>
+                    <p>Можно тестировать улучшения на стабильной базовой линии</p>
+                </div>
+                <div class="connection-card">
+                    <div class="connection-tool">⚙️ TPM</div>
+                    <p>Легче предсказать потребности в обслуживании</p>
+                </div>
+                <div class="connection-card">
+                    <div class="connection-tool">🧹 5S</div>
+                    <p>Проще когда нет хаоса</p>
+                </div>
+                <div class="connection-card">
+                    <div class="connection-tool">⏱️ Takt Time</div>
+                    <p>Становится реально достижимым ритмом</p>
+                </div>
+                <div class="connection-card">
+                    <div class="connection-tool">🎯 JIT</div>
+                    <p>Возможен только с выровненным производством</p>
+                </div>
+                <div class="connection-card">
+                    <div class="connection-tool">🚨 Jidoka</div>
+                    <p>Можно фокусироваться на качестве в стабильном состоянии</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Conclusion -->
+    <div class="section" style="background: var(--color-bg-8);">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Заключение</h2>
+                <p class="section-subtitle">Финальное сообщение</p>
+            </div>
+
+            <div class="conclusion-box">
+                <p class="conclusion-text">🐢 <strong>"Heijunka - это не о скорости"</strong></p>
+                <p class="conclusion-text">📊 <strong>"Heijunka - это о постоянстве"</strong></p>
+                <p class="conclusion-text">✓ <strong>"Выровненное побеждает быстро-хаотичное"</strong></p>
+                <p class="conclusion-text">🐰 <strong>"Черепаха побеждает зайца (в бизнесе)"</strong></p>
+                <p class="conclusion-text">🔄 <strong>"Малые частые изменения лучше больших потрясений"</strong></p>
+                <p class="conclusion-text" style="font-size: var(--font-size-3xl); color: var(--color-success); margin-top: var(--space-24);">🏆 <strong>"Предсказуемое производство делает возможным улучшение"</strong></p>
+            </div>
+
+            <div class="quote-box" style="margin-top: var(--space-32);">
+                <p class="quote-text">"Spread the work evenly"</p>
+                <p class="quote-author">— Taiichi Ohno</p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Toggle between traditional and heijunka approach
+        function toggleApproach(toggle) {
+            toggle.classList.toggle('active');
+            const traditional = document.getElementById('traditional-approach');
+            const heijunka = document.getElementById('heijunka-approach');
+            
+            if (toggle.classList.contains('active')) {
+                traditional.style.display = 'none';
+                heijunka.style.display = 'block';
+            } else {
+                traditional.style.display = 'block';
+                heijunka.style.display = 'none';
+            }
+        }
+
+        // Toggle implementation steps
+        function toggleStep(stepItem) {
+            stepItem.classList.toggle('expanded');
+        }
+
+        // Auto-expand first step on load
+        window.addEventListener('DOMContentLoaded', function() {
+            const firstStep = document.querySelector('.step-item');
+            if (firstStep) {
+                firstStep.classList.add('expanded');
+            }
+        });
+    </script>
+</body>
+</html>

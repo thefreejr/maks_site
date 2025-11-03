@@ -1,0 +1,2142 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KPI - Ключевые показатели эффективности</title>
+    <style>
+:root {
+  --color-white: rgba(255, 255, 255, 1);
+  --color-black: rgba(0, 0, 0, 1);
+  --color-cream-50: rgba(252, 252, 249, 1);
+  --color-cream-100: rgba(255, 255, 253, 1);
+  --color-gray-200: rgba(245, 245, 245, 1);
+  --color-gray-300: rgba(167, 169, 169, 1);
+  --color-gray-400: rgba(119, 124, 124, 1);
+  --color-slate-500: rgba(98, 108, 113, 1);
+  --color-brown-600: rgba(94, 82, 64, 1);
+  --color-charcoal-700: rgba(31, 33, 33, 1);
+  --color-charcoal-800: rgba(38, 40, 40, 1);
+  --color-slate-900: rgba(19, 52, 59, 1);
+  --color-teal-300: rgba(50, 184, 198, 1);
+  --color-teal-400: rgba(45, 166, 178, 1);
+  --color-teal-500: rgba(33, 128, 141, 1);
+  --color-teal-600: rgba(29, 116, 128, 1);
+  --color-teal-700: rgba(26, 104, 115, 1);
+  --color-teal-800: rgba(41, 150, 161, 1);
+  --color-red-400: rgba(255, 84, 89, 1);
+  --color-red-500: rgba(192, 21, 47, 1);
+  --color-orange-400: rgba(230, 129, 97, 1);
+  --color-orange-500: rgba(168, 75, 47, 1);
+
+  --color-brown-600-rgb: 94, 82, 64;
+  --color-teal-500-rgb: 33, 128, 141;
+  --color-slate-900-rgb: 19, 52, 59;
+  --color-slate-500-rgb: 98, 108, 113;
+  --color-red-500-rgb: 192, 21, 47;
+  --color-red-400-rgb: 255, 84, 89;
+  --color-orange-500-rgb: 168, 75, 47;
+  --color-orange-400-rgb: 230, 129, 97;
+
+  --color-bg-1: rgba(59, 130, 246, 0.08);
+  --color-bg-2: rgba(245, 158, 11, 0.08);
+  --color-bg-3: rgba(34, 197, 94, 0.08);
+  --color-bg-4: rgba(239, 68, 68, 0.08);
+  --color-bg-5: rgba(147, 51, 234, 0.08);
+  --color-bg-6: rgba(249, 115, 22, 0.08);
+  --color-bg-7: rgba(236, 72, 153, 0.08);
+  --color-bg-8: rgba(6, 182, 212, 0.08);
+
+  --color-background: var(--color-cream-50);
+  --color-surface: var(--color-cream-100);
+  --color-text: var(--color-slate-900);
+  --color-text-secondary: var(--color-slate-500);
+  --color-primary: var(--color-teal-500);
+  --color-primary-hover: var(--color-teal-600);
+  --color-primary-active: var(--color-teal-700);
+  --color-secondary: rgba(var(--color-brown-600-rgb), 0.12);
+  --color-secondary-hover: rgba(var(--color-brown-600-rgb), 0.2);
+  --color-secondary-active: rgba(var(--color-brown-600-rgb), 0.25);
+  --color-border: rgba(var(--color-brown-600-rgb), 0.2);
+  --color-btn-primary-text: var(--color-cream-50);
+  --color-card-border: rgba(var(--color-brown-600-rgb), 0.12);
+  --color-card-border-inner: rgba(var(--color-brown-600-rgb), 0.12);
+  --color-error: var(--color-red-500);
+  --color-success: var(--color-teal-500);
+  --color-warning: var(--color-orange-500);
+  --color-info: var(--color-slate-500);
+  --color-focus-ring: rgba(var(--color-teal-500-rgb), 0.4);
+
+  --font-family-base: "FKGroteskNeue", "Geist", "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  --font-size-xs: 11px;
+  --font-size-sm: 12px;
+  --font-size-base: 14px;
+  --font-size-md: 14px;
+  --font-size-lg: 16px;
+  --font-size-xl: 18px;
+  --font-size-2xl: 20px;
+  --font-size-3xl: 24px;
+  --font-size-4xl: 30px;
+  --font-weight-normal: 400;
+  --font-weight-medium: 500;
+  --font-weight-semibold: 550;
+  --font-weight-bold: 600;
+  --line-height-tight: 1.2;
+  --line-height-normal: 1.5;
+
+  --space-4: 4px;
+  --space-8: 8px;
+  --space-12: 12px;
+  --space-16: 16px;
+  --space-20: 20px;
+  --space-24: 24px;
+  --space-32: 32px;
+
+  --radius-sm: 6px;
+  --radius-base: 8px;
+  --radius-md: 10px;
+  --radius-lg: 12px;
+  --radius-full: 9999px;
+
+  --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.04), 0 1px 2px rgba(0, 0, 0, 0.02);
+  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.04), 0 2px 4px -1px rgba(0, 0, 0, 0.02);
+  --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.04), 0 4px 6px -2px rgba(0, 0, 0, 0.02);
+
+  --duration-fast: 150ms;
+  --duration-normal: 250ms;
+  --ease-standard: cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --color-gray-400-rgb: 119, 124, 124;
+    --color-teal-300-rgb: 50, 184, 198;
+    --color-gray-300-rgb: 167, 169, 169;
+    --color-gray-200-rgb: 245, 245, 245;
+
+    --color-bg-1: rgba(29, 78, 216, 0.15);
+    --color-bg-2: rgba(180, 83, 9, 0.15);
+    --color-bg-3: rgba(21, 128, 61, 0.15);
+    --color-bg-4: rgba(185, 28, 28, 0.15);
+    --color-bg-5: rgba(107, 33, 168, 0.15);
+    --color-bg-6: rgba(194, 65, 12, 0.15);
+    --color-bg-7: rgba(190, 24, 93, 0.15);
+    --color-bg-8: rgba(8, 145, 178, 0.15);
+
+    --color-background: var(--color-charcoal-700);
+    --color-surface: var(--color-charcoal-800);
+    --color-text: var(--color-gray-200);
+    --color-text-secondary: rgba(var(--color-gray-300-rgb), 0.7);
+    --color-primary: var(--color-teal-300);
+    --color-primary-hover: var(--color-teal-400);
+    --color-primary-active: var(--color-teal-800);
+    --color-secondary: rgba(var(--color-gray-400-rgb), 0.15);
+    --color-secondary-hover: rgba(var(--color-gray-400-rgb), 0.25);
+    --color-secondary-active: rgba(var(--color-gray-400-rgb), 0.3);
+    --color-border: rgba(var(--color-gray-400-rgb), 0.3);
+    --color-error: var(--color-red-400);
+    --color-success: var(--color-teal-300);
+    --color-warning: var(--color-orange-400);
+    --color-info: var(--color-gray-300);
+    --color-focus-ring: rgba(var(--color-teal-300-rgb), 0.4);
+    --color-btn-primary-text: var(--color-slate-900);
+    --color-card-border: rgba(var(--color-gray-400-rgb), 0.2);
+    --color-card-border-inner: rgba(var(--color-gray-400-rgb), 0.15);
+  }
+}
+
+@font-face {
+  font-family: 'FKGroteskNeue';
+  src: url('https://r2cdn.perplexity.ai/fonts/FKGroteskNeue.woff2') format('woff2');
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: var(--font-family-base);
+    background-color: var(--color-background);
+    color: var(--color-text);
+    line-height: var(--line-height-normal);
+    scroll-behavior: smooth;
+}
+
+.container {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 0 var(--space-32);
+}
+
+.section {
+    padding: 80px 0;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+}
+
+.section.compact {
+    min-height: auto;
+    padding: 60px 0;
+}
+
+/* Hero Section */
+.hero {
+    background: linear-gradient(135deg, var(--color-bg-1) 0%, var(--color-bg-2) 100%);
+    position: relative;
+    overflow: hidden;
+}
+
+.hero-content {
+    text-align: center;
+}
+
+.dashboard-icon {
+    font-size: 120px;
+    margin-bottom: var(--space-24);
+}
+
+.hero-title {
+    font-size: 120px;
+    font-weight: var(--font-weight-bold);
+    margin-bottom: var(--space-16);
+    letter-spacing: 0.05em;
+    color: var(--color-primary);
+}
+
+.hero-subtitle {
+    font-size: var(--font-size-3xl);
+    color: var(--color-text);
+    margin-bottom: var(--space-12);
+    font-weight: var(--font-weight-semibold);
+}
+
+.hero-translation {
+    font-size: var(--font-size-xl);
+    color: var(--color-text-secondary);
+    margin-bottom: var(--space-32);
+    font-style: italic;
+}
+
+.hero-message {
+    font-size: var(--font-size-2xl);
+    color: var(--color-text);
+    font-weight: var(--font-weight-bold);
+    padding: var(--space-32);
+    background: var(--color-surface);
+    border-radius: var(--radius-lg);
+    border-left: 6px solid var(--color-error);
+    max-width: 900px;
+    margin: var(--space-32) auto;
+    box-shadow: var(--shadow-lg);
+}
+
+.hero-tagline {
+    font-size: var(--font-size-2xl);
+    color: var(--color-primary);
+    margin-top: var(--space-24);
+    font-weight: var(--font-weight-bold);
+}
+
+.hero-quote {
+    font-size: var(--font-size-xl);
+    color: var(--color-warning);
+    margin-top: var(--space-16);
+    font-style: italic;
+    font-weight: var(--font-weight-medium);
+}
+
+/* Section Headers */
+.section-header {
+    text-align: center;
+    margin-bottom: var(--space-32);
+}
+
+.section-title {
+    font-size: 48px;
+    font-weight: var(--font-weight-bold);
+    margin-bottom: var(--space-16);
+    color: var(--color-primary);
+}
+
+.section-subtitle {
+    font-size: var(--font-size-2xl);
+    color: var(--color-text-secondary);
+}
+
+/* Definition Box */
+.definition-box {
+    background-color: var(--color-surface);
+    border-left: 6px solid var(--color-primary);
+    padding: var(--space-32);
+    border-radius: var(--radius-lg);
+    margin-bottom: var(--space-32);
+    box-shadow: var(--shadow-md);
+}
+
+.definition-text {
+    font-size: var(--font-size-xl);
+    line-height: 1.6;
+    margin-bottom: var(--space-16);
+}
+
+.definition-text:last-child {
+    margin-bottom: 0;
+}
+
+/* Info Grid */
+.info-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: var(--space-20);
+    margin: var(--space-32) 0;
+}
+
+.info-card {
+    background: var(--color-surface);
+    border-radius: var(--radius-lg);
+    padding: var(--space-24);
+    box-shadow: var(--shadow-md);
+    border-top: 4px solid var(--color-primary);
+}
+
+.info-label {
+    font-size: var(--font-size-sm);
+    color: var(--color-text-secondary);
+    text-transform: uppercase;
+    font-weight: var(--font-weight-medium);
+    margin-bottom: var(--space-8);
+}
+
+.info-value {
+    font-size: var(--font-size-xl);
+    font-weight: var(--font-weight-bold);
+    color: var(--color-text);
+}
+
+/* Comparison */
+.comparison {
+    display: grid;
+    grid-template-columns: 1fr auto 1fr;
+    gap: var(--space-32);
+    align-items: center;
+    margin: var(--space-32) 0;
+}
+
+.comparison-column {
+    padding: var(--space-24);
+    border-radius: var(--radius-lg);
+    border: 3px solid;
+}
+
+.comparison-column.before {
+    border-color: var(--color-error);
+    background: var(--color-bg-4);
+}
+
+.comparison-column.after {
+    border-color: var(--color-success);
+    background: var(--color-bg-3);
+}
+
+.comparison-header {
+    font-size: var(--font-size-2xl);
+    font-weight: var(--font-weight-bold);
+    margin-bottom: var(--space-16);
+    padding-bottom: var(--space-12);
+    border-bottom: 3px solid;
+}
+
+.comparison-column.before .comparison-header {
+    color: var(--color-error);
+    border-color: var(--color-error);
+}
+
+.comparison-column.after .comparison-header {
+    color: var(--color-success);
+    border-color: var(--color-success);
+}
+
+.comparison-arrow {
+    font-size: 48px;
+    color: var(--color-primary);
+}
+
+.comparison-list {
+    list-style: none;
+}
+
+.comparison-list li {
+    padding: var(--space-12);
+    margin-bottom: var(--space-8);
+    background: var(--color-surface);
+    border-radius: var(--radius-sm);
+}
+
+/* SMART Framework */
+.smart-grid {
+    display: grid;
+    gap: var(--space-20);
+    margin: var(--space-32) 0;
+}
+
+.smart-card {
+    background: var(--color-surface);
+    border-radius: var(--radius-lg);
+    padding: var(--space-32);
+    box-shadow: var(--shadow-md);
+    border-left: 6px solid var(--color-primary);
+}
+
+.smart-letter {
+    font-size: 60px;
+    font-weight: var(--font-weight-bold);
+    color: var(--color-primary);
+    margin-bottom: var(--space-12);
+}
+
+.smart-name {
+    font-size: var(--font-size-2xl);
+    font-weight: var(--font-weight-bold);
+    color: var(--color-text);
+    margin-bottom: var(--space-12);
+}
+
+.smart-meaning {
+    font-size: var(--font-size-lg);
+    color: var(--color-text-secondary);
+    margin-bottom: var(--space-16);
+    font-style: italic;
+}
+
+.smart-examples {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--space-16);
+    margin: var(--space-16) 0;
+}
+
+.smart-wrong {
+    background: var(--color-bg-4);
+    padding: var(--space-16);
+    border-radius: var(--radius-base);
+    border-left: 3px solid var(--color-error);
+}
+
+.smart-right {
+    background: var(--color-bg-3);
+    padding: var(--space-16);
+    border-radius: var(--radius-base);
+    border-left: 3px solid var(--color-success);
+}
+
+.smart-question {
+    background: var(--color-bg-1);
+    padding: var(--space-16);
+    border-radius: var(--radius-base);
+    margin-top: var(--space-16);
+    font-weight: var(--font-weight-bold);
+    color: var(--color-primary);
+    text-align: center;
+}
+
+/* Balanced Scorecard */
+.scorecard-nav {
+    display: flex;
+    justify-content: center;
+    gap: var(--space-16);
+    margin-bottom: var(--space-32);
+    flex-wrap: wrap;
+}
+
+.scorecard-btn {
+    padding: var(--space-16) var(--space-24);
+    font-size: var(--font-size-lg);
+    font-weight: var(--font-weight-bold);
+    border: 2px solid var(--color-primary);
+    border-radius: var(--radius-base);
+    cursor: pointer;
+    transition: all var(--duration-normal) var(--ease-standard);
+    background: var(--color-surface);
+    color: var(--color-text);
+}
+
+.scorecard-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-lg);
+}
+
+.scorecard-btn.active {
+    background: var(--color-primary);
+    color: var(--color-btn-primary-text);
+    box-shadow: 0 0 20px rgba(var(--color-teal-500-rgb), 0.4);
+}
+
+.scorecard-content {
+    display: none;
+}
+
+.scorecard-content.active {
+    display: block;
+}
+
+.scorecard-card {
+    background: var(--color-surface);
+    border-radius: var(--radius-lg);
+    padding: var(--space-32);
+    box-shadow: var(--shadow-lg);
+    border-left: 6px solid var(--color-primary);
+}
+
+.scorecard-name {
+    font-size: var(--font-size-4xl);
+    font-weight: var(--font-weight-bold);
+    color: var(--color-primary);
+    margin-bottom: var(--space-16);
+}
+
+.scorecard-focus {
+    font-size: var(--font-size-xl);
+    color: var(--color-text-secondary);
+    margin-bottom: var(--space-24);
+    font-style: italic;
+}
+
+.scorecard-section {
+    margin-top: var(--space-24);
+    padding: var(--space-20);
+    background: var(--color-bg-1);
+    border-radius: var(--radius-base);
+}
+
+.scorecard-section h4 {
+    font-size: var(--font-size-xl);
+    color: var(--color-primary);
+    margin-bottom: var(--space-12);
+}
+
+.scorecard-section ul {
+    list-style: none;
+}
+
+.scorecard-section li {
+    padding: var(--space-12);
+    margin-bottom: var(--space-8);
+    background: var(--color-surface);
+    border-radius: var(--radius-sm);
+    border-left: 3px solid var(--color-primary);
+}
+
+/* KPI Examples */
+.kpi-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: var(--space-20);
+    margin: var(--space-32) 0;
+}
+
+.kpi-card {
+    background: var(--color-surface);
+    border-radius: var(--radius-lg);
+    padding: var(--space-24);
+    box-shadow: var(--shadow-md);
+    border-top: 4px solid;
+}
+
+.kpi-card.safety { border-color: #3B82F6; background: var(--color-bg-1); }
+.kpi-card.quality { border-color: #10B981; background: var(--color-bg-3); }
+.kpi-card.productivity { border-color: #F59E0B; background: var(--color-bg-2); }
+.kpi-card.efficiency { border-color: #8B5CF6; background: var(--color-bg-5); }
+.kpi-card.cost { border-color: #EF4444; background: var(--color-bg-4); }
+
+.kpi-name {
+    font-size: var(--font-size-xl);
+    font-weight: var(--font-weight-bold);
+    color: var(--color-primary);
+    margin-bottom: var(--space-12);
+}
+
+.kpi-metric {
+    font-size: var(--font-size-lg);
+    font-weight: var(--font-weight-semibold);
+    color: var(--color-text);
+    margin-bottom: var(--space-8);
+}
+
+.kpi-detail {
+    font-size: var(--font-size-base);
+    color: var(--color-text-secondary);
+    margin-bottom: var(--space-8);
+}
+
+.kpi-target {
+    background: var(--color-surface);
+    padding: var(--space-12);
+    border-radius: var(--radius-sm);
+    margin-top: var(--space-12);
+    font-weight: var(--font-weight-bold);
+    color: var(--color-success);
+}
+
+.kpi-trending {
+    margin-top: var(--space-8);
+    font-size: var(--font-size-sm);
+    color: var(--color-primary);
+}
+
+/* Office KPIs */
+.office-categories {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: var(--space-20);
+    margin: var(--space-32) 0;
+}
+
+.office-category {
+    background: var(--color-surface);
+    border-radius: var(--radius-lg);
+    padding: var(--space-24);
+    box-shadow: var(--shadow-md);
+    border-left: 4px solid var(--color-primary);
+}
+
+.office-category h3 {
+    font-size: var(--font-size-xl);
+    font-weight: var(--font-weight-bold);
+    color: var(--color-primary);
+    margin-bottom: var(--space-16);
+}
+
+.office-category ul {
+    list-style: none;
+}
+
+.office-category li {
+    padding: var(--space-12);
+    margin-bottom: var(--space-8);
+    background: var(--color-bg-1);
+    border-radius: var(--radius-sm);
+}
+
+/* Process Steps */
+.process-steps {
+    margin: var(--space-32) 0;
+}
+
+.process-step {
+    background: var(--color-surface);
+    border-radius: var(--radius-lg);
+    padding: var(--space-24);
+    margin-bottom: var(--space-20);
+    box-shadow: var(--shadow-md);
+    border-left: 6px solid var(--color-primary);
+}
+
+.process-step h3 {
+    font-size: var(--font-size-2xl);
+    font-weight: var(--font-weight-bold);
+    color: var(--color-primary);
+    margin-bottom: var(--space-16);
+}
+
+.process-step ul {
+    list-style: none;
+}
+
+.process-step li {
+    padding: var(--space-8);
+    margin-bottom: var(--space-4);
+    background: var(--color-bg-1);
+    border-radius: var(--radius-sm);
+}
+
+/* Indicator Comparison */
+.indicator-comparison {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--space-20);
+    margin: var(--space-32) 0;
+}
+
+.indicator-card {
+    background: var(--color-surface);
+    border-radius: var(--radius-lg);
+    padding: var(--space-32);
+    box-shadow: var(--shadow-md);
+    border-top: 6px solid;
+}
+
+.indicator-card.lagging { border-color: var(--color-warning); background: var(--color-bg-2); }
+.indicator-card.leading { border-color: var(--color-success); background: var(--color-bg-3); }
+
+.indicator-card h3 {
+    font-size: var(--font-size-2xl);
+    font-weight: var(--font-weight-bold);
+    margin-bottom: var(--space-16);
+}
+
+.indicator-card.lagging h3 { color: var(--color-warning); }
+.indicator-card.leading h3 { color: var(--color-success); }
+
+/* Mistakes Grid */
+.mistakes-grid {
+    display: grid;
+    gap: var(--space-20);
+    margin: var(--space-32) 0;
+}
+
+.mistake-card {
+    background: var(--color-surface);
+    border-left: 4px solid var(--color-error);
+    border-radius: var(--radius-lg);
+    padding: var(--space-24);
+    box-shadow: var(--shadow-sm);
+}
+
+.mistake-title {
+    font-size: var(--font-size-xl);
+    font-weight: var(--font-weight-semibold);
+    color: var(--color-error);
+    margin-bottom: var(--space-12);
+}
+
+.mistake-comparison {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: var(--space-16);
+    margin-top: var(--space-12);
+}
+
+.mistake-wrong {
+    background: var(--color-bg-4);
+    padding: var(--space-12);
+    border-radius: var(--radius-base);
+    border-left: 3px solid var(--color-error);
+}
+
+.mistake-right {
+    background: var(--color-bg-3);
+    padding: var(--space-12);
+    border-radius: var(--radius-base);
+    border-left: 3px solid var(--color-success);
+}
+
+.mistake-result {
+    background: var(--color-bg-1);
+    padding: var(--space-12);
+    border-radius: var(--radius-base);
+    border-left: 3px solid var(--color-primary);
+    font-weight: var(--font-weight-bold);
+}
+
+/* Review Cycle */
+.review-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: var(--space-20);
+    margin: var(--space-32) 0;
+}
+
+.review-card {
+    background: var(--color-surface);
+    border-radius: var(--radius-lg);
+    padding: var(--space-24);
+    box-shadow: var(--shadow-md);
+    border-top: 4px solid;
+}
+
+.review-card.daily { border-color: #EF4444; background: var(--color-bg-4); }
+.review-card.weekly { border-color: #F59E0B; background: var(--color-bg-2); }
+.review-card.monthly { border-color: #10B981; background: var(--color-bg-3); }
+.review-card.quarterly { border-color: #8B5CF6; background: var(--color-bg-5); }
+
+.review-card h3 {
+    font-size: var(--font-size-2xl);
+    font-weight: var(--font-weight-bold);
+    margin-bottom: var(--space-16);
+}
+
+.review-card.daily h3 { color: #EF4444; }
+.review-card.weekly h3 { color: #F59E0B; }
+.review-card.monthly h3 { color: #10B981; }
+.review-card.quarterly h3 { color: #8B5CF6; }
+
+.review-card ul {
+    list-style: none;
+}
+
+.review-card li {
+    padding: var(--space-8);
+    margin-bottom: var(--space-4);
+    background: var(--color-surface);
+    border-radius: var(--radius-sm);
+}
+
+/* Dashboard Display */
+.dashboard-types {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--space-32);
+    margin: var(--space-32) 0;
+}
+
+.dashboard-type {
+    background: var(--color-surface);
+    border-radius: var(--radius-lg);
+    padding: var(--space-32);
+    box-shadow: var(--shadow-md);
+    border-left: 6px solid var(--color-primary);
+}
+
+.dashboard-type h3 {
+    font-size: var(--font-size-2xl);
+    font-weight: var(--font-weight-bold);
+    color: var(--color-primary);
+    margin-bottom: var(--space-16);
+}
+
+.dashboard-type ul {
+    list-style: none;
+}
+
+.dashboard-type li {
+    padding: var(--space-12);
+    margin-bottom: var(--space-8);
+    background: var(--color-bg-1);
+    border-radius: var(--radius-sm);
+}
+
+/* Connection Cards */
+.connection-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: var(--space-20);
+    margin: var(--space-32) 0;
+}
+
+.connection-card {
+    background: var(--color-surface);
+    padding: var(--space-20);
+    border-radius: var(--radius-base);
+    border-left: 4px solid var(--color-primary);
+    box-shadow: var(--shadow-sm);
+}
+
+.connection-tool {
+    font-size: var(--font-size-lg);
+    font-weight: var(--font-weight-bold);
+    color: var(--color-primary);
+    margin-bottom: var(--space-8);
+}
+
+/* Timeline */
+.timeline {
+    position: relative;
+    margin: var(--space-32) 0;
+    padding-left: 80px;
+}
+
+.timeline::before {
+    content: '';
+    position: absolute;
+    left: 30px;
+    top: 0;
+    bottom: 0;
+    width: 4px;
+    background: var(--color-primary);
+}
+
+.timeline-item {
+    position: relative;
+    margin-bottom: var(--space-32);
+    padding: var(--space-24);
+    background: var(--color-surface);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-md);
+}
+
+.timeline-marker {
+    position: absolute;
+    left: -62px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 60px;
+    height: 60px;
+    background: var(--color-primary);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-weight: var(--font-weight-bold);
+    font-size: var(--font-size-xl);
+    box-shadow: 0 0 0 6px var(--color-background);
+}
+
+.timeline-title {
+    font-size: var(--font-size-2xl);
+    font-weight: var(--font-weight-bold);
+    color: var(--color-primary);
+    margin-bottom: var(--space-12);
+}
+
+.timeline-item ul {
+    list-style: none;
+}
+
+.timeline-item li {
+    padding: var(--space-8);
+    margin-bottom: var(--space-4);
+    background: var(--color-bg-1);
+    border-radius: var(--radius-sm);
+}
+
+/* Example Journey */
+.example-box {
+    background: var(--color-surface);
+    border-radius: var(--radius-lg);
+    padding: var(--space-32);
+    box-shadow: var(--shadow-md);
+    margin: var(--space-32) 0;
+}
+
+.example-header {
+    text-align: center;
+    padding: var(--space-24);
+    background: var(--color-bg-2);
+    border-radius: var(--radius-base);
+    margin-bottom: var(--space-24);
+}
+
+.example-title {
+    font-size: var(--font-size-3xl);
+    font-weight: var(--font-weight-bold);
+    color: var(--color-primary);
+}
+
+.example-phase {
+    margin-bottom: var(--space-24);
+    padding: var(--space-20);
+    background: var(--color-bg-1);
+    border-radius: var(--radius-base);
+    border-left: 4px solid var(--color-primary);
+}
+
+.example-phase h3 {
+    font-size: var(--font-size-2xl);
+    color: var(--color-primary);
+    margin-bottom: var(--space-12);
+}
+
+.metric-progress {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: var(--space-16);
+    margin-top: var(--space-16);
+}
+
+.metric-item {
+    background: var(--color-surface);
+    padding: var(--space-16);
+    border-radius: var(--radius-base);
+    text-align: center;
+}
+
+.metric-item strong {
+    display: block;
+    font-size: var(--font-size-lg);
+    margin-bottom: var(--space-8);
+}
+
+/* Quote Box */
+.quote-box {
+    background: var(--color-surface);
+    border-left: 6px solid var(--color-warning);
+    border-radius: var(--radius-lg);
+    padding: var(--space-32);
+    margin: var(--space-32) 0;
+    box-shadow: var(--shadow-lg);
+    text-align: center;
+}
+
+.quote-text {
+    font-size: var(--font-size-3xl);
+    font-style: italic;
+    color: var(--color-text);
+    margin-bottom: var(--space-16);
+    line-height: 1.6;
+}
+
+.quote-author {
+    font-size: var(--font-size-xl);
+    color: var(--color-warning);
+    font-weight: var(--font-weight-bold);
+}
+
+/* Red Flags */
+.flag-list {
+    list-style: none;
+    margin: var(--space-32) 0;
+}
+
+.flag-item {
+    background: var(--color-bg-4);
+    padding: var(--space-20);
+    margin-bottom: var(--space-12);
+    border-radius: var(--radius-base);
+    border-left: 4px solid var(--color-error);
+    font-size: var(--font-size-lg);
+}
+
+/* Conclusion Box */
+.conclusion-box {
+    background: var(--color-bg-1);
+    padding: var(--space-32);
+    border-radius: var(--radius-lg);
+    text-align: center;
+    margin: var(--space-32) 0;
+    border: 3px solid var(--color-primary);
+}
+
+.conclusion-text {
+    font-size: var(--font-size-2xl);
+    line-height: 1.8;
+    margin-bottom: var(--space-16);
+    font-weight: var(--font-weight-medium);
+}
+
+/* Status Badge */
+.status-badge {
+    display: inline-block;
+    padding: var(--space-8) var(--space-16);
+    border-radius: var(--radius-full);
+    font-weight: var(--font-weight-bold);
+    font-size: var(--font-size-sm);
+    margin-left: var(--space-8);
+}
+
+.status-badge.green {
+    background: var(--color-bg-3);
+    color: var(--color-success);
+    border: 2px solid var(--color-success);
+}
+
+.status-badge.yellow {
+    background: var(--color-bg-2);
+    color: var(--color-warning);
+    border: 2px solid var(--color-warning);
+}
+
+.status-badge.red {
+    background: var(--color-bg-4);
+    color: var(--color-error);
+    border: 2px solid var(--color-error);
+}
+
+/* Responsive */
+@media (max-width: 1024px) {
+    .hero-title { font-size: 80px; }
+    .comparison,
+    .mistake-comparison,
+    .indicator-comparison,
+    .dashboard-types {
+        grid-template-columns: 1fr;
+        gap: var(--space-16);
+    }
+    .comparison-arrow {
+        transform: rotate(90deg);
+    }
+}
+
+@media (max-width: 768px) {
+    .hero-title { font-size: 60px; }
+    .section-title { font-size: 36px; }
+    .container { padding: 0 var(--space-16); }
+    .section { padding: 40px 0; }
+    .section.compact { padding: 30px 0; }
+    .scorecard-nav { flex-direction: column; }
+    .scorecard-btn { width: 100%; }
+    .timeline {
+        padding-left: 60px;
+    }
+    .timeline::before {
+        left: 20px;
+    }
+    .timeline-marker {
+        left: -52px;
+        width: 40px;
+        height: 40px;
+        font-size: var(--font-size-base);
+    }
+    .smart-examples {
+        grid-template-columns: 1fr;
+    }
+}
+    </style>
+</head>
+<body>
+    <!-- Hero Section -->
+    <div class="hero section">
+        <div class="container">
+            <div class="hero-content">
+                <div class="dashboard-icon">📊</div>
+                <h1 class="hero-title">KPI</h1>
+                <p class="hero-subtitle">Ключевые показатели эффективности - Что измеряем, то улучшаем</p>
+                <p class="hero-translation">Key Performance Indicators - What Gets Measured Gets Managed</p>
+                <div class="hero-message">
+                    Вы не можете улучшить то, что вы не измеряете
+                </div>
+                <p class="hero-tagline">Данные, которые преобразуют бизнес</p>
+                <p class="hero-quote">"In God we trust, all others must bring data" — W. Edwards Deming</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- What is KPI -->
+    <div class="section compact">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Что такое KPI?</h2>
+                <p class="section-subtitle">Ключевые показатели эффективности</p>
+            </div>
+
+            <div class="definition-box">
+                <p class="definition-text"><strong>KPI (Key Performance Indicators) - это ключевые показатели, которые помогают организации определить достижение стратегических и тактических целей</strong></p>
+                <p class="definition-text" style="font-size: var(--font-size-lg); color: var(--color-text-secondary); margin-top: var(--space-16);">Quantifiable measures that show how effectively you achieve business objectives</p>
+            </div>
+
+            <div class="info-grid">
+                <div class="info-card">
+                    <div class="info-label">Цель</div>
+                    <div class="info-value">Link individual/team actions to company strategy</div>
+                </div>
+                <div class="info-card">
+                    <div class="info-label">Основной принцип</div>
+                    <div class="info-value" style="color: var(--color-primary);">"What gets measured gets done"</div>
+                </div>
+                <div class="info-card">
+                    <div class="info-label">Реальность</div>
+                    <div class="info-value" style="color: var(--color-error);">70% компаний не измеряют правильные KPI</div>
+                </div>
+            </div>
+
+            <div style="margin-top: var(--space-32); padding: var(--space-24); background: var(--color-surface); border-radius: var(--radius-lg); box-shadow: var(--shadow-md);">
+                <h3 style="text-align: center; font-size: var(--font-size-2xl); color: var(--color-primary); margin-bottom: var(--space-16);">Фокусные области в Lean:</h3>
+                <div class="info-grid">
+                    <div class="info-card">
+                        <div class="info-value">Performance (производительность)</div>
+                    </div>
+                    <div class="info-card">
+                        <div class="info-value">Quality (качество)</div>
+                    </div>
+                    <div class="info-card">
+                        <div class="info-value">Efficiency (эффективность)</div>
+                    </div>
+                    <div class="info-card">
+                        <div class="info-value">Cost (стоимость)</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Why KPI Matters -->
+    <div class="section compact" style="background: var(--color-bg-2);">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Почему KPI важен?</h2>
+                <p class="section-subtitle">Императив измерения</p>
+            </div>
+
+            <div class="comparison">
+                <div class="comparison-column before">
+                    <div class="comparison-header">❌ Без KPI</div>
+                    <ul class="comparison-list">
+                        <li>Не знаешь улучшается ли</li>
+                        <li>Решение на интуиции</li>
+                        <li>Не видно прогресса</li>
+                        <li>Сложно мотивировать</li>
+                        <li>Проблемы скрыты</li>
+                    </ul>
+                </div>
+                <div class="comparison-arrow">→</div>
+                <div class="comparison-column after">
+                    <div class="comparison-header">✓ С KPI</div>
+                    <ul class="comparison-list">
+                        <li>Ясная видимость прогресса</li>
+                        <li>Решения на основе данных</li>
+                        <li>Все знают цели</li>
+                        <li>Мотивация через целевые значения</li>
+                        <li>Проблемы видны сразу</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div style="margin-top: var(--space-32); padding: var(--space-32); background: var(--color-surface); border-radius: var(--radius-lg); box-shadow: var(--shadow-md);">
+                <h3 style="text-align: center; font-size: var(--font-size-3xl); color: var(--color-primary); margin-bottom: var(--space-24);">Реальное влияние</h3>
+                <div class="info-grid">
+                    <div class="info-card">
+                        <div class="info-label">Компании с KPI</div>
+                        <div class="info-value" style="color: var(--color-success);">+30% производительность</div>
+                    </div>
+                    <div class="info-card">
+                        <div class="info-label">Компании без KPI</div>
+                        <div class="info-value" style="color: var(--color-error);">-15% производительность (дрейф)</div>
+                    </div>
+                    <div class="info-card">
+                        <div class="info-label">Lean + KPI вместе</div>
+                        <div class="info-value" style="color: var(--color-success);">+40-60% улучшения</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- SMART Framework -->
+    <div class="section compact">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Фреймворк SMART</h2>
+                <p class="section-subtitle">Как правильно устанавливать KPI</p>
+            </div>
+
+            <div class="smart-grid">
+                <!-- S - Specific -->
+                <div class="smart-card">
+                    <div class="smart-letter">S</div>
+                    <div class="smart-name">Specific - Конкретность</div>
+                    <div class="smart-meaning">Goal must be clear and unambiguous</div>
+                    <p style="margin-bottom: var(--space-12);">Everyone understands the same way</p>
+                    
+                    <div class="smart-examples">
+                        <div class="smart-wrong">
+                            <strong style="color: var(--color-error);">❌ Неправильно:</strong>
+                            <p>"Improve quality"</p>
+                        </div>
+                        <div class="smart-right">
+                            <strong style="color: var(--color-success);">✓ Правильно:</strong>
+                            <p>"Reduce defect rate"</p>
+                        </div>
+                    </div>
+                    
+                    <div class="smart-question">❓ What exactly do we want to achieve?</div>
+                </div>
+
+                <!-- M - Measurable -->
+                <div class="smart-card">
+                    <div class="smart-letter">M</div>
+                    <div class="smart-name">Measurable - Измеримость</div>
+                    <div class="smart-meaning">Must have a number attached</div>
+                    <p style="margin-bottom: var(--space-12);">Can track progress</p>
+                    
+                    <div class="smart-examples">
+                        <div class="smart-wrong">
+                            <strong style="color: var(--color-error);">❌ Неправильно:</strong>
+                            <p>"Reduce defects"</p>
+                        </div>
+                        <div class="smart-right">
+                            <strong style="color: var(--color-success);">✓ Правильно:</strong>
+                            <p>"Reduce defects from 3% to 1%"</p>
+                        </div>
+                    </div>
+                    
+                    <div class="smart-question">❓ How will we know we succeeded?</div>
+                </div>
+
+                <!-- A - Achievable -->
+                <div class="smart-card">
+                    <div class="smart-letter">A</div>
+                    <div class="smart-name">Achievable - Достижимость</div>
+                    <div class="smart-meaning">Goal must be realistic</div>
+                    <p style="margin-bottom: var(--space-12);">Use historical data</p>
+                    <p style="margin-bottom: var(--space-12); font-weight: var(--font-weight-bold); color: var(--color-primary);">Balance: Not too easy (boring), not too hard (demotivating)</p>
+                    
+                    <div class="smart-question">❓ Do we have resources to achieve this?</div>
+                </div>
+
+                <!-- R - Relevant -->
+                <div class="smart-card">
+                    <div class="smart-letter">R</div>
+                    <div class="smart-name">Relevant - Значимость</div>
+                    <div class="smart-meaning">Goal must align with company strategy</div>
+                    <p style="margin-bottom: var(--space-12);">Contribute to bigger objectives</p>
+                    
+                    <div class="smart-examples">
+                        <div class="smart-wrong">
+                            <strong style="color: var(--color-error);">❌ Неправильно:</strong>
+                            <p>Improve something not important</p>
+                        </div>
+                        <div class="smart-right">
+                            <strong style="color: var(--color-success);">✓ Правильно:</strong>
+                            <p>Improve something tied to profit</p>
+                        </div>
+                    </div>
+                    
+                    <div class="smart-question">❓ Does this support our strategy?</div>
+                </div>
+
+                <!-- T - Time-bound -->
+                <div class="smart-card">
+                    <div class="smart-letter">T</div>
+                    <div class="smart-name">Time-bound - Ограничено по времени</div>
+                    <div class="smart-meaning">Must have a deadline</div>
+                    <p style="margin-bottom: var(--space-12);">Not vague like "eventually"</p>
+                    <p style="margin-bottom: var(--space-12); font-weight: var(--font-weight-bold); color: var(--color-primary);">Optimal period: 3 months, 6 months, 1 year</p>
+                    <p style="margin-bottom: var(--space-12);">Creates urgency and accountability</p>
+                    
+                    <div class="smart-question">❓ By when must we achieve this?</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Balanced Scorecard -->
+    <div class="section compact" style="background: var(--color-bg-3);">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Balanced Scorecard</h2>
+                <p class="section-subtitle">Четыре перспективы</p>
+            </div>
+
+            <div class="scorecard-nav">
+                <button class="scorecard-btn active" onclick="showScorecard('financial')">💰 FINANCIAL</button>
+                <button class="scorecard-btn" onclick="showScorecard('customer')">👥 CUSTOMER</button>
+                <button class="scorecard-btn" onclick="showScorecard('process')">⚙️ INTERNAL PROCESS</button>
+                <button class="scorecard-btn" onclick="showScorecard('growth')">📚 LEARNING &amp; GROWTH</button>
+            </div>
+
+            <!-- Financial Perspective -->
+            <div id="scorecard-financial" class="scorecard-content active">
+                <div class="scorecard-card">
+                    <div class="scorecard-name">💰 Perspective 1: FINANCIAL (Финансовая)</div>
+                    <div class="scorecard-focus">Focus: Money, profitability, growth</div>
+                    
+                    <div class="scorecard-section">
+                        <h4>Типичные KPI:</h4>
+                        <ul>
+                            <li>Revenue (выручка)</li>
+                            <li>Profit margin (рентабельность)</li>
+                            <li>Cost reduction (снижение затрат)</li>
+                            <li>Return on investment (ROI)</li>
+                            <li>Cash flow (денежный поток)</li>
+                        </ul>
+                    </div>
+                    
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-16); margin-top: var(--space-24);">
+                        <div style="background: var(--color-bg-1); padding: var(--space-16); border-radius: var(--radius-base);">
+                            <strong>Owner:</strong> CFO, Finance team
+                        </div>
+                        <div style="background: var(--color-bg-2); padding: var(--space-16); border-radius: var(--radius-base);">
+                            <strong>Review:</strong> Monthly/Quarterly
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Customer Perspective -->
+            <div id="scorecard-customer" class="scorecard-content">
+                <div class="scorecard-card">
+                    <div class="scorecard-name">👥 Perspective 2: CUSTOMER (Клиенты)</div>
+                    <div class="scorecard-focus">Focus: How customers see us, satisfaction</div>
+                    
+                    <div class="scorecard-section">
+                        <h4>Типичные KPI:</h4>
+                        <ul>
+                            <li>Customer satisfaction (удовлетворенность)</li>
+                            <li>Net Promoter Score (NPS)</li>
+                            <li>On-time delivery (вовремя доставка)</li>
+                            <li>Defect rate from customer perspective</li>
+                            <li>Customer retention (удержание)</li>
+                        </ul>
+                    </div>
+                    
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-16); margin-top: var(--space-24);">
+                        <div style="background: var(--color-bg-1); padding: var(--space-16); border-radius: var(--radius-base);">
+                            <strong>Owner:</strong> Sales, Customer Service
+                        </div>
+                        <div style="background: var(--color-bg-2); padding: var(--space-16); border-radius: var(--radius-base);">
+                            <strong>Review:</strong> Monthly
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Internal Process Perspective -->
+            <div id="scorecard-process" class="scorecard-content">
+                <div class="scorecard-card">
+                    <div class="scorecard-name">⚙️ Perspective 3: INTERNAL PROCESS (Внутренние процессы)</div>
+                    <div class="scorecard-focus">Focus: How well our operations work</div>
+                    
+                    <div class="scorecard-section">
+                        <h4>Типичные KPI:</h4>
+                        <ul>
+                            <li>Production efficiency (эффективность)</li>
+                            <li>Cycle time (время цикла)</li>
+                            <li>Defect rate (процент брака)</li>
+                            <li>Equipment uptime (доступность)</li>
+                            <li>Waste reduction (снижение отходов)</li>
+                        </ul>
+                    </div>
+                    
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-16); margin-top: var(--space-24);">
+                        <div style="background: var(--color-bg-1); padding: var(--space-16); border-radius: var(--radius-base);">
+                            <strong>Owner:</strong> Operations, Production
+                        </div>
+                        <div style="background: var(--color-bg-2); padding: var(--space-16); border-radius: var(--radius-base);">
+                            <strong>Review:</strong> Daily/Weekly
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Learning & Growth Perspective -->
+            <div id="scorecard-growth" class="scorecard-content">
+                <div class="scorecard-card">
+                    <div class="scorecard-name">📚 Perspective 4: LEARNING &amp; GROWTH (Обучение и развитие)</div>
+                    <div class="scorecard-focus">Focus: People, capability, innovation</div>
+                    
+                    <div class="scorecard-section">
+                        <h4>Типичные KPI:</h4>
+                        <ul>
+                            <li>Employee satisfaction (удовлетворенность)</li>
+                            <li>Training hours (часы обучения)</li>
+                            <li>Retention rate (удержание кадров)</li>
+                            <li>Skills development (развитие навыков)</li>
+                            <li>Suggestion implementation (внедрение предложений)</li>
+                        </ul>
+                    </div>
+                    
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-16); margin-top: var(--space-24);">
+                        <div style="background: var(--color-bg-1); padding: var(--space-16); border-radius: var(--radius-base);">
+                            <strong>Owner:</strong> HR, Management
+                        </div>
+                        <div style="background: var(--color-bg-2); padding: var(--space-16); border-radius: var(--radius-base);">
+                            <strong>Review:</strong> Quarterly
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Manufacturing KPI Examples -->
+    <div class="section compact">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Примеры KPI: Производство</h2>
+                <p class="section-subtitle">Реальные метрики с целевыми значениями</p>
+            </div>
+
+            <div class="kpi-grid">
+                <div class="kpi-card safety">
+                    <div class="kpi-name">🛡️ Safety KPIs</div>
+                    <div class="kpi-metric">Lost Time Incident Rate (LTIR)</div>
+                    <div class="kpi-detail">number of injuries per 200,000 hours</div>
+                    <div class="kpi-target">🎯 Target: Zero incidents</div>
+                    <div class="kpi-trending">📉 Trending: Should decrease</div>
+                </div>
+
+                <div class="kpi-card quality">
+                    <div class="kpi-name">✓ Quality KPIs</div>
+                    <div class="kpi-metric">Defect rate</div>
+                    <div class="kpi-detail">% of products defective</div>
+                    <div class="kpi-target">🎯 Target: &lt; 0.5%</div>
+                    <div class="kpi-trending">📉 Trending: Should decrease</div>
+                </div>
+
+                <div class="kpi-card productivity">
+                    <div class="kpi-name">⚡ Productivity KPIs</div>
+                    <div class="kpi-metric">Output per hour</div>
+                    <div class="kpi-detail">units produced per labor hour</div>
+                    <div class="kpi-target">🎯 Target: Increase by 10%</div>
+                    <div class="kpi-trending">📈 Trending: Should increase</div>
+                </div>
+
+                <div class="kpi-card efficiency">
+                    <div class="kpi-name">⚙️ Efficiency KPIs</div>
+                    <div class="kpi-metric">Equipment uptime</div>
+                    <div class="kpi-detail">% of time equipment works</div>
+                    <div class="kpi-target">🎯 Target: &gt; 95%</div>
+                    <div class="kpi-trending">📈 Trending: Should increase</div>
+                </div>
+
+                <div class="kpi-card cost">
+                    <div class="kpi-name">💰 Cost KPIs</div>
+                    <div class="kpi-metric">Cost per unit</div>
+                    <div class="kpi-detail">total production cost divided by units</div>
+                    <div class="kpi-target">🎯 Target: Decrease by 5%</div>
+                    <div class="kpi-trending">📉 Trending: Should decrease</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Office/Service KPI Examples -->
+    <div class="section compact" style="background: var(--color-bg-5);">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Примеры KPI: Офис/Сервис</h2>
+                <p class="section-subtitle">Разные среды, разные метрики</p>
+            </div>
+
+            <div class="office-categories">
+                <div class="office-category">
+                    <h3>📋 Project Management</h3>
+                    <ul>
+                        <li>On-time delivery rate (%)</li>
+                        <li>Budget variance (%)</li>
+                        <li>Quality score (1-10)</li>
+                    </ul>
+                </div>
+
+                <div class="office-category">
+                    <h3>💼 Sales</h3>
+                    <ul>
+                        <li>Conversion rate (%)</li>
+                        <li>Average deal size ($)</li>
+                        <li>Sales cycle length (days)</li>
+                    </ul>
+                </div>
+
+                <div class="office-category">
+                    <h3>📞 Customer Service</h3>
+                    <ul>
+                        <li>Response time (minutes)</li>
+                        <li>First contact resolution (%)</li>
+                        <li>Customer satisfaction (NPS)</li>
+                    </ul>
+                </div>
+
+                <div class="office-category">
+                    <h3>💻 IT/Development</h3>
+                    <ul>
+                        <li>Deployment frequency (times/week)</li>
+                        <li>Bug escape rate (%)</li>
+                        <li>System uptime (%)</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- KPI Selection Process -->
+    <div class="section compact">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Процесс выбора KPI</h2>
+                <p class="section-subtitle">Как выбрать что измерять</p>
+            </div>
+
+            <div class="process-steps">
+                <div class="process-step">
+                    <h3>🎯 Step 1: Understand Strategy</h3>
+                    <ul>
+                        <li>What are company's top 3 strategic goals?</li>
+                        <li>Where do we want to be in 5 years?</li>
+                        <li>What's our competitive advantage?</li>
+                    </ul>
+                </div>
+
+                <div class="process-step">
+                    <h3>🔑 Step 2: Identify Critical Success Factors</h3>
+                    <ul>
+                        <li>What MUST go well for strategy to work?</li>
+                        <li>What are the 3-5 most important things?</li>
+                        <li>Which areas have biggest impact on results?</li>
+                    </ul>
+                </div>
+
+                <div class="process-step">
+                    <h3>📊 Step 3: Define Metrics</h3>
+                    <ul>
+                        <li>For each success factor, define 1-2 KPIs</li>
+                        <li>Not too many (7-10 is good, 20+ is too many)</li>
+                        <li>Mix leading indicators (predictive) + lagging indicators (results)</li>
+                    </ul>
+                </div>
+
+                <div class="process-step">
+                    <h3>🎯 Step 4: Set Targets</h3>
+                    <ul>
+                        <li>What's current baseline?</li>
+                        <li>What's our goal?</li>
+                        <li>Is it realistic?</li>
+                        <li>Can we achieve in the timeframe?</li>
+                    </ul>
+                </div>
+
+                <div class="process-step">
+                    <h3>📋 Step 5: Create Dashboard</h3>
+                    <ul>
+                        <li>Visual representation</li>
+                        <li>Easy to understand at a glance</li>
+                        <li>Updated regularly</li>
+                        <li>Shared with team</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Leading vs Lagging Indicators -->
+    <div class="section compact" style="background: var(--color-bg-7);">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Leading vs Lagging Indicators</h2>
+                <p class="section-subtitle">Разница критична</p>
+            </div>
+
+            <div class="indicator-comparison">
+                <div class="indicator-card lagging">
+                    <h3>📊 Lagging Indicators (Results)</h3>
+                    <div style="margin-bottom: var(--space-16);">
+                        <strong>Meaning:</strong> Measure output after fact
+                    </div>
+                    <div style="margin-bottom: var(--space-16);">
+                        <strong>Example:</strong> Profit, defects made, delivery late
+                    </div>
+                    <div style="margin-bottom: var(--space-16);">
+                        <strong>Tells:</strong> Tells you what happened
+                    </div>
+                    <div style="margin-bottom: var(--space-16);">
+                        <strong>Timing:</strong> Too late to change this month
+                    </div>
+                    <div style="padding: var(--space-12); background: var(--color-surface); border-radius: var(--radius-sm); font-weight: var(--font-weight-bold);">
+                        <strong>Purpose:</strong> Important for reporting
+                    </div>
+                </div>
+
+                <div class="indicator-card leading">
+                    <h3>🔮 Leading Indicators (Predictive)</h3>
+                    <div style="margin-bottom: var(--space-16);">
+                        <strong>Meaning:</strong> Measure inputs before results happen
+                    </div>
+                    <div style="margin-bottom: var(--space-16);">
+                        <strong>Example:</strong> Training hours, maintenance done, 5S compliance
+                    </div>
+                    <div style="margin-bottom: var(--space-16);">
+                        <strong>Tells:</strong> Tells you what WILL happen
+                    </div>
+                    <div style="margin-bottom: var(--space-16);">
+                        <strong>Timing:</strong> Can still change this month
+                    </div>
+                    <div style="padding: var(--space-12); background: var(--color-surface); border-radius: var(--radius-sm); font-weight: var(--font-weight-bold);">
+                        <strong>Purpose:</strong> Important for action
+                    </div>
+                </div>
+            </div>
+
+            <div style="margin-top: var(--space-32); padding: var(--space-32); background: var(--color-surface); border-radius: var(--radius-lg); box-shadow: var(--shadow-md); text-align: center;">
+                <h3 style="font-size: var(--font-size-3xl); color: var(--color-primary); margin-bottom: var(--space-16);">✅ Best Practice</h3>
+                <p style="font-size: var(--font-size-xl); margin-bottom: var(--space-12);"><strong>Use BOTH types</strong></p>
+                <p style="font-size: var(--font-size-lg); color: var(--color-text-secondary); margin-bottom: var(--space-12);">Example: Safety training (leading) + Accidents (lagging)</p>
+                <p style="font-size: var(--font-size-xl); font-weight: var(--font-weight-bold); color: var(--color-success);">Lead with leading, report lagging</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Common Mistakes -->
+    <div class="section compact">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Распространенные ошибки</h2>
+                <p class="section-subtitle">Чего НЕ делать</p>
+            </div>
+
+            <div class="mistakes-grid">
+                <div class="mistake-card">
+                    <div class="mistake-title">❌ Measure too many things</div>
+                    <div class="mistake-comparison">
+                        <div class="mistake-wrong"><strong>Неправильно:</strong><br>Track 50 metrics</div>
+                        <div class="mistake-right"><strong>Правильно:</strong><br>Track 5-10 critical ones</div>
+                        <div class="mistake-result"><strong>Результат:</strong><br>Focus, not confusion</div>
+                    </div>
+                </div>
+
+                <div class="mistake-card">
+                    <div class="mistake-title">❌ Ignore the data</div>
+                    <div class="mistake-comparison">
+                        <div class="mistake-wrong"><strong>Неправильно:</strong><br>Have dashboard but don't act</div>
+                        <div class="mistake-right"><strong>Правильно:</strong><br>Review weekly, take action</div>
+                        <div class="mistake-result"><strong>Результат:</strong><br>Improvement</div>
+                    </div>
+                </div>
+
+                <div class="mistake-card">
+                    <div class="mistake-title">❌ Set impossible targets</div>
+                    <div class="mistake-comparison">
+                        <div class="mistake-wrong"><strong>Неправильно:</strong><br>100% improvement</div>
+                        <div class="mistake-right"><strong>Правильно:</strong><br>10% improvement</div>
+                        <div class="mistake-result"><strong>Результат:</strong><br>Motivation, not frustration</div>
+                    </div>
+                </div>
+
+                <div class="mistake-card">
+                    <div class="mistake-title">❌ No connection to strategy</div>
+                    <div class="mistake-comparison">
+                        <div class="mistake-wrong"><strong>Неправильно:</strong><br>Random metrics</div>
+                        <div class="mistake-right"><strong>Правильно:</strong><br>Metrics aligned with goals</div>
+                        <div class="mistake-result"><strong>Результат:</strong><br>Direction</div>
+                    </div>
+                </div>
+
+                <div class="mistake-card">
+                    <div class="mistake-title">❌ Only financial metrics</div>
+                    <div class="mistake-comparison">
+                        <div class="mistake-wrong"><strong>Неправильно:</strong><br>Only look at money</div>
+                        <div class="mistake-right"><strong>Правильно:</strong><br>Measure quality, safety, people too</div>
+                        <div class="mistake-result"><strong>Результат:</strong><br>Balanced view</div>
+                    </div>
+                </div>
+
+                <div class="mistake-card">
+                    <div class="mistake-title">❌ Manual, outdated data</div>
+                    <div class="mistake-comparison">
+                        <div class="mistake-wrong"><strong>Неправильно:</strong><br>Update quarterly</div>
+                        <div class="mistake-right"><strong>Правильно:</strong><br>Update real-time or weekly</div>
+                        <div class="mistake-result"><strong>Результат:</strong><br>Quick action</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- KPI Review Cycle -->
+    <div class="section compact" style="background: var(--color-bg-1);">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Цикл обзора KPI</h2>
+                <p class="section-subtitle">Как часто измерять</p>
+            </div>
+
+            <div class="review-grid">
+                <div class="review-card daily">
+                    <h3>📅 Daily</h3>
+                    <ul>
+                        <li>Production output</li>
+                        <li>Safety incidents</li>
+                        <li>Equipment downtime</li>
+                        <li>Quality defects</li>
+                    </ul>
+                </div>
+
+                <div class="review-card weekly">
+                    <h3>📆 Weekly</h3>
+                    <ul>
+                        <li>Production targets achievement</li>
+                        <li>Quality trends</li>
+                        <li>Maintenance completion</li>
+                        <li>5S compliance</li>
+                    </ul>
+                </div>
+
+                <div class="review-card monthly">
+                    <h3>📊 Monthly</h3>
+                    <ul>
+                        <li>Sales/Revenue</li>
+                        <li>Cost metrics</li>
+                        <li>Employee satisfaction</li>
+                        <li>Customer metrics</li>
+                    </ul>
+                </div>
+
+                <div class="review-card quarterly">
+                    <h3>📈 Quarterly</h3>
+                    <ul>
+                        <li>Strategic goal progress</li>
+                        <li>Balanced scorecard review</li>
+                        <li>Personnel development</li>
+                        <li>Major initiative tracking</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Dashboard Presentation -->
+    <div class="section compact">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Презентация Dashboard</h2>
+                <p class="section-subtitle">Как отображать KPI</p>
+            </div>
+
+            <div class="dashboard-types">
+                <div class="dashboard-type">
+                    <h3>📋 Physical Board</h3>
+                    <ul>
+                        <li>Large visible chart</li>
+                        <li>Daily update</li>
+                        <li>Team gathers around</li>
+                        <li>Current value + target + trend</li>
+                        <li>Green/Yellow/Red color coding</li>
+                    </ul>
+                </div>
+
+                <div class="dashboard-type">
+                    <h3>💻 Digital Dashboard</h3>
+                    <ul>
+                        <li>Real-time updates</li>
+                        <li>Automated from data sources</li>
+                        <li>Accessible remotely</li>
+                        <li>Historical trending</li>
+                        <li>Multiple views</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div style="margin-top: var(--space-32); padding: var(--space-32); background: var(--color-surface); border-radius: var(--radius-lg); box-shadow: var(--shadow-md);">
+                <h3 style="text-align: center; font-size: var(--font-size-3xl); color: var(--color-primary); margin-bottom: var(--space-24);">Обязательные элементы:</h3>
+                <div class="info-grid">
+                    <div class="info-card">
+                        <div class="info-label">Current Value</div>
+                        <div class="info-value">Big number</div>
+                    </div>
+                    <div class="info-card">
+                        <div class="info-label">Target</div>
+                        <div class="info-value">What we aim for</div>
+                    </div>
+                    <div class="info-card">
+                        <div class="info-label">Trend</div>
+                        <div class="info-value">↑/↓ arrow</div>
+                    </div>
+                    <div class="info-card">
+                        <div class="info-label">Status</div>
+                        <div class="info-value">
+                            <span class="status-badge green">Green</span>
+                            <span class="status-badge yellow">Yellow</span>
+                            <span class="status-badge red">Red</span>
+                        </div>
+                    </div>
+                    <div class="info-card">
+                        <div class="info-label">Owner</div>
+                        <div class="info-value">Who's responsible</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Connection to Lean Tools -->
+    <div class="section compact" style="background: var(--color-bg-6);">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Связь с Lean инструментами</h2>
+                <p class="section-subtitle">Как KPI измеряет успех</p>
+            </div>
+
+            <div class="connection-grid">
+                <div class="connection-card">
+                    <div class="connection-tool">🧹 5S Implementation</div>
+                    <p>→ KPI: 5S Compliance Score (%)</p>
+                </div>
+
+                <div class="connection-card">
+                    <div class="connection-tool">⚙️ TPM System</div>
+                    <p>→ KPI: Equipment Uptime (%)</p>
+                </div>
+
+                <div class="connection-card">
+                    <div class="connection-tool">📦 Kanban</div>
+                    <p>→ KPI: On-time Delivery (%)</p>
+                </div>
+
+                <div class="connection-card">
+                    <div class="connection-tool">🚨 Andon Activation</div>
+                    <p>→ KPI: Response Time (seconds)</p>
+                </div>
+
+                <div class="connection-card">
+                    <div class="connection-tool">🔄 PDCA Cycles</div>
+                    <p>→ KPI: Improvement Rate (% improvement/cycle)</p>
+                </div>
+
+                <div class="connection-card">
+                    <div class="connection-tool">👁️ Visual Management</div>
+                    <p>→ KPI: Decision Time (hours)</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Real Example: Manufacturing Plant -->
+    <div class="section compact">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Реальный пример: Производственный завод</h2>
+                <p class="section-subtitle">6-месячное путешествие</p>
+            </div>
+
+            <div class="example-box">
+                <div class="example-header">
+                    <div class="example-title">📊 6-Month KPI Journey</div>
+                </div>
+
+                <div class="example-phase" style="border-color: var(--color-error); background: var(--color-bg-4);">
+                    <h3>📍 Month 1: Baseline</h3>
+                    <div class="metric-progress">
+                        <div class="metric-item">
+                            <strong>Defect rate:</strong> 3%
+                        </div>
+                        <div class="metric-item">
+                            <strong>Uptime:</strong> 85%
+                        </div>
+                        <div class="metric-item">
+                            <strong>Cost/unit:</strong> $50
+                        </div>
+                        <div class="metric-item">
+                            <strong>On-time delivery:</strong> 80%
+                        </div>
+                    </div>
+                </div>
+
+                <div class="example-phase" style="border-color: var(--color-warning); background: var(--color-bg-2);">
+                    <h3>🎯 Goal (SMART)</h3>
+                    <div class="metric-progress">
+                        <div class="metric-item">
+                            <strong>Defect:</strong> 1% (by month 6)
+                        </div>
+                        <div class="metric-item">
+                            <strong>Uptime:</strong> 95% (by month 6)
+                        </div>
+                        <div class="metric-item">
+                            <strong>Cost:</strong> $40 (by month 6)
+                        </div>
+                        <div class="metric-item">
+                            <strong>On-time:</strong> 95% (by month 6)
+                        </div>
+                    </div>
+                </div>
+
+                <div class="example-phase" style="border-color: var(--color-info); background: var(--color-bg-1);">
+                    <h3>⚙️ Months 2-3: Implement Lean Tools</h3>
+                    <ul style="list-style: none;">
+                        <li>• Run 5S project</li>
+                        <li>• Start TPM program</li>
+                        <li>• Begin daily meetings</li>
+                        <li><strong>Result:</strong> KPIs - Slight improvement</li>
+                    </ul>
+                </div>
+
+                <div class="example-phase" style="border-color: var(--color-primary); background: var(--color-bg-8);">
+                    <h3>🔄 Months 4-5: PDCA cycles</h3>
+                    <ul style="list-style: none;">
+                        <li>• Multiple improvement projects</li>
+                        <li>• Data-driven decisions</li>
+                        <li><strong>Result:</strong> KPIs - Significant improvement</li>
+                    </ul>
+                </div>
+
+                <div class="example-phase" style="border-color: var(--color-success); background: var(--color-bg-3);">
+                    <h3>✅ Month 6: Final Status</h3>
+                    <div class="metric-progress">
+                        <div class="metric-item" style="background: var(--color-bg-3); border: 2px solid var(--color-success);">
+                            <strong>Defect:</strong> 0.8% ✓ (better than goal!)
+                        </div>
+                        <div class="metric-item" style="background: var(--color-bg-3); border: 2px solid var(--color-success);">
+                            <strong>Uptime:</strong> 96% ✓ (better than goal!)
+                        </div>
+                        <div class="metric-item" style="background: var(--color-bg-3); border: 2px solid var(--color-success);">
+                            <strong>Cost:</strong> $38 ✓ (better than goal!)
+                        </div>
+                        <div class="metric-item" style="background: var(--color-bg-3); border: 2px solid var(--color-success);">
+                            <strong>On-time:</strong> 97% ✓ (better than goal!)
+                        </div>
+                    </div>
+                    
+                    <div style="margin-top: var(--space-24); padding: var(--space-16); background: var(--color-surface); border-radius: var(--radius-base);">
+                        <h4 style="color: var(--color-success); margin-bottom: var(--space-12);">🎉 Additional gains:</h4>
+                        <ul style="list-style: none;">
+                            <li>• Employee satisfaction: +25%</li>
+                            <li>• Safety: Zero incidents</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- KPI for Continuous Improvement -->
+    <div class="section compact" style="background: var(--color-bg-5);">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">KPI для непрерывного улучшения</h2>
+                <p class="section-subtitle">Измерение PDCA циклов</p>
+            </div>
+
+            <div style="padding: var(--space-32); background: var(--color-surface); border-radius: var(--radius-lg); box-shadow: var(--shadow-md);">
+                <div class="office-categories">
+                    <div class="office-category">
+                        <h3>📊 Frequency of PDCA cycles</h3>
+                        <p style="margin-top: var(--space-8);">How many per month?</p>
+                    </div>
+
+                    <div class="office-category">
+                        <h3>✅ Success rate</h3>
+                        <p style="margin-top: var(--space-8);">% of cycles that hit goals?</p>
+                    </div>
+
+                    <div class="office-category">
+                        <h3>📈 Improvement magnitude</h3>
+                        <p style="margin-top: var(--space-8);">Average % improvement?</p>
+                    </div>
+
+                    <div class="office-category">
+                        <h3>⏱️ Time to completion</h3>
+                        <p style="margin-top: var(--space-8);">How long per cycle?</p>
+                    </div>
+
+                    <div class="office-category">
+                        <h3>👥 Participation rate</h3>
+                        <p style="margin-top: var(--space-8);">% of staff in cycles?</p>
+                    </div>
+                </div>
+
+                <div style="margin-top: var(--space-32); padding: var(--space-24); background: var(--color-bg-3); border-radius: var(--radius-base); text-align: center;">
+                    <p style="font-size: var(--font-size-2xl); font-weight: var(--font-weight-bold); color: var(--color-success);">🎯 Goal: Increase number and success of PDCA cycles</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Red Flags -->
+    <div class="section compact">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">🚩 Red Flags</h2>
+                <p class="section-subtitle">Когда KPI проваливаются</p>
+            </div>
+
+            <ul class="flag-list">
+                <li class="flag-item">🚩 KPI hasn't moved in 3 months</li>
+                <li class="flag-item">🚩 Team doesn't know the KPI</li>
+                <li class="flag-item">🚩 KPI not on any board/dashboard</li>
+                <li class="flag-item">🚩 No data collection system</li>
+                <li class="flag-item">🚩 No one assigned to improve it</li>
+                <li class="flag-item">🚩 Targets are fantasy</li>
+            </ul>
+
+            <div style="margin-top: var(--space-32); padding: var(--space-32); background: var(--color-surface); border-radius: var(--radius-lg); box-shadow: var(--shadow-md); text-align: center;">
+                <h3 style="font-size: var(--font-size-3xl); color: var(--color-error); margin-bottom: var(--space-16);">⚡ Action Required</h3>
+                <p style="font-size: var(--font-size-2xl); font-weight: var(--font-weight-bold);">Reset the KPI, make it relevant</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Implementation Timeline -->
+    <div class="section compact" style="background: var(--color-bg-8);">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">График внедрения</h2>
+                <p class="section-subtitle">Построение системы KPI</p>
+            </div>
+
+            <div class="timeline">
+                <div class="timeline-item">
+                    <div class="timeline-marker">1-2</div>
+                    <div class="timeline-title">Week 1-2: Planning</div>
+                    <ul>
+                        <li>Identify strategic goals</li>
+                        <li>Define success factors</li>
+                        <li>Select 5-10 KPIs</li>
+                        <li>Set targets</li>
+                    </ul>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-marker">3-4</div>
+                    <div class="timeline-title">Week 3-4: Setup</div>
+                    <ul>
+                        <li>Create measurement system</li>
+                        <li>Design dashboard</li>
+                        <li>Assign owners</li>
+                        <li>Train team</li>
+                    </ul>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-marker">5-8</div>
+                    <div class="timeline-title">Week 5-8: Launch &amp; Review</div>
+                    <ul>
+                        <li>Start measuring</li>
+                        <li>Daily/weekly reviews</li>
+                        <li>Celebrate small wins</li>
+                        <li>Adjust targets if needed</li>
+                    </ul>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-marker">3+</div>
+                    <div class="timeline-title">Month 3+: Continuous</div>
+                    <ul>
+                        <li>Regular reviews</li>
+                        <li>Act on data</li>
+                        <li>Update targets</li>
+                        <li>Expand KPIs as needed</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Deming Quote -->
+    <div class="section compact">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Мудрость Деминга</h2>
+            </div>
+
+            <div class="quote-box">
+                <p class="quote-text">"In God we trust, all others must bring data"</p>
+                <p class="quote-author">— W. Edwards Deming</p>
+                <div style="margin-top: var(--space-32); padding: var(--space-24); background: var(--color-bg-1); border-radius: var(--radius-lg);">
+                    <p style="font-size: var(--font-size-xl); margin-bottom: var(--space-12);"><strong>Значение:</strong></p>
+                    <p style="font-size: var(--font-size-lg);">Measurement and data are foundation of improvement</p>
+                    <p style="font-size: var(--font-size-lg); color: var(--color-primary); font-weight: var(--font-weight-bold); margin-top: var(--space-12);">Данные и измерение - основа улучшения</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Conclusion -->
+    <div class="section" style="background: linear-gradient(135deg, var(--color-bg-1) 0%, var(--color-bg-3) 100%);">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Заключение</h2>
+                <p class="section-subtitle">Сила измерения</p>
+            </div>
+
+            <div class="conclusion-box">
+                <p class="conclusion-text">📊 <strong>"What gets measured gets managed"</strong></p>
+                <p class="conclusion-text">📈 <strong>"What gets managed gets improved"</strong></p>
+                <p class="conclusion-text">🔄 <strong>"Lean + KPI = Transformation"</strong></p>
+                <p class="conclusion-text">💡 <strong>"Data beats opinion"</strong></p>
+                <p class="conclusion-text">👁️ <strong>"Transparency drives accountability"</strong></p>
+                <p class="conclusion-text" style="font-size: var(--font-size-3xl); color: var(--color-success); margin-top: var(--space-24);">🏆 <strong>"KPI culture = Winning organization"</strong></p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function showScorecard(perspective) {
+            // Hide all scorecard contents
+            document.querySelectorAll('.scorecard-content').forEach(content => {
+                content.classList.remove('active');
+            });
+            
+            // Remove active from all buttons
+            document.querySelectorAll('.scorecard-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            
+            // Show selected scorecard
+            document.getElementById('scorecard-' + perspective).classList.add('active');
+            
+            // Add active to clicked button
+            event.target.classList.add('active');
+        }
+    </script>
+</body>
+</html>
