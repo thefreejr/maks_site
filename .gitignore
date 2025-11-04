@@ -6,6 +6,14 @@ logs/
 .env
 *.env
 
+# SSL сертификаты (приватные ключи не должны попадать в репозиторий)
+ssl/*.pem
+ssl/*.key
+ssl/*.crt
+ssl/*.csr
+# Но оставляем возможность коммитить .gitkeep
+!ssl/.gitkeep
+
 # IDE файлы
 .vscode/
 .idea/
